@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "nex/core": ["packages/core/src/index.ts"]
+      "@nex/core": ["packages/core/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
