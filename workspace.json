@@ -71,6 +71,77 @@
           }
         }
       }
+    },
+    "serverless": {
+      "root": "packages/serverless",
+      "sourceRoot": "packages/serverless/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/serverless/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/packages/serverless"
+          ],
+          "options": {
+            "jestConfig": "packages/serverless/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/packages/serverless",
+            "tsConfig": "packages/serverless/tsconfig.lib.json",
+            "packageJson": "packages/serverless/package.json",
+            "main": "packages/serverless/src/index.ts",
+            "assets": [
+              "packages/serverless/*.md",
+              {
+                "input": "./packages/serverless/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/serverless",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/serverless",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "serverless-e2e": {
+      "projectType": "application",
+      "root": "e2e/serverless-e2e",
+      "sourceRoot": "e2e/serverless-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "serverless:build",
+            "npmPackageName": "@nex/serverless",
+            "pluginOutputPath": "dist/packages/serverless",
+            "jestConfig": "e2e/serverless-e2e/jest.config.js"
+          }
+        }
+      }
     }
   },
   "cli": {

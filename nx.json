@@ -17,7 +17,9 @@
   },
   "projects": {
     "core": { "tags": [] },
-    "core-e2e": { "tags": [], "implicitDependencies": ["core"] }
+    "core-e2e": { "tags": [], "implicitDependencies": ["core"] },
+    "serverless": { "tags": [] },
+    "serverless-e2e": { "tags": [], "implicitDependencies": ["serverless"] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }
