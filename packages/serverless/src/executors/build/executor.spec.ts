@@ -5,8 +5,8 @@ import runCommands from '@nrwl/workspace/src/executors/run-commands/run-commands
 
 const options: BuildExecutorSchema = {};
 const context: ExecutorContext = {
-  root: '/base/nex/tmp/nx-e2e/proj',
-  target: { executor: '@nex/serverless:build' },
+  root: '/base/nx-plugins/tmp/nx-e2e/proj',
+  target: { executor: '@nx-plugins/serverless:build' },
   workspace: {
     version: 2,
     projects: {
@@ -14,7 +14,7 @@ const context: ExecutorContext = {
         root: 'libs/serverless839554',
         projectType: 'library',
         sourceRoot: 'libs/serverless839554/src',
-        targets: { build: { executor: '@nex/serverless:build' } },
+        targets: { build: { executor: '@nx-plugins/serverless:build' } },
       },
     },
     cli: { defaultCollection: '@nrwl/workspace' },
@@ -22,7 +22,7 @@ const context: ExecutorContext = {
   projectName: 'serverless839554',
   targetName: 'build',
   configurationName: undefined,
-  cwd: '/base/nex/tmp/nx-e2e/proj',
+  cwd: '/base/nx-plugins/tmp/nx-e2e/proj',
   isVerbose: false,
 };
 
@@ -44,8 +44,8 @@ describe('Build Executor', () => {
     expect(runCommandsMock).toHaveBeenCalledWith({
       command: 'sls',
       args: 'package',
-      outputPath: '/base/nex/tmp/nx-e2e/proj/libs/serverless839554/.serverless',
-      cwd: '/base/nex/tmp/nx-e2e/proj/libs/serverless839554',
+      outputPath: '/base/nx-plugins/tmp/nx-e2e/proj/libs/serverless839554/.serverless',
+      cwd: '/base/nx-plugins/tmp/nx-e2e/proj/libs/serverless839554',
       color: true
     })
   });

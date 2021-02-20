@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@nex/core": ["packages/core/src/index.ts"],
-      "@nex/serverless": ["packages/serverless/src/index.ts"]
+      "@nx-plugins/core": ["packages/core/src/index.ts"],
+      "@nx-plugins/serverless": ["packages/serverless/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

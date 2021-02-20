@@ -63,7 +63,7 @@ export default async function (host: Tree, options: ServerlessGeneratorSchema) {
     sourceRoot: `${normalizedOptions.projectRoot}/src`,
     targets: {
       build: {
-        executor: '@nex/serverless:build',
+        executor: '@nx-plugins/serverless:build',
       },
     },
     tags: normalizedOptions.parsedTags,

@@ -1,4 +1,4 @@
-import { getProjectConfiguration, stringifyArgs } from '@nex/core';
+import { getProjectConfiguration, stringifyArgs } from '@nx-plugins/core';
 import { ExecutorContext } from '@nrwl/tao/src/shared/workspace';
 import runCommands, {
   RunCommandsBuilderOptions,

@@ -1,5 +1,5 @@
 {
-  "npmScope": "nex",
+  "npmScope": "nx-plugins",
   "affected": { "defaultBase": "master" },
   "implicitDependencies": {
     "workspace.json": "*",
