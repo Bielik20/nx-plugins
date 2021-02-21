@@ -16,6 +16,7 @@ export default async function serverlessInitGenerator(
   const tasks: GeneratorCallback[] = [];
 
   setDefaultCollection(host, '@nx-plugins/serverless');
+  updateGitignore(host);
 
   if (!options.unitTestRunner || options.unitTestRunner === 'jest') {
     const jestTask = jestInitGenerator(host, {});
@@ -45,4 +46,17 @@ function updateDependencies(host: Tree) {
       'serverless-offline': '^6.8.0',
     }
   );
+}
+
+function updateGitignore(host: Tree) {
+  let ignore = '';
+
+  if (host.exists('.gitignore')) {
+    ignore = host.read('.gitignore').toString();
+  }
+
+  if (!ignore.includes('# Serverless')) {
+    ignore = ignore.concat('\n# Serverless\n.serverless\n.webpack\n');
+    host.write('.gitignore', ignore);
+  }
 }
