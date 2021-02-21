@@ -7,9 +7,12 @@ import {
 } from '@nrwl/nx-plugin/testing';
 
 describe('serverless e2e', () => {
+  beforeAll(() => {
+    ensureNxProject('@nx-plugins/serverless', 'dist/packages/serverless');
+  });
+
   it('should create serverless', async (done) => {
     const plugin = uniq('serverless');
-    ensureNxProject('@nx-plugins/serverless', 'dist/packages/serverless');
     await runNxCommandAsync(
       `generate @nx-plugins/serverless:application ${plugin}`
     );
@@ -23,7 +26,6 @@ describe('serverless e2e', () => {
   describe('--directory', () => {
     it('should create src in the specified directory', async (done) => {
       const plugin = uniq('serverless');
-      ensureNxProject('@nx-plugins/serverless', 'dist/packages/serverless');
       await runNxCommandAsync(
         `generate @nx-plugins/serverless:application ${plugin} --directory subdir`
       );
@@ -37,7 +39,6 @@ describe('serverless e2e', () => {
   describe('--tags', () => {
     it('should add tags to nx.json', async (done) => {
       const plugin = uniq('serverless');
-      ensureNxProject('@nx-plugins/serverless', 'dist/packages/serverless');
       await runNxCommandAsync(
         `generate @nx-plugins/serverless:application ${plugin} --tags e2etag,e2ePackage`
       );
