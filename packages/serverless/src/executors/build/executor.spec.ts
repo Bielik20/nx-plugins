@@ -42,8 +42,7 @@ describe('Build Executor', () => {
 
     expect(output).toBe(runCommandsReturn);
     expect(runCommandsMock).toHaveBeenCalledWith({
-      command: 'sls',
-      args: 'package',
+      command: 'sls package',
       outputPath: '/base/nx-plugins/tmp/nx-e2e/proj/libs/serverless839554/.serverless',
       cwd: '/base/nx-plugins/tmp/nx-e2e/proj/libs/serverless839554',
       color: true
@@ -52,9 +51,9 @@ describe('Build Executor', () => {
 
   it('can pass inline arguments', async () => {
     const output = await executor({ foo: 'foo-value', bar: 'bar-value' }, context);
-    const { args } = runCommandsMock.mock.calls[0][0];
+    const { command } = runCommandsMock.mock.calls[0][0];
 
     expect(output).toBe(runCommandsReturn);
-    expect(args).toBe('package --foo=foo-value --bar=bar-value');
+    expect(command).toBe('sls package --foo=foo-value --bar=bar-value');
   });
 });

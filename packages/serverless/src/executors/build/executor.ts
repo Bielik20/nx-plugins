@@ -1,9 +1,7 @@
 import { ExecutorContext } from '@nrwl/tao/src/shared/workspace';
-import runCommands, {
-  RunCommandsBuilderOptions,
-} from '@nrwl/workspace/src/executors/run-commands/run-commands.impl';
-import { join } from 'path';
-import { getProjectConfiguration } from '../../utils/get-project-configuration';
+import runCommands from '@nrwl/workspace/src/executors/run-commands/run-commands.impl';
+import { makeSlsCommandOptions } from '../../utils/make-sls-command-options';
+import { printCommand } from '../../utils/print-command';
 import { stringifyArgs } from '../../utils/stringify-args';
 import { BuildExecutorSchema } from './schema';
 
@@ -11,18 +9,13 @@ export default async function runExecutor(
   options: BuildExecutorSchema,
   context: ExecutorContext
 ) {
-  const { root } = context;
-  const projectRoot = getProjectConfiguration(context).root;
-  const projectAbsoluteRoot = join(root, projectRoot);
-  const projectAbsoluteDist = join(projectAbsoluteRoot, '.serverless');
   const stringifiedArgs = stringifyArgs(options);
-  const commandOptions: RunCommandsBuilderOptions = {
-    command: 'sls',
-    args: `package ${stringifiedArgs}`.trim(),
-    outputPath: projectAbsoluteDist,
-    cwd: projectAbsoluteRoot,
-    color: true,
-  };
+  const commandOptions = makeSlsCommandOptions(
+    context,
+    `sls package ${stringifiedArgs}`
+  );
+
+  printCommand(commandOptions.command);
 
   return runCommands(commandOptions);
 }

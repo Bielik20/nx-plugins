@@ -12,7 +12,7 @@ describe('serverless e2e', () => {
     await runNxCommandAsync(`generate @nx-plugins/serverless:serverless ${plugin}`);
 
     const result = await runNxCommandAsync(`build ${plugin}`);
-    expect(result.stdout).toContain('Executor ran');
+    expect(result.stdout).toContain('Running: sls package');
 
     done();
   });
