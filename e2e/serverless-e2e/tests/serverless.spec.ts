@@ -5,11 +5,14 @@ import {
   runNxCommandAsync,
   uniq,
 } from '@nrwl/nx-plugin/testing';
+
 describe('serverless e2e', () => {
   it('should create serverless', async (done) => {
     const plugin = uniq('serverless');
     ensureNxProject('@nx-plugins/serverless', 'dist/packages/serverless');
-    await runNxCommandAsync(`generate @nx-plugins/serverless:application ${plugin}`);
+    await runNxCommandAsync(
+      `generate @nx-plugins/serverless:application ${plugin}`
+    );
 
     const result = await runNxCommandAsync(`build ${plugin}`);
     expect(result.stdout).toContain('Running: sls package');
@@ -25,7 +28,7 @@ describe('serverless e2e', () => {
         `generate @nx-plugins/serverless:application ${plugin} --directory subdir`
       );
       expect(() =>
-        checkFilesExist(`libs/subdir/${plugin}/src/index.ts`)
+        checkFilesExist(`apps/subdir/${plugin}/src/handlers/foo.ts`)
       ).not.toThrow();
       done();
     });

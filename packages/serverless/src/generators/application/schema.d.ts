@@ -9,4 +9,5 @@ export interface ServerlessGeneratorSchema {
   port?: number;
   babelJest?: boolean;
   js?: boolean;
+  skipFormat?: boolean;
 }

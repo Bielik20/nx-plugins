@@ -1,5 +1,4 @@
 import {
-  addDependenciesToPackageJson,
   GeneratorCallback,
   joinPathFragments,
   Tree,
