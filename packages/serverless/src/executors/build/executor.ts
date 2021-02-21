@@ -1,9 +1,10 @@
-import { getProjectConfiguration, stringifyArgs } from '@nx-plugins/core';
 import { ExecutorContext } from '@nrwl/tao/src/shared/workspace';
 import runCommands, {
   RunCommandsBuilderOptions,
 } from '@nrwl/workspace/src/executors/run-commands/run-commands.impl';
 import { join } from 'path';
+import { getProjectConfiguration } from '../../utils/get-project-configuration';
+import { stringifyArgs } from '../../utils/stringify-args';
 import { BuildExecutorSchema } from './schema';
 
 export default async function runExecutor(
