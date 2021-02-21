@@ -9,7 +9,7 @@ describe('serverless e2e', () => {
   it('should create serverless', async (done) => {
     const plugin = uniq('serverless');
     ensureNxProject('@nx-plugins/serverless', 'dist/packages/serverless');
-    await runNxCommandAsync(`generate @nx-plugins/serverless:serverless ${plugin}`);
+    await runNxCommandAsync(`generate @nx-plugins/serverless:application ${plugin}`);
 
     const result = await runNxCommandAsync(`build ${plugin}`);
     expect(result.stdout).toContain('Running: sls package');
@@ -22,7 +22,7 @@ describe('serverless e2e', () => {
       const plugin = uniq('serverless');
       ensureNxProject('@nx-plugins/serverless', 'dist/packages/serverless');
       await runNxCommandAsync(
-        `generate @nx-plugins/serverless:serverless ${plugin} --directory subdir`
+        `generate @nx-plugins/serverless:application ${plugin} --directory subdir`
       );
       expect(() =>
         checkFilesExist(`libs/subdir/${plugin}/src/index.ts`)
@@ -36,7 +36,7 @@ describe('serverless e2e', () => {
       const plugin = uniq('serverless');
       ensureNxProject('@nx-plugins/serverless', 'dist/packages/serverless');
       await runNxCommandAsync(
-        `generate @nx-plugins/serverless:serverless ${plugin} --tags e2etag,e2ePackage`
+        `generate @nx-plugins/serverless:application ${plugin} --tags e2etag,e2ePackage`
       );
       const nxJson = readJson('nx.json');
       expect(nxJson.projects[plugin].tags).toEqual(['e2etag', 'e2ePackage']);

@@ -1,12 +1,17 @@
+import { readProjectConfiguration, Tree } from '@nrwl/devkit';
 import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing';
-import { Tree, readProjectConfiguration } from '@nrwl/devkit';
+import { Linter } from '@nrwl/linter';
 
 import generator from './generator';
 import { ServerlessGeneratorSchema } from './schema';
 
 describe('serverless generator', () => {
   let appTree: Tree;
-  const options: ServerlessGeneratorSchema = { name: 'test' };
+  const options: ServerlessGeneratorSchema = {
+    name: 'test',
+    unitTestRunner: 'jest',
+    linter: Linter.EsLint,
+  };
 
   beforeEach(() => {
     appTree = createTreeWithEmptyWorkspace();

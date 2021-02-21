@@ -1,12 +1,13 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "name": "serverless",
+  "name": "Nx Serverless",
   "version": "0.0.1",
   "generators": {
-    "serverless": {
-      "factory": "./src/generators/serverless/generator",
-      "schema": "./src/generators/serverless/schema.json",
-      "description": "serverless generator"
+    "application": {
+      "factory": "./src/generators/application/generator",
+      "schema": "./src/generators/application/schema.json",
+      "aliases": ["app"],
+      "description": "Create an serverless application"
     }
   }
 }

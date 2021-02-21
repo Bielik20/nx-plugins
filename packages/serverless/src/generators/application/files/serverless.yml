@@ -1,0 +1,35 @@
+service: <%= name %>
+
+plugins:
+  - serverless-bundle
+  - serverless-offline
+
+custom:
+  stage: ${opt:serviceStage, 'dev'}
+  bundle:
+    linting: false
+    tsConfig: "tsconfig.app.json"
+  serverless-offline:
+    httpPort: <%= port %>
+    noPrependStageInUrl: true
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${self:custom.stage}
+  endpointType: regional
+  timeout: 20
+  lambdaHashingVersion: 20201221 # removes deprecation warning (remove in serverless v3)
+  apiGateway:
+    shouldStartNameWithService: true # removes deprecation warning (remove in serverless v3)
+  environment:
+    APP_ENV: ${self:custom.stage}
+    IS_PRODUCTION: '${file(./src/environments/config.${self:custom.stage}.json):is_production}'
+
+functions:
+  foo:
+    handler: src/handlers/foo.handler
+    events:
+      - http:
+          method: GET
+          path: /foo
