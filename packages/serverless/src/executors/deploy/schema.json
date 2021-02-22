@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "title": "Deploy executor",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "skipBuild": {
+      "type": "boolean",
+      "description": "Use default path for package directory. If true it will skip build step and only deploy.",
+      "default": false
+    }
+  },
+  "required": []
+}
