@@ -17,6 +17,7 @@ export default async function runExecutor(
 
   const stringifiedArgs = stringifyArgs(options);
   const commandOptions = makeSlsCommandOptions(
+    options,
     context,
     `sls offline ${stringifiedArgs}`
   );

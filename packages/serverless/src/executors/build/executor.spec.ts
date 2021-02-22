@@ -49,7 +49,16 @@ describe('Build Executor', () => {
     })
   });
 
-  it('can pass inline arguments', async () => {
+  it('should rewrite outputPath if package passed', async () => {
+    const output = await executor({ package: '../../aa' }, context);
+    const { outputPath } = runCommandsMock.mock.calls[0][0];
+
+
+    expect(output).toBe(runCommandsReturn);
+    expect(outputPath).toBe('/base/nx-plugins/tmp/nx-e2e/proj/aa')
+  });
+
+  it('should pass inline arguments', async () => {
     const output = await executor({ foo: 'foo-value', bar: 'bar-value' }, context);
     const { command } = runCommandsMock.mock.calls[0][0];
 

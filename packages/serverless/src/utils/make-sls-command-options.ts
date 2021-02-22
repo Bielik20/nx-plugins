@@ -1,5 +1,6 @@
 import { ExecutorContext } from '@nrwl/tao/src/shared/workspace';
 import { join } from 'path';
+import { BuildExecutorSchema } from '../executors/build/schema';
 import { getProjectConfiguration } from './get-project-configuration';
 
 interface SlsCommandOptions {
@@ -10,18 +11,29 @@ interface SlsCommandOptions {
 }
 
 export function makeSlsCommandOptions(
+  options: BuildExecutorSchema,
   context: ExecutorContext,
   command: string
 ): SlsCommandOptions {
   const { root } = context;
   const projectRoot = getProjectConfiguration(context).root;
   const projectAbsoluteRoot = join(root, projectRoot);
-  const projectAbsoluteDist = join(projectAbsoluteRoot, '.serverless');
 
   return {
     command: command.trim(),
-    outputPath: projectAbsoluteDist,
+    outputPath: getOutputPath(options, projectAbsoluteRoot),
     cwd: projectAbsoluteRoot,
     color: true,
   };
+}
+
+function getOutputPath(
+  options: BuildExecutorSchema,
+  projectAbsoluteRoot: string
+): string {
+  if (typeof options.package === 'string') {
+    return join(projectAbsoluteRoot, options.package);
+  }
+
+  return join(projectAbsoluteRoot, '.serverless');
 }
