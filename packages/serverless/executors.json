@@ -15,6 +15,11 @@
       "implementation": "./src/executors/deploy/executor",
       "schema": "./src/executors/deploy/schema.json",
       "description": "deploy executor"
+    },
+    "remove": {
+      "implementation": "./src/executors/remove/executor",
+      "schema": "./src/executors/remove/schema.json",
+      "description": "remove executor"
     }
   }
 }

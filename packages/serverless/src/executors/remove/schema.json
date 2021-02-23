@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "title": "Remove executor",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "silentError": {
+      "type": "boolean",
+      "description": "If true it will not throw error.",
+      "default": false
+    }
+  },
+  "required": []
+}
