@@ -15,7 +15,7 @@ export default async function serverlessInitGenerator(
 ) {
   const tasks: GeneratorCallback[] = [];
 
-  setDefaultCollection(host, '@ns3/serverless');
+  setDefaultCollection(host, '@ns3/nx-serverless');
   updateGitignore(host);
 
   if (!options.unitTestRunner || options.unitTestRunner === 'jest') {
@@ -40,7 +40,7 @@ function updateDependencies(host: Tree) {
       'serverless-http': '^2.6.1',
     },
     {
-      '@ns3/serverless': '*',
+      '@ns3/nx-serverless': '*',
       serverless: '^2.20.1',
       'serverless-bundle': '^4.2.0',
       'serverless-offline': '^6.8.0',

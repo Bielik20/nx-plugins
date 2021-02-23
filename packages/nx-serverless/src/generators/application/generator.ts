@@ -31,16 +31,16 @@ export default async function (host: Tree, options: ServerlessGeneratorSchema) {
     sourceRoot: `${normalizedOptions.projectRoot}/src`,
     targets: {
       build: {
-        executor: '@ns3/serverless:build',
+        executor: '@ns3/nx-serverless:build',
       },
       serve: {
-        executor: '@ns3/serverless:serve',
+        executor: '@ns3/nx-serverless:serve',
       },
       deploy: {
-        executor: '@ns3/serverless:deploy',
+        executor: '@ns3/nx-serverless:deploy',
       },
       remove: {
-        executor: '@ns3/serverless:remove',
+        executor: '@ns3/nx-serverless:remove',
       },
     },
     tags: normalizedOptions.parsedTags,

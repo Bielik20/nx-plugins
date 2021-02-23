@@ -1,5 +1,5 @@
 {
-  "name": "@ns3/core",
+  "name": "@ns3/nx-core",
   "version": "0.0.1",
   "main": "src/index.js",
   "generators": "./generators.json",

@@ -10,8 +10,8 @@
           "executor": "@nrwl/nx-plugin:e2e",
           "options": {
             "target": "nx-serverless:build",
-            "npmPackageName": "@ns3/serverless",
-            "pluginOutputPath": "dist/packages/serverless",
+            "npmPackageName": "@ns3/nx-serverless",
+            "pluginOutputPath": "dist/packages/nx-serverless",
             "jestConfig": "e2e/nx-serverless-e2e/jest.config.js"
           }
         }
@@ -124,8 +124,8 @@
           "executor": "@nrwl/nx-plugin:e2e",
           "options": {
             "target": "nx-core:build",
-            "npmPackageName": "@ns3/core",
-            "pluginOutputPath": "dist/packages/core",
+            "npmPackageName": "@ns3/nx-core",
+            "pluginOutputPath": "dist/packages/nx-core",
             "jestConfig": "e2e/nx-core-e2e/jest.config.js"
           }
         }
