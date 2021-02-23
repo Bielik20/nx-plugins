@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ns3/core": ["packages/core/src/index.ts"],
-      "@ns3/nx-serverless": ["packages/nx-serverless/src/index.ts"]
+      "@ns3/nx-serverless": ["packages/nx-serverless/src/index.ts"],
+      "@ns3/nx-core": ["packages/nx-core/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

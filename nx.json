@@ -23,19 +23,19 @@
     }
   },
   "projects": {
-    "core": {
-      "tags": []
-    },
-    "core-e2e": {
-      "tags": [],
-      "implicitDependencies": ["core"]
-    },
     "nx-serverless-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-serverless"]
     },
     "nx-serverless": {
       "tags": []
+    },
+    "nx-core": {
+      "tags": []
+    },
+    "nx-core-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-core"]
     }
   },
   "workspaceLayout": {

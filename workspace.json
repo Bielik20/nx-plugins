@@ -1,71 +1,6 @@
 {
   "version": 2,
   "projects": {
-    "core": {
-      "root": "packages/core",
-      "sourceRoot": "packages/core/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/core/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/core"],
-          "options": {
-            "jestConfig": "packages/core/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/core",
-            "tsConfig": "packages/core/tsconfig.lib.json",
-            "packageJson": "packages/core/package.json",
-            "main": "packages/core/src/index.ts",
-            "assets": [
-              "packages/core/*.md",
-              {
-                "input": "./packages/core/src",
-                "glob": "**/*.!(ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./packages/core",
-                "glob": "generators.json",
-                "output": "."
-              },
-              {
-                "input": "./packages/core",
-                "glob": "executors.json",
-                "output": "."
-              }
-            ]
-          }
-        }
-      }
-    },
-    "core-e2e": {
-      "projectType": "application",
-      "root": "e2e/core-e2e",
-      "sourceRoot": "e2e/core-e2e/src",
-      "targets": {
-        "e2e": {
-          "executor": "@nrwl/nx-plugin:e2e",
-          "options": {
-            "target": "core:build",
-            "npmPackageName": "@ns3/core",
-            "pluginOutputPath": "dist/packages/core",
-            "jestConfig": "e2e/core-e2e/jest.config.js"
-          }
-        }
-      }
-    },
     "nx-serverless-e2e": {
       "projectType": "application",
       "root": "e2e/nx-serverless-e2e",
@@ -127,6 +62,71 @@
                 "output": "."
               }
             ]
+          }
+        }
+      }
+    },
+    "nx-core": {
+      "root": "packages/nx-core",
+      "sourceRoot": "packages/nx-core/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/nx-core/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/nx-core"],
+          "options": {
+            "jestConfig": "packages/nx-core/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/nx-core",
+            "tsConfig": "packages/nx-core/tsconfig.lib.json",
+            "packageJson": "packages/nx-core/package.json",
+            "main": "packages/nx-core/src/index.ts",
+            "assets": [
+              "packages/nx-core/*.md",
+              {
+                "input": "./packages/nx-core/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/nx-core",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/nx-core",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "nx-core-e2e": {
+      "projectType": "application",
+      "root": "e2e/nx-core-e2e",
+      "sourceRoot": "e2e/nx-core-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "nx-core:build",
+            "npmPackageName": "@ns3/core",
+            "pluginOutputPath": "dist/packages/core",
+            "jestConfig": "e2e/nx-core-e2e/jest.config.js"
           }
         }
       }
