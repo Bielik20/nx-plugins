@@ -22,8 +22,7 @@ describe('Build Executor', () => {
     expect(output).toBe(runCommandsReturn);
     expect(runCommandsMock).toHaveBeenCalledWith({
       command: 'sls package',
-      outputPath:
-        '/base/ns3/tmp/nx-e2e/proj/apps/serverless839554/.serverless',
+      outputPath: '/base/ns3/tmp/nx-e2e/proj/apps/serverless839554/.serverless',
       cwd: '/base/ns3/tmp/nx-e2e/proj/apps/serverless839554',
       color: true,
     });

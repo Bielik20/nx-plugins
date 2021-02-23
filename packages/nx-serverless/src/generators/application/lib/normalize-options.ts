@@ -27,6 +27,6 @@ export function normalizeOptions(
     projectName,
     projectRoot,
     projectDirectory,
-    parsedTags
+    parsedTags,
   };
 }

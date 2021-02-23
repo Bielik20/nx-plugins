@@ -13,9 +13,7 @@ describe('serverless e2e', () => {
 
   it('should create serverless', async (done) => {
     const plugin = uniq('serverless');
-    await runNxCommandAsync(
-      `generate @ns3/serverless:application ${plugin}`
-    );
+    await runNxCommandAsync(`generate @ns3/serverless:application ${plugin}`);
 
     const result = await runNxCommandAsync(`build ${plugin}`);
     expect(result.stdout).toContain('Running: sls package');

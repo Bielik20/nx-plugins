@@ -9,16 +9,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/core/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/core/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/core"
-          ],
+          "outputs": ["coverage/packages/core"],
           "options": {
             "jestConfig": "packages/core/jest.config.js",
             "passWithNoTests": true
@@ -26,9 +22,7 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/packages/core",
             "tsConfig": "packages/core/tsconfig.lib.json",
@@ -72,73 +66,67 @@
         }
       }
     },
-    "serverless": {
-      "root": "packages/serverless",
-      "sourceRoot": "packages/serverless/src",
+    "nx-serverless-e2e": {
+      "projectType": "application",
+      "root": "e2e/nx-serverless-e2e",
+      "sourceRoot": "e2e/nx-serverless-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "nx-serverless:build",
+            "npmPackageName": "@ns3/serverless",
+            "pluginOutputPath": "dist/packages/serverless",
+            "jestConfig": "e2e/nx-serverless-e2e/jest.config.js"
+          }
+        }
+      }
+    },
+    "nx-serverless": {
+      "root": "packages/nx-serverless",
+      "sourceRoot": "packages/nx-serverless/src",
       "projectType": "library",
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/serverless/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/nx-serverless/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/serverless"
-          ],
+          "outputs": ["coverage/packages/nx-serverless"],
           "options": {
-            "jestConfig": "packages/serverless/jest.config.js",
+            "jestConfig": "packages/nx-serverless/jest.config.js",
             "passWithNoTests": true
           }
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/packages/serverless",
-            "tsConfig": "packages/serverless/tsconfig.lib.json",
-            "packageJson": "packages/serverless/package.json",
-            "main": "packages/serverless/src/index.ts",
+            "outputPath": "dist/packages/nx-serverless",
+            "tsConfig": "packages/nx-serverless/tsconfig.lib.json",
+            "packageJson": "packages/nx-serverless/package.json",
+            "main": "packages/nx-serverless/src/index.ts",
             "assets": [
-              "packages/serverless/*.md",
+              "packages/nx-serverless/*.md",
               {
-                "input": "./packages/serverless/src",
+                "input": "./packages/nx-serverless/src",
                 "glob": "**/*.!(ts)",
                 "output": "./src"
               },
               {
-                "input": "./packages/serverless",
+                "input": "./packages/nx-serverless",
                 "glob": "generators.json",
                 "output": "."
               },
               {
-                "input": "./packages/serverless",
+                "input": "./packages/nx-serverless",
                 "glob": "executors.json",
                 "output": "."
               }
             ]
-          }
-        }
-      }
-    },
-    "serverless-e2e": {
-      "projectType": "application",
-      "root": "e2e/serverless-e2e",
-      "sourceRoot": "e2e/serverless-e2e/src",
-      "targets": {
-        "e2e": {
-          "executor": "@nrwl/nx-plugin:e2e",
-          "options": {
-            "target": "serverless:build",
-            "npmPackageName": "@ns3/serverless",
-            "pluginOutputPath": "dist/packages/serverless",
-            "jestConfig": "e2e/serverless-e2e/jest.config.js"
           }
         }
       }

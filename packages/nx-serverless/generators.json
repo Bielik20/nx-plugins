@@ -6,9 +6,7 @@
     "application": {
       "factory": "./src/generators/application/generator",
       "schema": "./src/generators/application/schema.json",
-      "aliases": [
-        "app"
-      ],
+      "aliases": ["app"],
       "description": "Create an serverless application"
     },
     "init": {

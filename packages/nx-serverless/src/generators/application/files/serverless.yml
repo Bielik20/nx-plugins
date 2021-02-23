@@ -8,7 +8,7 @@ custom:
   stage: ${opt:serviceStage, 'dev'}
   bundle:
     linting: false
-    tsConfig: "tsconfig.app.json"
+    tsConfig: 'tsconfig.app.json'
   serverless-offline:
     httpPort: <%= port %>
     noPrependStageInUrl: true
