@@ -33,6 +33,15 @@ export default async function (host: Tree, options: ServerlessGeneratorSchema) {
       build: {
         executor: '@nx-plugins/serverless:build',
       },
+      serve: {
+        executor: '@nx-plugins/serverless:serve',
+      },
+      deploy: {
+        executor: '@nx-plugins/serverless:deploy',
+      },
+      remove: {
+        executor: '@nx-plugins/serverless:remove',
+      },
     },
     tags: normalizedOptions.parsedTags,
   });
