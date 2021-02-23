@@ -21,6 +21,6 @@ describe('Deploy Executor', () => {
     const { outputPath } = runCommandsMock.mock.calls[0][0];
 
     expect(output).toBe(runCommandsReturn);
-    expect(outputPath).toBe('/base/nx-plugins/tmp/nx-e2e/proj/apps/serverless839554/.serverless');
+    expect(outputPath).toBe('/base/ns3/tmp/nx-e2e/proj/apps/serverless839554/.serverless');
   });
 });

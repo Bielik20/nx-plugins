@@ -65,7 +65,7 @@
           "executor": "@nrwl/nx-plugin:e2e",
           "options": {
             "target": "core:build",
-            "npmPackageName": "@nx-plugins/core",
+            "npmPackageName": "@ns3/core",
             "pluginOutputPath": "dist/packages/core",
             "jestConfig": "e2e/core-e2e/jest.config.js"
           }
@@ -136,7 +136,7 @@
           "executor": "@nrwl/nx-plugin:e2e",
           "options": {
             "target": "serverless:build",
-            "npmPackageName": "@nx-plugins/serverless",
+            "npmPackageName": "@ns3/serverless",
             "pluginOutputPath": "dist/packages/serverless",
             "jestConfig": "e2e/serverless-e2e/jest.config.js"
           }
