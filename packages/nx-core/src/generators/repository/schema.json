@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "id": "Repository",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "skipFormat": {
+      "description": "Skip formatting files",
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": []
+}
