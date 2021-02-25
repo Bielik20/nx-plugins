@@ -11,6 +11,7 @@ describe('serverless generator', () => {
     name: 'test',
     unitTestRunner: 'jest',
     linter: Linter.EsLint,
+    port: 3333,
   };
 
   beforeEach(() => {

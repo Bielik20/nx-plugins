@@ -6,7 +6,7 @@ export interface ServerlessGeneratorSchema {
   directory?: string;
   linter: Linter;
   unitTestRunner: 'jest' | 'none';
-  port?: number;
+  port: number;
   babelJest?: boolean;
   js?: boolean;
   skipFormat?: boolean;
