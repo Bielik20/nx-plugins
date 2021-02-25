@@ -2,6 +2,10 @@
   "name": "ns3",
   "version": "0.0.0",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Bielik20/nx-plugins"
+  },
   "scripts": {
     "nx": "nx",
     "start": "nx serve",
