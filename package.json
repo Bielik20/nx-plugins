@@ -1,12 +1,13 @@
 {
   "name": "ns3",
-  "version": "0.0.0",
+  "version": "0.0.0-development",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/Bielik20/nx-plugins"
   },
   "scripts": {
+    "postinstall": "npm run tools",
     "nx": "nx",
     "start": "nx serve",
     "build": "nx build",
@@ -27,13 +28,19 @@
     "update": "nx migrate latest",
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "commit": "git-cz",
+    "tools": "tsc --project tools/src/tsconfig.json",
+    "semantic-release": "semantic-release"
   },
   "private": true,
   "dependencies": {
+    "lodash": "^4.17.20",
     "serverless-http": "^2.6.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "@nrwl/cli": "11.3.0",
     "@nrwl/devkit": "11.3.0",
     "@nrwl/eslint-plugin-nx": "11.3.0",
@@ -44,14 +51,20 @@
     "@nrwl/tao": "11.3.0",
     "@nrwl/workspace": "11.3.0",
     "@types/jest": "26.0.8",
+    "@types/lodash": "^4.14.166",
     "@types/node": "12.12.38",
     "@typescript-eslint/eslint-plugin": "4.3.0",
     "@typescript-eslint/parser": "4.3.0",
+    "commitizen": "^4.2.2",
+    "cz-conventional-changelog": "^3.3.0",
     "dotenv": "6.2.0",
     "eslint": "7.10.0",
     "eslint-config-prettier": "6.0.0",
+    "husky": "^4.3.6",
     "jest": "26.2.2",
+    "lint-staged": "^10.5.3",
     "prettier": "2.2.1",
+    "semantic-release": "^17.3.0",
     "serverless": "^2.20.1",
     "serverless-bundle": "^4.2.0",
     "serverless-offline": "^6.8.0",
@@ -59,5 +72,15 @@
     "ts-node": "~9.1.1",
     "tslib": "^2.0.0",
     "typescript": "~4.0.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   }
 }

@@ -1,0 +1,141 @@
+name: Check
+on:
+  push:
+    branches-ignore:
+      - master
+
+jobs:
+  install:
+    name: Install Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set Output
+        id: output
+        run: |
+          export LATEST_TAG_HASH=$(git rev-list -n 1 --tags)
+
+          echo "::set-output name=base::${LATEST_TAG_HASH}"
+      - name: Cache Dependencies
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            tools/src/**/*.js
+          key: dependencies-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tools/src/**/*.ts') }}
+      - name: Cache Cypress
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Execute
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+    outputs:
+      base: ${{ steps.output.outputs.base }}
+
+  lint:
+    name: Lint
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Load Dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            tools/src/**/*.js
+          key: dependencies-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tools/src/**/*.ts') }}
+      - name: Execute
+        run: npm run nx -- affected:lint --parallel --base ${{ needs.install.outputs.base }} -- --quiet
+
+  test:
+    name: Test
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Load Dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            tools/src/**/*.js
+          key: dependencies-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tools/src/**/*.ts') }}
+      - name: Execute
+        run: yarn affected:test --parallel --base ${{ needs.install.outputs.base }}
+
+  build:
+    name: Build
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Load Dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            tools/src/**/*.js
+          key: dependencies-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tools/src/**/*.ts') }}
+      - name: Execute
+        run: yarn affected:build --parallel --base ${{ needs.install.outputs.base }} --with-deps
+
+  e2e:
+    name: E2E
+    needs: [install]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Load Dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            tools/src/**/*.js
+          key: dependencies-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tools/src/**/*.ts') }}
+      - name: Load Cypress
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Execute
+        run: yarn affected:test --parallel --base ${{ needs.install.outputs.base }}

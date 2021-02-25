@@ -1,0 +1,14 @@
+{
+  "builders": {
+    "npm-publish": {
+      "implementation": "./npm-publish/impl",
+      "schema": "./npm-publish/schema.json",
+      "description": "Publish packages to npm (GitHub) registry."
+    },
+    "npm-version": {
+      "implementation": "./npm-version/impl",
+      "schema": "./npm-publish/schema.json",
+      "description": "Update version of the lib."
+    }
+  }
+}
