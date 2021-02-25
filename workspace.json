@@ -63,6 +63,12 @@
               }
             ]
           }
+        },
+        "version": {
+          "builder": "./tools/src/builders:npm-version"
+        },
+        "publish": {
+          "builder": "./tools/src/builders:npm-publish"
         }
       }
     },
@@ -112,6 +118,12 @@
               }
             ]
           }
+        },
+        "version": {
+          "builder": "./tools/src/builders:npm-version"
+        },
+        "publish": {
+          "builder": "./tools/src/builders:npm-publish"
         }
       }
     },
