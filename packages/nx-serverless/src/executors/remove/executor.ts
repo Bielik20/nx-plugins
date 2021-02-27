@@ -1,28 +1,31 @@
 import { ExecutorContext } from '@nrwl/tao/src/shared/workspace';
 import runCommands from '@nrwl/workspace/src/executors/run-commands/run-commands.impl';
-import { makeSlsCommandOptions } from '../../utils/make-sls-command-options';
+import { getProjectConfiguration } from '../../utils/get-project-configuration';
 import { printCommand } from '../../utils/print-command';
+import { runSlsHelp } from '../../utils/run-sls-help';
 import { stringifyArgs } from '../../utils/stringify-args';
 import { RemoveExecutorSchema } from './schema';
 
-export default async function runExecutor(
-  options: RemoveExecutorSchema,
-  context: ExecutorContext
-) {
-  const { silentError, ...rest } = options;
-  const stringifiedArgs = stringifyArgs(rest);
-  const commandOptions = makeSlsCommandOptions(
-    options,
-    context,
-    `sls remove ${stringifiedArgs}`
-  );
+export default async function runExecutor(options: RemoveExecutorSchema, context: ExecutorContext) {
+  const { noError, showHelp, ...rest } = options;
 
-  printCommand(commandOptions.command);
+  if (showHelp) {
+    return runSlsHelp(context, 'remove');
+  }
+
+  const stringifiedArgs = stringifyArgs(rest);
+  const command = `sls remove ${stringifiedArgs}`.trim();
+
+  printCommand(command);
 
   try {
-    return await runCommands(commandOptions);
+    return await runCommands({
+      command,
+      color: true,
+      cwd: getProjectConfiguration(context).root,
+    });
   } catch (e) {
-    if (silentError) {
+    if (noError) {
       return { success: true };
     }
 

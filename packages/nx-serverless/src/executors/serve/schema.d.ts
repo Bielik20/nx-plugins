@@ -1,3 +1,6 @@
 import { json } from '@angular-devkit/core';
 
-export interface ServeExecutorSchema extends json.JsonObject {} // eslint-disable-line
+export interface ServeExecutorSchema extends json.JsonObject {
+  showHelp?: boolean;
+  out?: string;
+}

@@ -5,10 +5,18 @@
   "description": "",
   "type": "object",
   "properties": {
-    "skipBuild": {
+    "outputPath": {
+      "type": "string",
+      "description": "The output path of the generated files."
+    },
+    "noBuild": {
       "type": "boolean",
       "description": "Use default path for package directory. If true it will skip build step and only deploy.",
       "default": false
+    },
+    "showHelp": {
+      "type": "boolean",
+      "description": "Show sls help for that command."
     }
   },
   "required": []

@@ -3,7 +3,7 @@ import { testContext } from '../../utils/test-context';
 import executor from './executor';
 import { BuildExecutorSchema } from './schema';
 
-const options: BuildExecutorSchema = {};
+const options: BuildExecutorSchema = { outputPath: '' };
 
 jest.mock('@nrwl/workspace/src/executors/run-commands/run-commands.impl');
 
@@ -22,24 +22,16 @@ describe('Build Executor', () => {
     expect(output).toBe(runCommandsReturn);
     expect(runCommandsMock).toHaveBeenCalledWith({
       command: 'sls package',
-      outputPath: '/base/ns3/tmp/nx-e2e/proj/apps/serverless839554/.serverless',
-      cwd: '/base/ns3/tmp/nx-e2e/proj/apps/serverless839554',
+      outputPath: '',
+      cwd: 'apps/serverless839554',
       color: true,
     });
   });
 
-  it('should rewrite outputPath if package passed', async () => {
-    const output = await executor({ package: '../../aa' }, testContext);
-    const { outputPath } = runCommandsMock.mock.calls[0][0];
-
-    expect(output).toBe(runCommandsReturn);
-    expect(outputPath).toBe('/base/ns3/tmp/nx-e2e/proj/aa');
-  });
-
   it('should pass inline arguments', async () => {
     const output = await executor(
-      { foo: 'foo-value', bar: 'bar-value' },
-      testContext
+      { foo: 'foo-value', bar: 'bar-value', outputPath: '' },
+      testContext,
     );
     const { command } = runCommandsMock.mock.calls[0][0];
 

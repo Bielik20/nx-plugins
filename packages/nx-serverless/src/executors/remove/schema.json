@@ -5,10 +5,14 @@
   "description": "",
   "type": "object",
   "properties": {
-    "silentError": {
+    "noError": {
       "type": "boolean",
       "description": "If true it will not throw error.",
       "default": false
+    },
+    "showHelp": {
+      "type": "boolean",
+      "description": "Show sls help for that command."
     }
   },
   "required": []

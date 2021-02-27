@@ -4,6 +4,15 @@
   "title": "Serve executor",
   "description": "",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "showHelp": {
+      "type": "boolean",
+      "description": "Show sls help for that command."
+    },
+    "out": {
+      "type": "string",
+      "description": "Location where tsc artifacts are stored."
+    }
+  },
   "required": []
 }

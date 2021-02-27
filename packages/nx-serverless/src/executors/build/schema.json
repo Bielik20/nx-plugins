@@ -4,6 +4,15 @@
   "title": "Build executor",
   "description": "",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "outputPath": {
+      "type": "string",
+      "description": "The output path of the generated files."
+    },
+    "showHelp": {
+      "type": "boolean",
+      "description": "Show sls help for that command."
+    }
+  },
   "required": []
 }

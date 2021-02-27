@@ -1,40 +1,26 @@
 import { ExecutorContext } from '@nrwl/tao/src/shared/workspace';
 import runCommands from '@nrwl/workspace/src/executors/run-commands/run-commands.impl';
-import { join, relative } from 'path';
 import { getProjectConfiguration } from '../../utils/get-project-configuration';
-import { makeSlsCommandOptions } from '../../utils/make-sls-command-options';
 import { printCommand } from '../../utils/print-command';
+import { runSlsHelp } from '../../utils/run-sls-help';
 import { stringifyArgs } from '../../utils/stringify-args';
 import { ServeExecutorSchema } from './schema';
 
-export default async function runExecutor(
-  options: ServeExecutorSchema,
-  context: ExecutorContext
-) {
-  if (!options.out) {
-    options.out = getOutTscPath(options, context);
+export default async function runExecutor(options: ServeExecutorSchema, context: ExecutorContext) {
+  const { showHelp, ...rest } = options;
+
+  if (showHelp) {
+    return runSlsHelp(context, 'offline');
   }
 
-  const stringifiedArgs = stringifyArgs(options);
-  const commandOptions = makeSlsCommandOptions(
-    options,
-    context,
-    `sls offline ${stringifiedArgs}`
-  );
+  const stringifiedArgs = stringifyArgs(rest);
+  const command = `sls offline ${stringifiedArgs}`.trim();
 
-  printCommand(commandOptions.command);
+  printCommand(command);
 
-  return runCommands(commandOptions);
-}
-
-function getOutTscPath(
-  options: ServeExecutorSchema,
-  context: ExecutorContext
-): string {
-  const { root } = context;
-  const projectRoot = getProjectConfiguration(context).root;
-  const projectAbsoluteRoot = join(root, projectRoot);
-  const projectAbsoluteDist = join(root, 'dist', 'out-tsc', projectRoot);
-
-  return relative(projectAbsoluteRoot, projectAbsoluteDist);
+  return runCommands({
+    command,
+    color: true,
+    cwd: getProjectConfiguration(context).root,
+  });
 }
