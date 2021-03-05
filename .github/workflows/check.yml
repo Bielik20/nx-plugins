@@ -27,12 +27,6 @@ jobs:
             node_modules
             tools/src/**/*.js
           key: dependencies-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tools/src/**/*.ts') }}
-      - name: Cache Cypress
-        if: steps.cache.outputs.cache-hit != 'true'
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
@@ -132,10 +126,7 @@ jobs:
             node_modules
             tools/src/**/*.js
           key: dependencies-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tools/src/**/*.ts') }}
-      - name: Load Cypress
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Install Cypress
+        run: npm rebuild cypress
       - name: Execute
         run: yarn affected:test --parallel --base ${{ needs.install.outputs.base }}
