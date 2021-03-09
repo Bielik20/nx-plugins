@@ -1,10 +1,10 @@
 {
   "$schema": "http://json-schema.org/schema",
   "executors": {
-    "build": {
-      "implementation": "./src/executors/build/executor",
-      "schema": "./src/executors/build/schema.json",
-      "description": "build executor"
+    "jest-playwright": {
+      "implementation": "./src/executors/jest-playwright/executor",
+      "schema": "./src/executors/jest-playwright/schema.json",
+      "description": "Run Jest Playwright e2e tests"
     }
   }
 }

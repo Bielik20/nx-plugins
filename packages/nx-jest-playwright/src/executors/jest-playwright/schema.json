@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/schema",
   "cli": "nx",
-  "title": "Build executor",
-  "description": "",
+  "title": "Jest Playwright Builder",
+  "description": "Jest Playwright target options for Build Facade",
   "type": "object",
   "properties": {},
   "required": []

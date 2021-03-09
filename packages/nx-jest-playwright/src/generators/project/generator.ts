@@ -24,7 +24,7 @@ export default async function (host: Tree, options: NxJestPlaywrightGeneratorSch
     projectType: 'application',
     targets: {
       e2e: {
-        executor: '@ns3/nx-jest-playwright:build',
+        executor: '@ns3/nx-jest-playwright:jest-playwright',
         options: {
           devServerTarget: `${options.project}:serve`,
           jestConfig: `${normalizedOptions.projectRoot}/jest.config.js`,
