@@ -1,0 +1,1 @@
+export const baseUrl = global['jest-playwright'].launchOptions.baseUrl;
