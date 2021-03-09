@@ -5,13 +5,17 @@ import {
   runNxCommandAsync,
   uniq,
 } from '@nrwl/nx-plugin/testing';
+
 describe('nx-jest-playwright e2e', () => {
+  beforeAll(() => {
+    ensureNxProject('@ns3/nx-jest-playwright', 'dist/packages/nx-jest-playwright');
+  });
+
   it('should create nx-jest-playwright', async (done) => {
     const plugin = uniq('nx-jest-playwright');
-    ensureNxProject('@ns3/nx-jest-playwright', 'dist/packages/nx-jest-playwright');
     await runNxCommandAsync(`generate @ns3/nx-jest-playwright:project ${plugin}`);
 
-    const result = await runNxCommandAsync(`build ${plugin}`);
+    const result = await runNxCommandAsync(`e2e ${plugin}`);
     expect(result.stdout).toContain('Executor ran');
 
     done();
@@ -20,11 +24,10 @@ describe('nx-jest-playwright e2e', () => {
   describe('--directory', () => {
     it('should create src in the specified directory', async (done) => {
       const plugin = uniq('nx-jest-playwright');
-      ensureNxProject('@ns3/nx-jest-playwright', 'dist/packages/nx-jest-playwright');
       await runNxCommandAsync(
         `generate @ns3/nx-jest-playwright:project ${plugin} --directory subdir`,
       );
-      expect(() => checkFilesExist(`libs/subdir/${plugin}/src/index.ts`)).not.toThrow();
+      expect(() => checkFilesExist(`apps/subdir/${plugin}/src/app.spec.ts`)).not.toThrow();
       done();
     });
   });
@@ -32,7 +35,6 @@ describe('nx-jest-playwright e2e', () => {
   describe('--tags', () => {
     it('should add tags to nx.json', async (done) => {
       const plugin = uniq('nx-jest-playwright');
-      ensureNxProject('@ns3/nx-jest-playwright', 'dist/packages/nx-jest-playwright');
       await runNxCommandAsync(
         `generate @ns3/nx-jest-playwright:project ${plugin} --tags e2etag,e2ePackage`,
       );
