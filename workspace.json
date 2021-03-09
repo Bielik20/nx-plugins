@@ -25,12 +25,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/nx-serverless/**/*.ts"]
+            "lintFilePatterns": [
+              "packages/nx-serverless/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/nx-serverless"],
+          "outputs": [
+            "coverage/packages/nx-serverless"
+          ],
           "options": {
             "jestConfig": "packages/nx-serverless/jest.config.js",
             "passWithNoTests": true
@@ -38,7 +42,9 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/packages/nx-serverless",
             "tsConfig": "packages/nx-serverless/tsconfig.lib.json",
@@ -65,10 +71,10 @@
           }
         },
         "version": {
-          "builder": "./tools/src/builders:npm-version"
+          "executor": "./tools/src/builders:npm-version"
         },
         "publish": {
-          "builder": "./tools/src/builders:npm-publish"
+          "executor": "./tools/src/builders:npm-publish"
         }
       }
     },
@@ -80,12 +86,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/nx-core/**/*.ts"]
+            "lintFilePatterns": [
+              "packages/nx-core/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/nx-core"],
+          "outputs": [
+            "coverage/packages/nx-core"
+          ],
           "options": {
             "jestConfig": "packages/nx-core/jest.config.js",
             "passWithNoTests": true
@@ -93,7 +103,9 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/packages/nx-core",
             "tsConfig": "packages/nx-core/tsconfig.lib.json",
@@ -120,10 +132,10 @@
           }
         },
         "version": {
-          "builder": "./tools/src/builders:npm-version"
+          "executor": "./tools/src/builders:npm-version"
         },
         "publish": {
-          "builder": "./tools/src/builders:npm-publish"
+          "executor": "./tools/src/builders:npm-publish"
         }
       }
     },
@@ -139,6 +151,77 @@
             "npmPackageName": "@ns3/nx-core",
             "pluginOutputPath": "dist/packages/nx-core",
             "jestConfig": "e2e/nx-core-e2e/jest.config.js"
+          }
+        }
+      }
+    },
+    "nx-jest-playwright": {
+      "root": "packages/nx-jest-playwright",
+      "sourceRoot": "packages/nx-jest-playwright/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/nx-jest-playwright/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/packages/nx-jest-playwright"
+          ],
+          "options": {
+            "jestConfig": "packages/nx-jest-playwright/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/packages/nx-jest-playwright",
+            "tsConfig": "packages/nx-jest-playwright/tsconfig.lib.json",
+            "packageJson": "packages/nx-jest-playwright/package.json",
+            "main": "packages/nx-jest-playwright/src/index.ts",
+            "assets": [
+              "packages/nx-jest-playwright/*.md",
+              {
+                "input": "./packages/nx-jest-playwright/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/nx-jest-playwright",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/nx-jest-playwright",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "nx-jest-playwright-e2e": {
+      "projectType": "application",
+      "root": "e2e/nx-jest-playwright-e2e",
+      "sourceRoot": "e2e/nx-jest-playwright-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "nx-jest-playwright:build",
+            "npmPackageName": "@ns3/nx-jest-playwright",
+            "pluginOutputPath": "dist/packages/nx-jest-playwright",
+            "jestConfig": "e2e/nx-jest-playwright-e2e/jest.config.js"
           }
         }
       }
