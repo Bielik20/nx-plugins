@@ -1,7 +1,7 @@
 module.exports = {
   displayName: 'nx-serverless-e2e',
   preset: '../../jest.preset.js',
-  testTimeout: 90000,
+  testTimeout: 120000,
   globals: {
     'ts-jest': {
       tsConfig: '<rootDir>/tsconfig.spec.json',
