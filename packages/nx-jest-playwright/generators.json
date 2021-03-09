@@ -3,10 +3,10 @@
   "name": "nx-jest-playwright",
   "version": "0.0.1",
   "generators": {
-    "nx-jest-playwright": {
-      "factory": "./src/generators/nx-jest-playwright/generator",
-      "schema": "./src/generators/nx-jest-playwright/schema.json",
-      "description": "nx-jest-playwright generator"
+    "project": {
+      "factory": "./src/generators/project/generator",
+      "schema": "./src/generators/project/schema.json",
+      "description": "Add a Jest Playwright Project"
     }
   }
 }

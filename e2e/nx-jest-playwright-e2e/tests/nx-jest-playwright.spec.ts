@@ -9,7 +9,7 @@ describe('nx-jest-playwright e2e', () => {
   it('should create nx-jest-playwright', async (done) => {
     const plugin = uniq('nx-jest-playwright');
     ensureNxProject('@ns3/nx-jest-playwright', 'dist/packages/nx-jest-playwright');
-    await runNxCommandAsync(`generate @ns3/nx-jest-playwright:nx-jest-playwright ${plugin}`);
+    await runNxCommandAsync(`generate @ns3/nx-jest-playwright:project ${plugin}`);
 
     const result = await runNxCommandAsync(`build ${plugin}`);
     expect(result.stdout).toContain('Executor ran');
@@ -22,7 +22,7 @@ describe('nx-jest-playwright e2e', () => {
       const plugin = uniq('nx-jest-playwright');
       ensureNxProject('@ns3/nx-jest-playwright', 'dist/packages/nx-jest-playwright');
       await runNxCommandAsync(
-        `generate @ns3/nx-jest-playwright:nx-jest-playwright ${plugin} --directory subdir`,
+        `generate @ns3/nx-jest-playwright:project ${plugin} --directory subdir`,
       );
       expect(() => checkFilesExist(`libs/subdir/${plugin}/src/index.ts`)).not.toThrow();
       done();
@@ -34,7 +34,7 @@ describe('nx-jest-playwright e2e', () => {
       const plugin = uniq('nx-jest-playwright');
       ensureNxProject('@ns3/nx-jest-playwright', 'dist/packages/nx-jest-playwright');
       await runNxCommandAsync(
-        `generate @ns3/nx-jest-playwright:nx-jest-playwright ${plugin} --tags e2etag,e2ePackage`,
+        `generate @ns3/nx-jest-playwright:project ${plugin} --tags e2etag,e2ePackage`,
       );
       const nxJson = readJson('nx.json');
       expect(nxJson.projects[plugin].tags).toEqual(['e2etag', 'e2ePackage']);
