@@ -7,8 +7,13 @@ import { JestPlaywrightExecutorSchema } from './schema';
 
 try {
   require('dotenv').config();
-  // eslint-disable-next-line no-empty
-} catch (e) {}
+} catch (e) {
+  // noop
+}
+
+if (process.env.NODE_ENV === null || process.env.NODE_ENV === undefined) {
+  (process.env as any).NODE_ENV = 'test';
+}
 
 export default async function jestPlaywrightExecutor(
   options: JestPlaywrightExecutorSchema,

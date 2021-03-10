@@ -8,7 +8,7 @@ module.exports = {
       tsconfig: '<rootDir>/tsconfig.e2e.json',
     },
   },
-  displayName: 'tox-checkout-playwright',
+  displayName: '<%= name %>',
   testEnvironmentOptions: {
     'jest-playwright': {
       browsers: ['chromium'],

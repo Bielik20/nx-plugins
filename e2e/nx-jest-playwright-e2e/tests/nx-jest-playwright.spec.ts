@@ -15,8 +15,7 @@ describe('nx-jest-playwright e2e', () => {
     const plugin = uniq('nx-jest-playwright');
     await runNxCommandAsync(`generate @ns3/nx-jest-playwright:project ${plugin}`);
 
-    const result = await runNxCommandAsync(`e2e ${plugin}`);
-    expect(result.stdout).toContain('Executor ran');
+    const result = await runNxCommandAsync(`e2e ${plugin} --baseUrl https://playwright.dev/`);
 
     done();
   });

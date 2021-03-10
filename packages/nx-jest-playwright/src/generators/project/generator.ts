@@ -26,13 +26,13 @@ export default async function (host: Tree, options: NxJestPlaywrightGeneratorSch
       e2e: {
         executor: '@ns3/nx-jest-playwright:jest-playwright',
         options: {
-          devServerTarget: `${options.project}:serve`,
+          devServerTarget: options.project ? `${options.project}:serve` : undefined,
           jestConfig: `${normalizedOptions.projectRoot}/jest.config.js`,
           passWithNoTests: true,
         },
         configurations: {
           production: {
-            devServerTarget: `${options.project}:serve:production`,
+            devServerTarget: options.project ? `${options.project}:serve:production` : undefined,
           },
         },
       },
