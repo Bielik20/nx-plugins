@@ -25,16 +25,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/nx-serverless/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/nx-serverless/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/nx-serverless"
-          ],
+          "outputs": ["coverage/packages/nx-serverless"],
           "options": {
             "jestConfig": "packages/nx-serverless/jest.config.js",
             "passWithNoTests": true
@@ -42,9 +38,7 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/packages/nx-serverless",
             "tsConfig": "packages/nx-serverless/tsconfig.lib.json",
@@ -86,16 +80,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/nx-core/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/nx-core/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/nx-core"
-          ],
+          "outputs": ["coverage/packages/nx-core"],
           "options": {
             "jestConfig": "packages/nx-core/jest.config.js",
             "passWithNoTests": true
@@ -103,9 +93,7 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/packages/nx-core",
             "tsConfig": "packages/nx-core/tsconfig.lib.json",
@@ -163,16 +151,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/nx-jest-playwright/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/nx-jest-playwright/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/nx-jest-playwright"
-          ],
+          "outputs": ["coverage/packages/nx-jest-playwright"],
           "options": {
             "jestConfig": "packages/nx-jest-playwright/jest.config.js",
             "passWithNoTests": true
@@ -180,9 +164,7 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/packages/nx-jest-playwright",
             "tsConfig": "packages/nx-jest-playwright/tsconfig.lib.json",
@@ -207,6 +189,12 @@
               }
             ]
           }
+        },
+        "version": {
+          "executor": "./tools/src/builders:npm-version"
+        },
+        "publish": {
+          "executor": "./tools/src/builders:npm-publish"
         }
       }
     },
