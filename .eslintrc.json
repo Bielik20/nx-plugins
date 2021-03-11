@@ -27,7 +27,10 @@
       "parserOptions": {
         "project": "./tsconfig.*?.json"
       },
-      "rules": {}
+      "rules": {
+        "@typescript-eslint/ban-ts-comment": 0,
+        "@typescript-eslint/no-var-requires": 0
+      }
     },
     {
       "files": ["*.js", "*.jsx"],

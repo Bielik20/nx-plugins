@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - 'alpha/*'
 
 jobs:
   install:
@@ -27,12 +28,6 @@ jobs:
             node_modules
             tools/src/**/*.js
           key: dependencies-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tools/src/**/*.ts') }}
-      - name: Cache Cypress
-        if: steps.cache.outputs.cache-hit != 'true'
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
@@ -109,13 +104,8 @@ jobs:
             node_modules
             tools/src/**/*.js
           key: dependencies-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tools/src/**/*.ts') }}
-      - name: Load Cypress
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - name: Execute
-        run: yarn affected:e2e --parallel --base ${{ needs.install.outputs.base }}
+        run: yarn affected:e2e --base ${{ needs.install.outputs.base }}
 
   release:
     name: Release

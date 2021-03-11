@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "nx-jest-playwright",
+  "version": "0.0.1",
+  "generators": {
+    "project": {
+      "factory": "./src/generators/project/generator",
+      "schema": "./src/generators/project/schema.json",
+      "description": "Add a Jest Playwright Project"
+    },
+    "init": {
+      "factory": "./src/generators/init/generator",
+      "schema": "./src/generators/init/schema.json",
+      "description": "Initialize the @ns3/nx-jest-playwright plugin"
+    }
+  }
+}

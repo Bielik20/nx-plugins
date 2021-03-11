@@ -3,6 +3,7 @@ on:
   push:
     branches-ignore:
       - master
+      - 'alpha/*'
 
 jobs:
   install:
@@ -125,8 +126,5 @@ jobs:
           path: |
             node_modules
             tools/src/**/*.js
-          key: dependencies-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tools/src/**/*.ts') }}
-      - name: Install Cypress
-        run: npm rebuild cypress
       - name: Execute
-        run: yarn affected:test --parallel --base ${{ needs.install.outputs.base }}
+        run: yarn affected:e2e --base ${{ needs.install.outputs.base }}

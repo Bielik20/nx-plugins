@@ -134,4 +134,4 @@ jobs:
       - name: Install Cypress
         run: npm rebuild cypress
       - name: Execute
-        run: yarn affected:test --parallel --base ${{ needs.install.outputs.base }}
+        run: yarn affected:e2e --parallel --base ${{ needs.install.outputs.base }}

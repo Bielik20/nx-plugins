@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'nx-serverless-e2e',
+  displayName: 'nx-jest-playwright-e2e',
   preset: '../../jest.preset.js',
   testTimeout: 120000,
   globals: {
@@ -11,5 +11,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/e2e/nx-serverless-e2e',
+  coverageDirectory: '../../coverage/e2e/nx-jest-playwright-e2e',
 };
