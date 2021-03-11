@@ -17,6 +17,8 @@ describe('nx-jest-playwright e2e', () => {
 
     const result = await runNxCommandAsync(`e2e ${plugin} --baseUrl https://playwright.dev/`);
 
+    expect(result.stderr).toContain('Ran all test suites.');
+
     done();
   });
 
