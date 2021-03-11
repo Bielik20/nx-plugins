@@ -23,10 +23,10 @@ export default async function jestPlaywrightExecutor(
   const jestFileConfig = require(options.jestConfig);
   const watch = options.watch || options.watchAll;
 
-  let success;
+  let success: boolean;
   for await (const baseUrl of startDevServer(options, context)) {
     try {
-      success = runJest(baseUrl, options, jestParsedConfig, jestFileConfig);
+      success = await runJest(baseUrl, options, jestParsedConfig, jestFileConfig);
       if (!watch) break;
     } catch (e) {
       logger.error(e.message);
