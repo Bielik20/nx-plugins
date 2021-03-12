@@ -27,14 +27,14 @@ jobs:
           path: |
             node_modules
             tools/src/**/*.js
-          key: dependencies-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tools/src/**/*.ts') }}
+          key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
           node-version: 12
       - name: Execute
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+        run: yarn
     outputs:
       base: ${{ steps.output.outputs.base }}
 
@@ -57,7 +57,7 @@ jobs:
           path: |
             node_modules
             tools/src/**/*.js
-          key: dependencies-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tools/src/**/*.ts') }}
+          key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
       - name: Execute
         run: npm run nx -- affected:lint --parallel --base ${{ needs.install.outputs.base }} -- --quiet
 
@@ -80,7 +80,7 @@ jobs:
           path: |
             node_modules
             tools/src/**/*.js
-          key: dependencies-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tools/src/**/*.ts') }}
+          key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
       - name: Execute
         run: yarn affected:test --parallel --base ${{ needs.install.outputs.base }}
 
@@ -103,7 +103,7 @@ jobs:
           path: |
             node_modules
             tools/src/**/*.js
-          key: dependencies-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tools/src/**/*.ts') }}
+          key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
       - name: Execute
         run: yarn affected:e2e --base ${{ needs.install.outputs.base }}
 
@@ -126,7 +126,7 @@ jobs:
           path: |
             node_modules
             tools/src/**/*.js
-          key: dependencies-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tools/src/**/*.ts') }}
+          key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
       - name: Execute
         run: npx semantic-release
         env:
