@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "title": "Publish npm package",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "npmToken": {
+      "type": "string",
+      "description": "NPM_TOKEN used to publish package. Fallbacks to NPM_TOKEN in env."
+    }
+  },
+  "required": []
+}

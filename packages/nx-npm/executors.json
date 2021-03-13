@@ -1,10 +1,15 @@
 {
   "$schema": "http://json-schema.org/schema",
   "executors": {
-    "build": {
-      "implementation": "./src/executors/build/executor",
-      "schema": "./src/executors/build/schema.json",
-      "description": "build executor"
+    "version": {
+      "implementation": "./src/executors/version/executor",
+      "schema": "./src/executors/version/schema.json",
+      "description": "Update version in package.json"
+    },
+    "publish": {
+      "implementation": "./src/executors/publish/executor",
+      "schema": "./src/executors/publish/schema.json",
+      "description": "Publish npm package"
     }
   }
 }
