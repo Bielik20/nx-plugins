@@ -260,6 +260,12 @@
               }
             ]
           }
+        },
+        "version": {
+          "executor": "./tools/src/builders:npm-version"
+        },
+        "publish": {
+          "executor": "./tools/src/builders:npm-publish"
         }
       }
     },
