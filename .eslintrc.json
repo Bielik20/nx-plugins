@@ -24,9 +24,6 @@
     {
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nrwl/nx/typescript"],
-      "parserOptions": {
-        "project": "./tsconfig.*?.json"
-      },
       "rules": {
         "@typescript-eslint/ban-ts-comment": 0,
         "@typescript-eslint/no-var-requires": 0
