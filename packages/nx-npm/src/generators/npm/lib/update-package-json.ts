@@ -7,6 +7,9 @@ export function updatePackageJson(tree: Tree, options: NxNpmGeneratorSchema) {
 
   updateJson(tree, joinPathFragments(projectConfig.root, 'package.json'), (json) => {
     json.repository = getRepositoryField(tree);
+    json.publishConfig = {
+      access: options.access,
+    };
 
     return json;
   });
