@@ -21,10 +21,13 @@ export default async function runExecutor(options: BuildExecutorSchema, context:
 
   printCommand(command);
 
-  return runCommands({
-    command,
-    outputPath,
-    color: true,
-    cwd: getProjectConfiguration(context).root,
-  });
+  return runCommands(
+    {
+      command,
+      outputPath,
+      color: true,
+      cwd: getProjectConfiguration(context).root,
+    },
+    context,
+  );
 }

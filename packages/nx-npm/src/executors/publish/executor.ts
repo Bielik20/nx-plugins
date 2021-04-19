@@ -13,13 +13,19 @@ export default async function runExecutor(
   const nx = readNxJson();
   const npmrc = generateNpmrc(token, nx.npmScope);
 
-  await runCommands({ command: 'rm -f .npmrc', color: true, cwd: outputPath });
-  await runCommands({ command: `echo "${npmrc}" >> .npmrc`, color: true, cwd: outputPath });
-  await runCommands({
-    command: `npm publish --dry-run ${options.dryRun}`,
-    color: true,
-    cwd: outputPath,
-  });
+  await runCommands({ command: 'rm -f .npmrc', color: true, cwd: outputPath }, context);
+  await runCommands(
+    { command: `echo "${npmrc}" >> .npmrc`, color: true, cwd: outputPath },
+    context,
+  );
+  await runCommands(
+    {
+      command: `npm publish --dry-run ${options.dryRun}`,
+      color: true,
+      cwd: outputPath,
+    },
+    context,
+  );
 
   return {
     success: true,
