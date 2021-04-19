@@ -1,4 +1,5 @@
 import { ExecutorContext } from '@nrwl/devkit';
+import { readNxJson } from '@nrwl/workspace';
 import runCommands from '@nrwl/workspace/src/executors/run-commands/run-commands.impl';
 import { getProjectConfiguration } from '../../utils/get-project-configuration';
 import { PublishExecutorSchema } from './schema';
@@ -7,23 +8,18 @@ export default async function runExecutor(
   options: PublishExecutorSchema,
   context: ExecutorContext,
 ) {
-  console.log(options);
   const token = getNpmToken(options);
   const outputPath = await getOutputPath(context);
-  const npmrc = generateNpmrc(token);
-
-  console.log('a', { command: 'rm -f .npmrc', color: true, cwd: outputPath });
+  const nx = readNxJson();
+  const npmrc = generateNpmrc(token, nx.npmScope);
 
   await runCommands({ command: 'rm -f .npmrc', color: true, cwd: outputPath });
-  console.log('b');
   await runCommands({ command: `echo "${npmrc}" >> .npmrc`, color: true, cwd: outputPath });
-  console.log('c');
   await runCommands({
     command: `npm publish --dry-run ${options.dryRun}`,
     color: true,
     cwd: outputPath,
   });
-  console.log('d');
 
   return {
     success: true,
@@ -50,10 +46,10 @@ function getNpmToken(options: PublishExecutorSchema): string {
   return token;
 }
 
-function generateNpmrc(npmToken: string): string {
+function generateNpmrc(npmToken: string, npmScope: string): string {
   return `
 registry=http://registry.npmjs.org/
 //registry.npmjs.org/:_authToken=${npmToken}
-@ns3:registry=https://registry.npmjs.org/
+@${npmScope}:registry=https://registry.npmjs.org/
 `.trim();
 }

@@ -33,6 +33,9 @@ describe('nx-npm e2e', () => {
     const buildResult = await runNxCommandAsync(`build ${plugin}`);
     const publishResult = await runNxCommandAsync(`publish ${plugin} --npmToken noop --dryRun`);
 
+    expect(publishResult.stderr).toContain('Tarball Contents');
+    expect(publishResult.stderr).toContain('Tarball Details');
+
     done();
   });
 });
