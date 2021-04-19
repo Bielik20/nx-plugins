@@ -133,10 +133,16 @@
         "e2e": {
           "executor": "@nrwl/nx-plugin:e2e",
           "options": {
-            "target": "nx-core:build",
+            "target": "nx-core-e2e:prepare",
             "npmPackageName": "@ns3/nx-core",
             "pluginOutputPath": "dist/packages/nx-core",
             "jestConfig": "e2e/nx-core-e2e/jest.config.js"
+          }
+        },
+        "prepare": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "nx run nx-core:build --with-deps"
           }
         }
       }
@@ -200,10 +206,16 @@
         "e2e": {
           "executor": "@nrwl/nx-plugin:e2e",
           "options": {
-            "target": "nx-jest-playwright:build",
+            "target": "nx-jest-playwright-e2e:prepare",
             "npmPackageName": "@ns3/nx-jest-playwright",
             "pluginOutputPath": "dist/packages/nx-jest-playwright",
             "jestConfig": "e2e/nx-jest-playwright-e2e/jest.config.js"
+          }
+        },
+        "prepare": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "nx run nx-jest-playwright:build --with-deps"
           }
         }
       }
@@ -267,10 +279,16 @@
         "e2e": {
           "executor": "@nrwl/nx-plugin:e2e",
           "options": {
-            "target": "nx-npm:build",
+            "target": "nx-npm-e2e:prepare",
             "npmPackageName": "@ns3/nx-npm",
             "pluginOutputPath": "dist/packages/nx-npm",
             "jestConfig": "e2e/nx-npm-e2e/jest.config.js"
+          }
+        },
+        "prepare": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "nx run nx-npm:build --with-deps"
           }
         }
       }

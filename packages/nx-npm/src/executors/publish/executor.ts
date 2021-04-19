@@ -1,7 +1,7 @@
 import { ExecutorContext } from '@nrwl/devkit';
 import { readNxJson } from '@nrwl/workspace';
 import runCommands from '@nrwl/workspace/src/executors/run-commands/run-commands.impl';
-import { getProjectConfiguration } from '../../utils/get-project-configuration';
+import { getProjectConfiguration } from '@ns3/nx-core';
 import { PublishExecutorSchema } from './schema';
 
 export default async function runExecutor(

@@ -1,6 +1,6 @@
 import { ExecutorContext } from '@nrwl/devkit';
 import runCommands from '@nrwl/workspace/src/executors/run-commands/run-commands.impl';
-import { getProjectConfiguration } from '../../utils/get-project-configuration';
+import { getProjectConfiguration } from '@ns3/nx-core';
 import { VersionExecutorSchema } from './schema';
 
 export default async function runExecutor(
