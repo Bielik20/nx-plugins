@@ -1,7 +1,6 @@
 import { ExecutorContext } from '@nrwl/tao/src/shared/workspace';
 import runCommands from '@nrwl/workspace/src/executors/run-commands/run-commands.impl';
-import { stringifyArgs } from '@ns3/nx-core';
-import { getProjectConfiguration } from '../../utils/get-project-configuration';
+import { getProjectConfiguration, stringifyArgs } from '@ns3/nx-core';
 import { preventPackage } from '../../utils/prevent-package';
 import { printCommand } from '../../utils/print-command';
 import { runSlsHelp } from '../../utils/run-sls-help';
