@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "title": "Update version in package.json",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "pkgVersion": {
+      "type": "string",
+      "description": "Version to set"
+    }
+  },
+  "required": ["pkgVersion"]
+}

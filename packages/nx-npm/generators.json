@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "nx-npm",
+  "version": "0.0.1",
+  "generators": {
+    "npm": {
+      "factory": "./src/generators/npm/generator",
+      "schema": "./src/generators/npm/schema.json",
+      "description": "Add npm version and publish capabilities"
+    }
+  }
+}
