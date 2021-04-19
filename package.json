@@ -35,6 +35,7 @@
   },
   "private": true,
   "dependencies": {
+    "@ns3/nx-npm": "^0.3.0",
     "lodash": "^4.17.20",
     "serverless-http": "^2.6.1"
   },

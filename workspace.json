@@ -1,22 +1,6 @@
 {
   "version": 2,
   "projects": {
-    "nx-serverless-e2e": {
-      "projectType": "application",
-      "root": "e2e/nx-serverless-e2e",
-      "sourceRoot": "e2e/nx-serverless-e2e/src",
-      "targets": {
-        "e2e": {
-          "executor": "@nrwl/nx-plugin:e2e",
-          "options": {
-            "target": "nx-serverless:build",
-            "npmPackageName": "@ns3/nx-serverless",
-            "pluginOutputPath": "dist/packages/nx-serverless",
-            "jestConfig": "e2e/nx-serverless-e2e/jest.config.js"
-          }
-        }
-      }
-    },
     "nx-serverless": {
       "root": "packages/nx-serverless",
       "sourceRoot": "packages/nx-serverless/src",
@@ -64,11 +48,23 @@
             ]
           }
         },
-        "version": {
-          "executor": "./tools/src/builders:npm-version"
-        },
-        "publish": {
-          "executor": "./tools/src/builders:npm-publish"
+        "version": { "executor": "@ns3/nx-npm:version" },
+        "publish": { "executor": "@ns3/nx-npm:publish" }
+      }
+    },
+    "nx-serverless-e2e": {
+      "projectType": "application",
+      "root": "e2e/nx-serverless-e2e",
+      "sourceRoot": "e2e/nx-serverless-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "nx-serverless:build",
+            "npmPackageName": "@ns3/nx-serverless",
+            "pluginOutputPath": "dist/packages/nx-serverless",
+            "jestConfig": "e2e/nx-serverless-e2e/jest.config.js"
+          }
         }
       }
     },
@@ -119,12 +115,8 @@
             ]
           }
         },
-        "version": {
-          "executor": "./tools/src/builders:npm-version"
-        },
-        "publish": {
-          "executor": "./tools/src/builders:npm-publish"
-        }
+        "version": { "executor": "@ns3/nx-npm:version" },
+        "publish": { "executor": "@ns3/nx-npm:publish" }
       }
     },
     "nx-core-e2e": {
@@ -190,12 +182,8 @@
             ]
           }
         },
-        "version": {
-          "executor": "./tools/src/builders:npm-version"
-        },
-        "publish": {
-          "executor": "./tools/src/builders:npm-publish"
-        }
+        "version": { "executor": "@ns3/nx-npm:version" },
+        "publish": { "executor": "@ns3/nx-npm:publish" }
       }
     },
     "nx-jest-playwright-e2e": {
@@ -261,12 +249,8 @@
             ]
           }
         },
-        "version": {
-          "executor": "./tools/src/builders:npm-version"
-        },
-        "publish": {
-          "executor": "./tools/src/builders:npm-publish"
-        }
+        "version": { "executor": "@ns3/nx-npm:version" },
+        "publish": { "executor": "@ns3/nx-npm:publish" }
       }
     },
     "nx-npm-e2e": {
