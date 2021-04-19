@@ -19,11 +19,14 @@ export default async function runExecutor(options: RemoveExecutorSchema, context
   printCommand(command);
 
   try {
-    return await runCommands({
-      command,
-      color: true,
-      cwd: getProjectConfiguration(context).root,
-    });
+    return await runCommands(
+      {
+        command,
+        color: true,
+        cwd: getProjectConfiguration(context).root,
+      },
+      context,
+    );
   } catch (e) {
     if (noError) {
       return { success: true };

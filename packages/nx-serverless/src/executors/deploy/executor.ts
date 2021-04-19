@@ -22,12 +22,15 @@ export default async function runExecutor(options: DeployExecutorSchema, context
 
   printCommand(command);
 
-  return runCommands({
-    command,
-    outputPath,
-    color: true,
-    cwd: getProjectConfiguration(context).root,
-  });
+  return runCommands(
+    {
+      command,
+      outputPath,
+      color: true,
+      cwd: getProjectConfiguration(context).root,
+    },
+    context,
+  );
 }
 
 function handleNoBuild(options: DeployExecutorSchema): void {

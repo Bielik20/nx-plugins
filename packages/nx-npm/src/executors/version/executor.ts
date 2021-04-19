@@ -10,7 +10,10 @@ export default async function runExecutor(
   const config = getProjectConfiguration(context);
   const root = config.root;
 
-  await runCommands({ command: `npm version ${options.pkgVersion}`, color: true, cwd: root });
+  await runCommands(
+    { command: `npm version ${options.pkgVersion}`, color: true, cwd: root },
+    context,
+  );
 
   return {
     success: true,

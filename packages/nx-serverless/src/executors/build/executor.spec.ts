@@ -20,12 +20,15 @@ describe('Build Executor', () => {
     const output = await executor(options, testContext);
 
     expect(output).toBe(runCommandsReturn);
-    expect(runCommandsMock).toHaveBeenCalledWith({
-      command: 'sls package',
-      outputPath: '',
-      cwd: 'apps/serverless839554',
-      color: true,
-    });
+    expect(runCommandsMock).toHaveBeenCalledWith(
+      {
+        command: 'sls package',
+        outputPath: '',
+        cwd: 'apps/serverless839554',
+        color: true,
+      },
+      testContext,
+    );
   });
 
   it('should pass inline arguments', async () => {

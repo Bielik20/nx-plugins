@@ -18,9 +18,12 @@ export default async function runExecutor(options: ServeExecutorSchema, context:
 
   printCommand(command);
 
-  return runCommands({
-    command,
-    color: true,
-    cwd: getProjectConfiguration(context).root,
-  });
+  return runCommands(
+    {
+      command,
+      color: true,
+      cwd: getProjectConfiguration(context).root,
+    },
+    context,
+  );
 }
