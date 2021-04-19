@@ -1,9 +1,9 @@
 import { ExecutorContext } from '@nrwl/tao/src/shared/workspace';
 import runCommands from '@nrwl/workspace/src/executors/run-commands/run-commands.impl';
+import { stringifyArgs } from '@ns3/nx-core';
 import { getProjectConfiguration } from '../../utils/get-project-configuration';
 import { printCommand } from '../../utils/print-command';
 import { runSlsHelp } from '../../utils/run-sls-help';
-import { stringifyArgs } from '../../utils/stringify-args';
 import { RemoveExecutorSchema } from './schema';
 
 export default async function runExecutor(options: RemoveExecutorSchema, context: ExecutorContext) {
