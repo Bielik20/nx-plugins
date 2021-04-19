@@ -8,6 +8,11 @@
     "npmToken": {
       "type": "string",
       "description": "NPM_TOKEN used to publish package. Fallbacks to NPM_TOKEN in env."
+    },
+    "dryRun": {
+      "type": "boolean",
+      "description": "Whether to actually publish or not.",
+      "default": false
     }
   },
   "required": []

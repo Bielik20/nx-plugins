@@ -7,13 +7,23 @@ export default async function runExecutor(
   options: PublishExecutorSchema,
   context: ExecutorContext,
 ) {
+  console.log(options);
   const token = getNpmToken(options);
   const outputPath = await getOutputPath(context);
   const npmrc = generateNpmrc(token);
 
+  console.log('a', { command: 'rm -f .npmrc', color: true, cwd: outputPath });
+
   await runCommands({ command: 'rm -f .npmrc', color: true, cwd: outputPath });
+  console.log('b');
   await runCommands({ command: `echo "${npmrc}" >> .npmrc`, color: true, cwd: outputPath });
-  await runCommands({ command: 'npm publish', color: true, cwd: outputPath });
+  console.log('c');
+  await runCommands({
+    command: `npm publish --dry-run ${options.dryRun}`,
+    color: true,
+    cwd: outputPath,
+  });
+  console.log('d');
 
   return {
     success: true,

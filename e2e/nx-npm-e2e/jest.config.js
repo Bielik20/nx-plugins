@@ -1,6 +1,7 @@
 module.exports = {
   displayName: 'nx-npm-e2e',
   preset: '../../jest.preset.js',
+  testTimeout: 120000,
   globals: {
     'ts-jest': {
       tsConfig: '<rootDir>/tsconfig.spec.json',
