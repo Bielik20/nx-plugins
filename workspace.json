@@ -60,10 +60,16 @@
         "e2e": {
           "executor": "@nrwl/nx-plugin:e2e",
           "options": {
-            "target": "nx-serverless:build",
+            "target": "nx-serverless-e2e:prepare",
             "npmPackageName": "@ns3/nx-serverless",
             "pluginOutputPath": "dist/packages/nx-serverless",
             "jestConfig": "e2e/nx-serverless-e2e/jest.config.js"
+          }
+        },
+        "prepare": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "nx run nx-serverless:build --with-deps"
           }
         }
       }

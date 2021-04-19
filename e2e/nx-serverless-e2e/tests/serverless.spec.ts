@@ -1,14 +1,24 @@
 import {
   checkFilesExist,
-  ensureNxProject,
+  cleanup,
+  patchPackageJsonForPlugin,
   readJson,
   runNxCommandAsync,
+  runPackageManagerInstall,
+  tmpProjPath,
   uniq,
 } from '@nrwl/nx-plugin/testing';
+import { runNxNewCommand } from '@ns3/nx-core';
+import { ensureDirSync } from 'fs-extra';
 
 describe('serverless e2e', () => {
   beforeAll(() => {
-    ensureNxProject('@ns3/nx-serverless', 'dist/packages/nx-serverless');
+    ensureDirSync(tmpProjPath());
+    cleanup();
+    runNxNewCommand('', true);
+    patchPackageJsonForPlugin('@ns3/nx-serverless', 'dist/packages/nx-serverless');
+    patchPackageJsonForPlugin('@ns3/nx-core', 'dist/packages/nx-core');
+    runPackageManagerInstall();
   });
 
   it('should create serverless', async (done) => {
@@ -25,11 +35,9 @@ describe('serverless e2e', () => {
     it('should create src in the specified directory', async (done) => {
       const plugin = uniq('serverless');
       await runNxCommandAsync(
-        `generate @ns3/nx-serverless:application ${plugin} --directory subdir`
+        `generate @ns3/nx-serverless:application ${plugin} --directory subdir`,
       );
-      expect(() =>
-        checkFilesExist(`apps/subdir/${plugin}/src/handlers/foo.ts`)
-      ).not.toThrow();
+      expect(() => checkFilesExist(`apps/subdir/${plugin}/src/handlers/foo.ts`)).not.toThrow();
       done();
     });
   });
@@ -38,7 +46,7 @@ describe('serverless e2e', () => {
     it('should add tags to nx.json', async (done) => {
       const plugin = uniq('serverless');
       await runNxCommandAsync(
-        `generate @ns3/nx-serverless:application ${plugin} --tags e2etag,e2ePackage`
+        `generate @ns3/nx-serverless:application ${plugin} --tags e2etag,e2ePackage`,
       );
       const nxJson = readJson('nx.json');
       expect(nxJson.projects[plugin].tags).toEqual(['e2etag', 'e2ePackage']);
