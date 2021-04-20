@@ -17,7 +17,7 @@ describe('nx-npm e2e', () => {
     ensureDirSync(tmpProjPath());
     cleanup();
     runNxNewCommand('', true);
-    patchPackageJsonForPlugin('@ns3/nx-serverless', 'dist/packages/nx-serverless');
+    patchPackageJsonForPlugin('@ns3/nx-npm', 'dist/packages/nx-npm');
     patchPackageJsonForPlugin('@ns3/nx-core', 'dist/packages/nx-core');
     runPackageManagerInstall();
     const pmc = getPackageManagerCommand();
