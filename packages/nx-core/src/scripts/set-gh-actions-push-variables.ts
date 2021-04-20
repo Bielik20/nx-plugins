@@ -5,7 +5,7 @@ import { execSync } from 'child_process';
 export function setGhActionsPushVariables() {
   try {
     const branch: string = github.context.ref.split('/').slice(2).join('/');
-    const base: string = execSync('git rev-list n 1 --tags', { encoding: 'utf8' });
+    const base: string = execSync('git rev-list -n 1 --tags', { encoding: 'utf8' });
 
     core.setOutput('branch', branch);
     core.setOutput('base', base);
