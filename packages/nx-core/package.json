@@ -8,6 +8,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "bin": {
+    "ns3": "./bin/ns3.js"
+  },
   "main": "src/index.js",
   "generators": "./generators.json",
   "executors": "./executors.json"
