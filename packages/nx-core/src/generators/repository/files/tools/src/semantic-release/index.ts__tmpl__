@@ -1,4 +1,8 @@
-import { runAffectedBuild, runAffectedPublish, runAffectedVersion } from './helpers';
+import {
+  runAffectedBuild,
+  runAffectedPublish,
+  runAffectedVersion,
+} from './helpers';
 import { SemanticMethod } from './types';
 
 export const prepare: SemanticMethod = async (config, context) => {
