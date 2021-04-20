@@ -1809,6 +1809,15 @@
   resolved "https://registry.yarnpkg.com/@ns3/nx-core/-/nx-core-0.3.1-beta.tgz#13abc988a1422fca22ec389b3ddef4d237f316ca"
   integrity sha512-mGFMWLQ0j5ffLorKdtL7Ys+VquX0puD2DUFXKpE7Gmu6oC7ckRw6vM0Q9Ry25vJyDaxWeNwVKW4XGOfCrhxT5w==
 
+"@ns3/nx-core@^0.3.1-alpha-update-workflow.1":
+  version "0.3.1-alpha-update-workflow.1"
+  resolved "https://registry.yarnpkg.com/@ns3/nx-core/-/nx-core-0.3.1-alpha-update-workflow.1.tgz#056a54082311b76d609a582009f7b34abc7c2d43"
+  integrity sha512-uBmvBmM6jxbbLlJCud9DOAhPA0ezPu1fz4e5bSisTniJjphV7EVps5YQiBoit6UGR3aZuXg3DYOk/qZd47p2YA==
+  dependencies:
+    "@actions/core" "^1.2.7"
+    "@actions/github" "^4.0.0"
+    yargs "^16.2.0"
+
 "@ns3/nx-npm@^0.3.1-beta":
   version "0.3.1-beta"
   resolved "https://registry.yarnpkg.com/@ns3/nx-npm/-/nx-npm-0.3.1-beta.tgz#f2094d705d375cbeaa16611ce62283bec959f5bf"
