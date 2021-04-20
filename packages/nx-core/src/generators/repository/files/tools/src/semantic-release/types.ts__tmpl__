@@ -2,7 +2,10 @@
  * A method which is used by semantic releases as script execution.
  * This is loaded and injected by semantic itself.
  */
-export type SemanticMethod = (config: SemanticOptions, context: SemanticContext) => any;
+export type SemanticMethod = (
+  config: SemanticOptions,
+  context: SemanticContext
+) => any;
 
 export interface SemanticContext {
   /** The semantic release configuration itself. */
