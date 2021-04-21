@@ -8,7 +8,7 @@
   },
   "scripts": {
     "postinstall": "npm run tools",
-    "ns3": "ns3",
+    "script": "node tools/src/scripts",
     "nx": "nx",
     "start": "nx serve",
     "build": "nx build",

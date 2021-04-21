@@ -31,19 +31,19 @@ jobs:
         run: yarn
       - name: Set Variables
         id: variables
-        run: yarn ns3 set-push-variables
+        run: yarn script set-push-variables
       - name: Set e2e
         id: set-e2e
-        run: yarn ns3 set-affected --target e2e --base ${{ steps.variables.outputs.base }}
+        run: yarn script set-affected --target e2e --base ${{ steps.variables.outputs.base }}
       - name: Set lint
         id: set-lint
-        run: yarn ns3 set-affected --target lint --base ${{ steps.variables.outputs.base }}
+        run: yarn script set-affected --target lint --base ${{ steps.variables.outputs.base }}
       - name: Set test
         id: set-test
-        run: yarn ns3 set-affected --target test --base ${{ steps.variables.outputs.base }}
+        run: yarn script set-affected --target test --base ${{ steps.variables.outputs.base }}
       - name: Set build
         id: set-build
-        run: yarn ns3 set-affected --target build --base ${{ steps.variables.outputs.base }} --with-deps
+        run: yarn script set-affected --target build --base ${{ steps.variables.outputs.base }} --with-deps
     outputs:
       e2e-array: ${{ steps.set-e2e.outputs.array }}
       lint-comma: ${{ steps.set-lint.outputs.comma-separated }}
@@ -139,3 +139,13 @@ jobs:
           key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
       - name: Execute
         run: yarn nx run ${{ matrix.project }}:e2e
+
+  e2e-done:
+    name: E2E
+    needs: [install, e2e]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check status
+        if: ${{ needs.e2e.result != 'success' && !contains(needs.install.outputs.e2e-array, '[]') }}
+        run: exit 1
