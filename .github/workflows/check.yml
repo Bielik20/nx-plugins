@@ -139,3 +139,13 @@ jobs:
           key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
       - name: Execute
         run: yarn nx run ${{ matrix.project }}:e2e
+
+  e2e-done:
+    name: E2E
+    needs: [install, e2e]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check status
+        if: ${{ needs.e2e.result != 'success' && !contains(needs.install.outputs.e2e-array, '[]') }}
+        run: exit 1
