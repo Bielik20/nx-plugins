@@ -1,7 +1,6 @@
 import { ExecutorContext } from '@nrwl/devkit';
 import { readNxJson } from '@nrwl/workspace';
-import { getProjectConfiguration } from '@ns3/nx-core';
-import { exec } from 'child_process';
+import { execProcess, getProjectConfiguration, log } from '@ns3/nx-core';
 import { PublishExecutorSchema } from './schema';
 
 export default async function runExecutor(
@@ -13,9 +12,11 @@ export default async function runExecutor(
   const nx = readNxJson();
   const npmrc = generateNpmrc(token, nx.npmScope);
 
-  await exec('rm -f .npmrc', { cwd: outputPath });
-  await exec(`echo "${npmrc}" >> .npmrc`, { cwd: outputPath });
-  await exec(`npm publish --dry-run ${options.dryRun}`, { cwd: outputPath });
+  await execProcess('rm -f .npmrc', { cwd: outputPath }).pipe(log()).toPromise();
+  await execProcess(`echo "${npmrc}" >> .npmrc`, { cwd: outputPath }).pipe(log()).toPromise();
+  await execProcess(`npm publish --dry-run ${options.dryRun}`, { cwd: outputPath })
+    .pipe(log())
+    .toPromise();
 
   return {
     success: true,
