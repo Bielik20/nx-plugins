@@ -32,6 +32,9 @@ jobs:
       - name: Set Variables
         id: variables
         run: yarn script set-push-variables
+      - name: Set build
+        id: set-build
+        run: yarn output-affected --target build --base ${{ steps.variables.outputs.base }} --with-deps
       - name: Set e2e
         id: set-e2e
         run: yarn script set-affected --target e2e --base ${{ steps.variables.outputs.base }}
@@ -43,8 +46,31 @@ jobs:
         run: yarn script set-affected --target test --base ${{ steps.variables.outputs.base }}
     outputs:
       e2e-array: ${{ steps.set-e2e.outputs.array }}
+      build-comma: ${{ steps.set-build.outputs.comma-separated }}
       lint-comma: ${{ steps.set-lint.outputs.comma-separated }}
       test-comma: ${{ steps.set-test.outputs.comma-separated }}
+
+  build:
+    name: Build
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Load Dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            tools/src/**/*.js
+          key: dependencies-${{ runner.os }}-${{ hashFiles('<%= lockFileName %>', 'tools/src/**/*.ts') }}
+      - name: Execute
+        if: ${{ needs.install.outputs.build-comma }}
+        run: yarn nx run-many --projects ${{ needs.install.outputs.build-comma }} --target build --parallel
 
   lint:
     name: Lint
