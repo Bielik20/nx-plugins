@@ -2,10 +2,7 @@
  * A method which is used by semantic releases as script execution.
  * This is loaded and injected by semantic itself.
  */
-export type SemanticMethod = (
-  config: SemanticOptions,
-  context: SemanticContext
-) => any;
+export type SemanticMethod = (config: SemanticOptions, context: SemanticContext) => any;
 
 export interface SemanticContext {
   /** The semantic release configuration itself. */
@@ -19,9 +16,14 @@ export interface SemanticContext {
     info: (message: string, ...vars: any[]) => void;
     error: (message: string, ...vars: any[]) => void;
   };
+  errors?: Error[];
   branch: SemanticBranch;
   branches: unknown[];
-  commits: unknown[];
+  /**
+   * Not available in Verify Conditions step
+   */
+  commits?: SemanticCommit[];
+  releases: unknown[];
   cwd: string;
   env: Record<string, string>;
   envCi: {
@@ -34,12 +36,14 @@ export interface SemanticContext {
 /**
  * The semantic release configuration itself.
  */
-export interface SemanticOptions {
+export type SemanticOptions = Record<string, string | boolean> & {
   /** The Git repository URL, in any supported format. */
   repositoryUrl: string;
   /** The Git tag format used by semantic-release to identify releases. */
   tagFormat: string;
-}
+  dryRun: boolean;
+  noCi: boolean;
+};
 
 export interface LastRelease {
   version: string;
@@ -56,6 +60,7 @@ export interface NextRelease {
   version: string;
   gitTag: string;
   name: string;
+  notes: string;
 }
 
 export interface SemanticBranch {
@@ -66,4 +71,28 @@ export interface SemanticBranch {
   range: string;
   accept: ('patch' | 'minor' | 'major')[];
   main: boolean;
+}
+
+export interface SemanticCommit {
+  commit: CommitOrTree;
+  tree: CommitOrTree;
+  author: AuthorOrCommitter;
+  committer: AuthorOrCommitter;
+  subject: string;
+  body: string;
+  hash: string;
+  committerDate: Date;
+  message: string;
+  gitTags: string;
+}
+
+interface CommitOrTree {
+  long: string;
+  short: string;
+}
+
+interface AuthorOrCommitter {
+  name: string;
+  email: string;
+  date: Date;
 }

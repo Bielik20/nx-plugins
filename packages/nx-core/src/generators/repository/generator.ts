@@ -2,12 +2,14 @@ import {
   addDependenciesToPackageJson,
   formatFiles,
   generateFiles,
-  readWorkspaceConfiguration,
   Tree,
   updateJson,
 } from '@nrwl/devkit';
+import { detectPackageManager } from '@nrwl/tao/src/shared/package-manager';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 import * as path from 'path';
+import { getPackageManagerInstall } from '../../utils/get-package-manager-install';
+import { getPackageManagerLockFile } from '../../utils/get-package-manager-lock-file';
 import { RepositoryGeneratorSchema } from './schema';
 
 export default async function (host: Tree, options: RepositoryGeneratorSchema) {
@@ -25,11 +27,14 @@ export default async function (host: Tree, options: RepositoryGeneratorSchema) {
 }
 
 function addFiles(host: Tree, options: RepositoryGeneratorSchema) {
-  const { npmScope } = readWorkspaceConfiguration(host);
+  const packageManager = detectPackageManager();
+  const installCommand = getPackageManagerInstall(packageManager);
+  const lockFileName = getPackageManagerLockFile(packageManager);
 
   const templateOptions = {
     ...options,
-    npmScope,
+    installCommand,
+    lockFileName,
     tmpl: '',
   };
 
@@ -77,9 +82,11 @@ function updateDependencies(host: Tree) {
     host,
     {
       lodash: '^4.17.20',
+      yargs: '^16.2.0',
     },
     {
       '@types/lodash': '^4.14.166',
+      '@types/yargs': '^16.0.1',
       '@commitlint/cli': '^11.0.0',
       '@commitlint/config-conventional': '^11.0.0',
       commitizen: '^4.2.2',
@@ -87,6 +94,6 @@ function updateDependencies(host: Tree) {
       husky: '^4.3.6',
       'lint-staged': '^10.5.3',
       'semantic-release': '^17.3.0',
-    }
+    },
   );
 }

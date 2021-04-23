@@ -3,7 +3,7 @@ on:
   push:
     branches-ignore:
       - master
-
+      - 'alpha/*'
 
 jobs:
   install:
@@ -14,12 +14,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Set Output
-        id: output
-        run: |
-          export LATEST_TAG_HASH=$(git rev-list -n 1 --tags)
-
-          echo "::set-output name=base::${LATEST_TAG_HASH}"
       - name: Cache Dependencies
         id: cache
         uses: actions/cache@v2
@@ -27,17 +21,30 @@ jobs:
           path: |
             node_modules
             tools/src/**/*.js
-          key: dependencies-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tools/src/**/*.ts') }}
+          key: dependencies-${{ runner.os }}-${{ hashFiles('<%= lockFileName %>', 'tools/src/**/*.ts') }}
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
           node-version: 12
       - name: Execute
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+        run: <%= installCommand %>
+      - name: Set Variables
+        id: variables
+        run: yarn script set-push-variables
+      - name: Set e2e
+        id: set-e2e
+        run: yarn script set-affected --target e2e --base ${{ steps.variables.outputs.base }}
+      - name: Set lint
+        id: set-lint
+        run: yarn script set-affected --target lint --base ${{ steps.variables.outputs.base }}
+      - name: Set test
+        id: set-test
+        run: yarn script set-affected --target test --base ${{ steps.variables.outputs.base }}
     outputs:
-      base: ${{ steps.output.outputs.base }}
-
+      e2e-array: ${{ steps.set-e2e.outputs.array }}
+      lint-comma: ${{ steps.set-lint.outputs.comma-separated }}
+      test-comma: ${{ steps.set-test.outputs.comma-separated }}
 
   lint:
     name: Lint
@@ -46,8 +53,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
@@ -58,10 +63,10 @@ jobs:
           path: |
             node_modules
             tools/src/**/*.js
-          key: dependencies-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tools/src/**/*.ts') }}
+          key: dependencies-${{ runner.os }}-${{ hashFiles('<%= lockFileName %>', 'tools/src/**/*.ts') }}
       - name: Execute
-        run: npm run nx -- affected:lint --parallel --base ${{ needs.install.outputs.base }} -- --quiet
-
+        if: ${{ needs.install.outputs.lint-comma }}
+        run: npm run nx -- run-many --projects ${{ needs.install.outputs.lint-comma }} --target lint --parallel -- --quiet
 
   test:
     name: Test
@@ -70,8 +75,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
@@ -82,44 +85,21 @@ jobs:
           path: |
             node_modules
             tools/src/**/*.js
-          key: dependencies-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tools/src/**/*.ts') }}
+          key: dependencies-${{ runner.os }}-${{ hashFiles('<%= lockFileName %>', 'tools/src/**/*.ts') }}
       - name: Execute
-        run: yarn affected:test --parallel --base ${{ needs.install.outputs.base }}
-
-
-  build:
-    name: Build
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - name: Load Dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            tools/src/**/*.js
-          key: dependencies-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tools/src/**/*.ts') }}
-      - name: Execute
-        run: yarn affected:build --parallel --base ${{ needs.install.outputs.base }} --with-deps
-
+        if: ${{ needs.install.outputs.test-comma }}
+        run: yarn nx run-many --projects ${{ needs.install.outputs.test-comma }} --target test --parallel
 
   e2e:
     name: E2E
     needs: [install]
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: ${{ fromJson(needs.install.outputs.e2e-array) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
@@ -130,8 +110,16 @@ jobs:
           path: |
             node_modules
             tools/src/**/*.js
-          key: dependencies-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tools/src/**/*.ts') }}
-      - name: Install Cypress
-        run: npm rebuild cypress
+          key: dependencies-${{ runner.os }}-${{ hashFiles('<%= lockFileName %>', 'tools/src/**/*.ts') }}
       - name: Execute
-        run: yarn affected:e2e --parallel --base ${{ needs.install.outputs.base }}
+        run: yarn nx run ${{ matrix.project }}:e2e
+
+  e2e-done:
+    name: E2E
+    needs: [install, e2e]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check status
+        if: ${{ needs.e2e.result != 'success' && !contains(needs.install.outputs.e2e-array, '[]') }}
+        run: exit 1
