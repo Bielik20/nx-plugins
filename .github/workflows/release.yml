@@ -4,6 +4,9 @@ on:
     branches:
       - master
       - 'alpha/*'
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
   install:
@@ -14,12 +17,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Set Output
-        id: output
-        run: |
-          export LATEST_TAG_HASH=$(git rev-list -n 1 --tags)
-
-          echo "::set-output name=base::${LATEST_TAG_HASH}"
       - name: Cache Dependencies
         id: cache
         uses: actions/cache@v2
@@ -35,87 +32,52 @@ jobs:
       - name: Execute
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn
+      - name: Start Release
+        id: semantic
+        run: npx semantic-release --dry-run
+      - name: Set build
+        id: set-build
+        #  We only want to build publishable libs, hence target publish
+        run: yarn output-affected --target publish --base ${{ steps.semantic.outputs.last-head }} --with-deps
     outputs:
-      base: ${{ steps.output.outputs.base }}
+      next-version: ${{ steps.semantic.outputs.next-version }}
+      build-comma: ${{ steps.set-build.outputs.comma-separated }}
 
-  lint:
-    name: Lint
+  publish-libs:
+    name: Publish Libs
     needs: install
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
           node-version: 12
-      - name: Load Dependencies
+      - name: Cache Dependencies
         uses: actions/cache@v2
         with:
           path: |
             node_modules
             tools/src/**/*.js
           key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
-      - name: Execute
-        run: npm run nx -- affected:lint --parallel --base ${{ needs.install.outputs.base }} -- --quiet
-
-  test:
-    name: Test
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - name: Load Dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            tools/src/**/*.js
-          key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
-      - name: Execute
-        run: yarn affected:test --parallel --base ${{ needs.install.outputs.base }}
-
-  e2e:
-    name: E2E
-    needs: [install]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - name: Load Dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            tools/src/**/*.js
-          key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
-      - name: Execute
-        run: yarn affected:e2e --base ${{ needs.install.outputs.base }}
+      - name: Version
+        if: ${{ needs.install.outputs.build-comma }}
+        run: yarn nx run-many --projects ${{ needs.install.outputs.build-comma }} --target version --parallel --pkgVersion ${{ needs.install.outputs.next-version }}
+      - name: Build
+        if: ${{ needs.install.outputs.build-comma }}
+        run: yarn nx run-many --projects ${{ needs.install.outputs.build-comma }} --target build --parallel --buildableProjectDepsInPackageJsonType dependencies
+      - name: Publish
+        if: ${{ needs.install.outputs.build-comma }}
+        run: yarn nx run-many --projects ${{ needs.install.outputs.build-comma }} --target publish --parallel
 
   release:
     name: Release
-    needs: [install, lint, test, e2e]
+    needs: [install, publish-libs]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
@@ -128,7 +90,4 @@ jobs:
             tools/src/**/*.js
           key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
       - name: Execute
-        run: npx semantic-release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release --failure ${{ needs.publish-libs.result != 'success' }}
