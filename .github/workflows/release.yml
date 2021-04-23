@@ -35,13 +35,13 @@ jobs:
       - name: Start Release
         id: semantic
         run: npx semantic-release --dry-run
-      - name: Set build
-        id: set-build
+      - name: Set publish
+        id: set-publish
         #  We only want to build publishable libs, hence target publish
-        run: yarn output-affected --target publish --base ${{ steps.semantic.outputs.last-head }} --with-deps
+        run: yarn script set-affected --target publish --base ${{ steps.semantic.outputs.last-head || 'HEAD' }} --with-deps
     outputs:
-      next-version: ${{ steps.semantic.outputs.next-version }}
-      build-comma: ${{ steps.set-build.outputs.comma-separated }}
+      next-version: ${{ steps.semantic.outputs.next-version || '0.0.0' }}
+      publish-comma: ${{ steps.set-publish.outputs.comma-separated }}
 
   publish-libs:
     name: Publish Libs
@@ -54,7 +54,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
-      - name: Cache Dependencies
+      - name: Load Dependencies
         uses: actions/cache@v2
         with:
           path: |
@@ -62,18 +62,19 @@ jobs:
             tools/src/**/*.js
           key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
       - name: Version
-        if: ${{ needs.install.outputs.build-comma }}
-        run: yarn nx run-many --projects ${{ needs.install.outputs.build-comma }} --target version --parallel --pkgVersion ${{ needs.install.outputs.next-version }}
+        if: ${{ needs.install.outputs.publish-comma }}
+        run: yarn nx run-many --projects ${{ needs.install.outputs.publish-comma }} --target version --parallel --pkgVersion ${{ needs.install.outputs.next-version }}
       - name: Build
-        if: ${{ needs.install.outputs.build-comma }}
-        run: yarn nx run-many --projects ${{ needs.install.outputs.build-comma }} --target build --parallel --buildableProjectDepsInPackageJsonType dependencies
+        if: ${{ needs.install.outputs.publish-comma }}
+        run: yarn nx run-many --projects ${{ needs.install.outputs.publish-comma }} --target build --parallel --buildableProjectDepsInPackageJsonType dependencies
       - name: Publish
-        if: ${{ needs.install.outputs.build-comma }}
-        run: yarn nx run-many --projects ${{ needs.install.outputs.build-comma }} --target publish --parallel
+        if: ${{ needs.install.outputs.publish-comma }}
+        run: yarn nx run-many --projects ${{ needs.install.outputs.publish-comma }} --target publish --parallel
 
   release:
     name: Release
     needs: [install, publish-libs]
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
