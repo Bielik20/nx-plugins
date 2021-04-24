@@ -8,7 +8,7 @@ import {
   uniq,
 } from '@nrwl/nx-plugin/testing';
 import { getPackageManagerCommand } from '@nrwl/tao/src/shared/package-manager';
-import { runNxNewCommand } from '@ns3/nx-core';
+import { runNxNewCommand } from '@ns3/nx-core/testing-utils/run-nx-new-command';
 import { readFileSync, writeFileSync } from 'fs';
 import { ensureDirSync } from 'fs-extra';
 

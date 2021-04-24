@@ -8,7 +8,7 @@ import {
   tmpProjPath,
   uniq,
 } from '@nrwl/nx-plugin/testing';
-import { runNxNewCommand } from '@ns3/nx-core';
+import { runNxNewCommand } from '@ns3/nx-core/testing-utils/run-nx-new-command';
 import { ensureDirSync } from 'fs-extra';
 
 describe('serverless e2e', () => {
