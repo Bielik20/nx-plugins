@@ -1,5 +1,5 @@
-import { ExecutorContext } from '@nrwl/tao/src/shared/workspace';
-import runCommands from '@nrwl/workspace/src/executors/run-commands/run-commands.impl';
+import { ExecutorContext } from '@nrwl/devkit';
+import runCommands from "@nrwl/workspace/src/executors/run-commands/run-commands.impl";
 import { getProjectConfiguration, stringifyArgs } from '@ns3/nx-core';
 import { preventPackage } from '../../utils/prevent-package';
 import { printCommand } from '../../utils/print-command';
