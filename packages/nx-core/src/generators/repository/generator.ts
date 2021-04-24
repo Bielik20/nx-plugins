@@ -59,6 +59,7 @@ function updatePackageJson(host: Tree) {
     json.version = '0.0.0-development';
     json.scripts = {
       postinstall: 'npm run tools',
+      script: 'node tools/src/scripts',
       ...(json.scripts || {}),
       commit: 'git-cz',
       tools: 'tsc --project tools/src/tsconfig.json',
