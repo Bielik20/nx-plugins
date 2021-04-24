@@ -1,4 +1,4 @@
-import { ExecutorContext } from '@nrwl/tao/src/shared/workspace';
+import { ExecutorContext } from '@nrwl/devkit';
 
 export const testContext: ExecutorContext = {
   root: '/base/ns3/tmp/nx-e2e/proj',
