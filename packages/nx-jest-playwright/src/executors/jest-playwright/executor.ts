@@ -54,6 +54,7 @@ async function runJest(
     testEnvironmentOptions: {
       ...(testEnvironmentOptions as Record<string, unknown>),
       'jest-playwright': {
+        ...jestPlaywrightOptions,
         browsers: browsers ?? jestPlaywrightOptions.browsers,
         launchOptions: {
           ...jestPlaywrightLaunchOptions,
