@@ -1,18 +1,11 @@
-import {
-  addDependenciesToPackageJson,
-  formatFiles,
-  GeneratorCallback,
-  Tree,
-} from '@nrwl/devkit';
+import { addDependenciesToPackageJson, formatFiles, GeneratorCallback, Tree } from '@nrwl/devkit';
 import { jestInitGenerator } from '@nrwl/jest';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 import { setDefaultCollection } from '@nrwl/workspace/src/utilities/set-default-collection';
+import { dependencies, devDependencies } from '@ns3/nx-core';
 import { InitGeneratorSchema } from './schema';
 
-export default async function serverlessInitGenerator(
-  host: Tree,
-  options: InitGeneratorSchema
-) {
+export default async function serverlessInitGenerator(host: Tree, options: InitGeneratorSchema) {
   const tasks: GeneratorCallback[] = [];
 
   setDefaultCollection(host, '@ns3/nx-serverless');
@@ -37,14 +30,14 @@ function updateDependencies(host: Tree) {
   return addDependenciesToPackageJson(
     host,
     {
-      'serverless-http': '^2.6.1',
+      'serverless-http': dependencies['serverless-http'],
     },
     {
       '@ns3/nx-serverless': '*',
-      serverless: '^2.20.1',
-      'serverless-bundle': '^4.2.0',
-      'serverless-offline': '^6.8.0',
-    }
+      serverless: devDependencies['serverless'],
+      'serverless-bundle': devDependencies['serverless-bundle'],
+      'serverless-offline': devDependencies['serverless-offline'],
+    },
   );
 }
 
