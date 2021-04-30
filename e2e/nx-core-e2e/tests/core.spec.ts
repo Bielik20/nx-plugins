@@ -1,4 +1,4 @@
-import { ensureNxProject, runNxCommandAsync } from '@nrwl/nx-plugin/testing';
+import { ensureNxProject, runCommandAsync, runNxCommandAsync } from '@nrwl/nx-plugin/testing';
 
 describe('core e2e', () => {
   beforeAll(() => {
@@ -6,6 +6,7 @@ describe('core e2e', () => {
   });
 
   it('should run generator', async (done) => {
+    await runCommandAsync(`git init`);
     await runNxCommandAsync(`generate @ns3/nx-core:repository`);
 
     done();

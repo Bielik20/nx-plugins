@@ -8,6 +8,7 @@ import {
 import { detectPackageManager } from '@nrwl/tao/src/shared/package-manager';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 import * as path from 'path';
+import { dependencies, devDependencies } from '../../utils/dependencies';
 import { getPackageManagerInstall } from '../../utils/get-package-manager-install';
 import { getPackageManagerLockFile } from '../../utils/get-package-manager-lock-file';
 import { RepositoryGeneratorSchema } from './schema';
@@ -36,6 +37,7 @@ function addFiles(host: Tree, options: RepositoryGeneratorSchema) {
     installCommand,
     lockFileName,
     tmpl: '',
+    'ext.ext': '',
   };
 
   generateFiles(host, path.join(__dirname, 'files'), './', templateOptions);
@@ -58,11 +60,12 @@ function updatePackageJson(host: Tree) {
   updateJson(host, 'package.json', (json) => {
     json.version = '0.0.0-development';
     json.scripts = {
-      postinstall: 'npm run tools',
       script: 'node tools/src/scripts',
       ...(json.scripts || {}),
       commit: 'git-cz',
       tools: 'tsc --project tools/src/tsconfig.json',
+      postinstall: 'npm run tools',
+      prepare: 'husky install',
       'semantic-release': 'semantic-release',
     };
     json.config = {
@@ -82,19 +85,19 @@ function updateDependencies(host: Tree) {
   return addDependenciesToPackageJson(
     host,
     {
-      lodash: '^4.17.20',
-      yargs: '^16.2.0',
+      lodash: dependencies.lodash,
+      yargs: dependencies.yargs,
     },
     {
-      '@types/lodash': '^4.14.166',
-      '@types/yargs': '^16.0.1',
-      '@commitlint/cli': '^11.0.0',
-      '@commitlint/config-conventional': '^11.0.0',
-      commitizen: '^4.2.2',
-      'cz-conventional-changelog': '^3.3.0',
-      husky: '^4.3.6',
-      'lint-staged': '^10.5.3',
-      'semantic-release': '^17.3.0',
+      '@types/lodash': devDependencies['@types/lodash'],
+      '@types/yargs': devDependencies['@types/yargs'],
+      '@commitlint/cli': devDependencies['@commitlint/cli'],
+      '@commitlint/config-conventional': devDependencies['@commitlint/config-conventional'],
+      commitizen: devDependencies['commitizen'],
+      'cz-conventional-changelog': devDependencies['cz-conventional-changelog'],
+      husky: devDependencies['husky'],
+      'lint-staged': devDependencies['lint-staged'],
+      'semantic-release': devDependencies['semantic-release'],
     },
   );
 }

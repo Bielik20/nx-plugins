@@ -28,7 +28,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 14
       - name: Execute
         if: steps.cache.outputs.cache-hit != 'true'
         run: <%= installCommand %>
@@ -53,7 +53,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 14
       - name: Load Dependencies
         uses: actions/cache@v2
         with:
@@ -82,7 +82,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 14
       - name: Load Dependencies
         uses: actions/cache@v2
         with:
