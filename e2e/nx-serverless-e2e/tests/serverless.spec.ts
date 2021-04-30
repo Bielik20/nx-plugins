@@ -1,24 +1,12 @@
-import {
-  checkFilesExist,
-  cleanup,
-  patchPackageJsonForPlugin,
-  readJson,
-  runNxCommandAsync,
-  runPackageManagerInstall,
-  tmpProjPath,
-  uniq,
-} from '@nrwl/nx-plugin/testing';
-import { runNxNewCommand } from '@ns3/nx-core/testing-utils/run-nx-new-command';
-import { ensureDirSync } from 'fs-extra';
+import { checkFilesExist, readJson, runNxCommandAsync, uniq } from '@nrwl/nx-plugin/testing';
+import { ensureComplexNxProject } from '@ns3/nx-core/testing-utils/ensure-complex-nx-project';
 
 describe('serverless e2e', () => {
   beforeAll(() => {
-    ensureDirSync(tmpProjPath());
-    cleanup();
-    runNxNewCommand('', true);
-    patchPackageJsonForPlugin('@ns3/nx-serverless', 'dist/packages/nx-serverless');
-    patchPackageJsonForPlugin('@ns3/nx-core', 'dist/packages/nx-core');
-    runPackageManagerInstall();
+    ensureComplexNxProject(
+      ['@ns3/nx-serverless', 'dist/packages/nx-serverless'],
+      ['@ns3/nx-core', 'dist/packages/nx-core'],
+    );
   });
 
   it('should create serverless', async (done) => {

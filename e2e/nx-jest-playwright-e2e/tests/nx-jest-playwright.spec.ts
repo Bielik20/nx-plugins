@@ -1,14 +1,12 @@
-import {
-  checkFilesExist,
-  ensureNxProject,
-  readJson,
-  runNxCommandAsync,
-  uniq,
-} from '@nrwl/nx-plugin/testing';
+import { checkFilesExist, readJson, runNxCommandAsync, uniq } from '@nrwl/nx-plugin/testing';
+import { ensureComplexNxProject } from '@ns3/nx-core/testing-utils/ensure-complex-nx-project';
 
 describe('nx-jest-playwright e2e', () => {
   beforeAll(() => {
-    ensureNxProject('@ns3/nx-jest-playwright', 'dist/packages/nx-jest-playwright');
+    ensureComplexNxProject(
+      ['@ns3/nx-jest-playwright', 'dist/packages/nx-jest-playwright'],
+      ['@ns3/nx-core', 'dist/packages/nx-core'],
+    );
   });
 
   it('should create nx-jest-playwright', async (done) => {

@@ -1,25 +1,14 @@
-import {
-  cleanup,
-  patchPackageJsonForPlugin,
-  runCommandAsync,
-  runNxCommandAsync,
-  runPackageManagerInstall,
-  tmpProjPath,
-  uniq,
-} from '@nrwl/nx-plugin/testing';
+import { runCommandAsync, runNxCommandAsync, tmpProjPath, uniq } from '@nrwl/nx-plugin/testing';
 import { getPackageManagerCommand } from '@nrwl/tao/src/shared/package-manager';
-import { runNxNewCommand } from '@ns3/nx-core/testing-utils/run-nx-new-command';
+import { ensureComplexNxProject } from '@ns3/nx-core/testing-utils/ensure-complex-nx-project';
 import { readFileSync, writeFileSync } from 'fs';
-import { ensureDirSync } from 'fs-extra';
 
 describe('nx-npm e2e', () => {
   beforeAll(async () => {
-    ensureDirSync(tmpProjPath());
-    cleanup();
-    runNxNewCommand('', true);
-    patchPackageJsonForPlugin('@ns3/nx-npm', 'dist/packages/nx-npm');
-    patchPackageJsonForPlugin('@ns3/nx-core', 'dist/packages/nx-core');
-    runPackageManagerInstall();
+    ensureComplexNxProject(
+      ['@ns3/nx-npm', 'dist/packages/nx-npm'],
+      ['@ns3/nx-core', 'dist/packages/nx-core'],
+    );
     const pmc = getPackageManagerCommand();
     await runCommandAsync(`${pmc.addDev} @nrwl/node`);
     const p = JSON.parse(readFileSync(tmpProjPath('package.json')).toString());
