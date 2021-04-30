@@ -32,7 +32,8 @@
     "help": "nx help",
     "commit": "git-cz",
     "tools": "tsc --project tools/src/tsconfig.json",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
@@ -68,7 +69,7 @@
     "dotenv": "8.2.0",
     "eslint": "7.22.0",
     "eslint-config-prettier": "8.1.0",
-    "husky": "^4.3.6",
+    "husky": "^6.0.0",
     "jest": "26.2.2",
     "jest-playwright-preset": "^1.4.5",
     "lint-staged": "^10.5.3",
