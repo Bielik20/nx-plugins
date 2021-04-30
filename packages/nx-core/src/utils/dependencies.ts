@@ -1,7 +1,4 @@
 export const dependencies = {
-  '@actions/core': '^1.2.7',
-  '@actions/github': '^4.0.0',
-  '@types/fs-extra': '^9.0.11',
   'fs-extra': '^9.1.0',
   lodash: '^4.17.20',
   'serverless-http': '^2.6.1',
@@ -9,6 +6,8 @@ export const dependencies = {
 } as const;
 
 export const devDependencies = {
+  '@actions/core': '^1.2.7',
+  '@actions/github': '^4.0.0',
   '@commitlint/cli': '^12.1.1',
   '@commitlint/config-conventional': '^12.1.1',
   '@nrwl/cli': '12.0.8',
@@ -20,7 +19,7 @@ export const devDependencies = {
   '@nrwl/nx-plugin': '12.0.8',
   '@nrwl/tao': '12.0.8',
   '@nrwl/workspace': '12.0.8',
-  '@ns3/nx-npm': '^0.4.2',
+  '@types/fs-extra': '^9.0.11',
   '@types/jest': '26.0.8',
   '@types/lodash': '^4.14.166',
   '@types/node': '14.14.33',

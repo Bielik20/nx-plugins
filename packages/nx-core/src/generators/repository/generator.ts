@@ -89,6 +89,8 @@ function updateDependencies(host: Tree) {
       yargs: dependencies.yargs,
     },
     {
+      '@actions/core': devDependencies['@actions/core'],
+      '@actions/github': devDependencies['@actions/github'],
       '@types/lodash': devDependencies['@types/lodash'],
       '@types/yargs': devDependencies['@types/yargs'],
       '@commitlint/cli': devDependencies['@commitlint/cli'],
