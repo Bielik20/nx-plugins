@@ -63,6 +63,9 @@ jobs:
           key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
       - name: Version
         if: ${{ needs.install.outputs.publish-comma }}
+        run: yarn add @ns3/nx-npm
+      - name: Version
+        if: ${{ needs.install.outputs.publish-comma }}
         run: yarn nx run-many --projects ${{ needs.install.outputs.publish-comma }} --target version --parallel --pkgVersion ${{ needs.install.outputs.next-version }}
       - name: Build
         if: ${{ needs.install.outputs.publish-comma }}
