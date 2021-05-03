@@ -34,7 +34,7 @@ jobs:
         run: yarn script set-push-variables
       - name: Set build
         id: set-build
-        run: yarn output-affected --target build --base ${{ steps.variables.outputs.base }} --with-deps
+        run: yarn script set-affected --target build --base ${{ steps.variables.outputs.base }} --with-deps
       - name: Set e2e
         id: set-e2e
         run: yarn script set-affected --target e2e --base ${{ steps.variables.outputs.base }}
