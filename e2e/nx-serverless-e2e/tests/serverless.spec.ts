@@ -13,8 +13,11 @@ describe('serverless e2e', () => {
     const plugin = uniq('nx-serverless');
     await runNxCommandAsync(`generate @ns3/nx-serverless:application ${plugin}`);
 
-    const result = await runNxCommandAsync(`build ${plugin}`);
-    expect(result.stdout).toContain('Running: sls package');
+    const buildResult = await runNxCommandAsync(`build ${plugin}`);
+    expect(buildResult.stdout).toContain('Running: sls package');
+
+    const lintResult = await runNxCommandAsync(`lint ${plugin}`);
+    expect(lintResult.stdout).not.toContain('error Command failed with exit code 1.');
 
     done();
   });
