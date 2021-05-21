@@ -5,7 +5,7 @@ plugins:
   - serverless-offline
 
 custom:
-  stage: ${opt:serviceStage, 'dev'}
+  stage: ${opt:stage, 'dev'}
   bundle:
     linting: false
     tsConfig: 'tsconfig.app.json'
