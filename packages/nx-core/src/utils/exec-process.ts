@@ -13,7 +13,7 @@ export function execProcess(command: string, options: ExecOptions = {}): Observa
   return new Observable<ProcessOutput>((observer) => {
     const child = exec(command, {
       ...options,
-      env: processEnv(),
+      env: processEnv(options.env),
     });
     const processExitListener = () => {
       observer.complete();
@@ -39,8 +39,8 @@ export function execProcess(command: string, options: ExecOptions = {}): Observa
   });
 }
 
-function processEnv() {
-  return { ...process.env, FORCE_COLOR: 'true' };
+function processEnv(env = process.env) {
+  return { ...env, FORCE_COLOR: 'true' };
 }
 
 export function log() {
