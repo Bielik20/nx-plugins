@@ -1,19 +1,15 @@
 import { exec, ExecOptions } from 'child_process';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { ProcessOutput } from './process-output';
 
-interface ProcessOutput {
-  data: Buffer | string;
-  type: 'ERR' | 'OUT';
-}
-
-export type ProcessArgs = (string | ProcessArgs)[];
-
-export function execProcess(command: string, options: ExecOptions = {}): Observable<ProcessOutput> {
+export function execProcess(
+  command: string,
+  { env = process.env, ...options }: ExecOptions = {},
+): Observable<ProcessOutput> {
   return new Observable<ProcessOutput>((observer) => {
     const child = exec(command, {
       ...options,
-      env: processEnv(options.env),
+      env: processEnv(env),
     });
     const processExitListener = () => {
       observer.complete();
@@ -39,24 +35,6 @@ export function execProcess(command: string, options: ExecOptions = {}): Observa
   });
 }
 
-function processEnv(env = process.env) {
-  return { ...env, FORCE_COLOR: 'true' };
-}
-
-export function log() {
-  return (source: Observable<ProcessOutput>): Observable<ProcessOutput> =>
-    source.pipe(
-      tap(({ type, data }) => {
-        if (type === 'OUT') {
-          process.stdout.write(data);
-        } else {
-          process.stderr.write(data);
-        }
-      }),
-    );
-}
-
-export function data() {
-  return (source: Observable<ProcessOutput>): Observable<string> =>
-    source.pipe(map(({ data }) => data.toString().trim()));
+function processEnv(env) {
+  return { FORCE_COLOR: 'true', ...env };
 }
