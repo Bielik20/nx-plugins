@@ -16,7 +16,7 @@ import { updateJestConfig } from './lib/update-jestconfig';
 import { NxJestPlaywrightGeneratorSchema } from './schema';
 
 export default async function (host: Tree, options: NxJestPlaywrightGeneratorSchema) {
-  const normalizedOptions = normalizeOptions(host, options);
+  const normalizedOptions = normalizeOptions(host, { ...options, type: 'app' });
   const jestPlaywrightInitTask = await jestPlaywrightInitGenerator(host, { skipFormat: true });
 
   addProjectConfiguration(host, normalizedOptions.projectName, {

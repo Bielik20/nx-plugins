@@ -18,7 +18,7 @@ import { ServerlessGeneratorNormalizedSchema } from './lib/normalized-options';
 import { ServerlessGeneratorSchema } from './schema';
 
 export default async function (host: Tree, options: ServerlessGeneratorSchema) {
-  const normalizedOptions = normalizeOptions(host, options);
+  const normalizedOptions = normalizeOptions(host, { ...options, type: 'app' });
   const outputPath = getOutputPath(normalizedOptions);
   const out = getOutTscPath(normalizedOptions);
   const serverlessInitTask = await serverlessInitGenerator(host, {
