@@ -1,8 +1,8 @@
 import { Tree } from '@nrwl/devkit';
 import { jestProjectGenerator } from '@nrwl/jest';
-import { NormalizedSchema } from './normalize-options';
+import { ServerlessGeneratorNormalizedSchema } from './normalized-options';
 
-export async function addJest(host: Tree, options: NormalizedSchema) {
+export async function addJest(host: Tree, options: ServerlessGeneratorNormalizedSchema) {
   if (options.unitTestRunner !== 'jest') {
     return () => undefined;
   }

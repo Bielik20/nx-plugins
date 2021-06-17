@@ -1,6 +1,6 @@
 import { join, relative } from 'path';
-import { NormalizedSchema } from './normalize-options';
+import { ServerlessGeneratorNormalizedSchema } from './normalized-options';
 
-export function getOutTscPath(options: NormalizedSchema) {
+export function getOutTscPath(options: ServerlessGeneratorNormalizedSchema) {
   return relative(options.projectRoot, join('dist', 'out-tsc', options.projectRoot));
 }

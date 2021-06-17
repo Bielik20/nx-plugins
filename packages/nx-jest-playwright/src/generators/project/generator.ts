@@ -7,10 +7,11 @@ import {
   Tree,
 } from '@nrwl/devkit';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
+import { normalizeOptions } from '@ns3/nx-core';
 import * as path from 'path';
 import jestPlaywrightInitGenerator from '../init/generator';
 import { addLinting } from './lib/add-linting';
-import { NormalizedSchema, normalizeOptions } from './lib/normalize-options';
+import { NxJestPlaywrightGeneratorNormalizedSchema } from './lib/normalize-options';
 import { updateJestConfig } from './lib/update-jestconfig';
 import { NxJestPlaywrightGeneratorSchema } from './schema';
 
@@ -53,7 +54,7 @@ export default async function (host: Tree, options: NxJestPlaywrightGeneratorSch
   return runTasksInSerial(jestPlaywrightInitTask, lintTask);
 }
 
-function addFiles(host: Tree, options: NormalizedSchema) {
+function addFiles(host: Tree, options: NxJestPlaywrightGeneratorNormalizedSchema) {
   const templateOptions = {
     ...options,
     ...names(options.name),
