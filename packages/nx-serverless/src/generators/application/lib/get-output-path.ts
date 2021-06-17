@@ -1,6 +1,6 @@
 import { join } from 'path';
-import { NormalizedSchema } from './normalize-options';
+import { ServerlessGeneratorNormalizedSchema } from './normalized-options';
 
-export function getOutputPath(options: NormalizedSchema) {
+export function getOutputPath(options: ServerlessGeneratorNormalizedSchema) {
   return join(options.projectRoot, '.serverless');
 }

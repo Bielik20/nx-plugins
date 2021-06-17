@@ -1,7 +1,7 @@
 import { Tree } from '@nrwl/devkit';
 import { addPropertyToJestConfig } from '@nrwl/jest';
-import { NormalizedSchema } from './normalize-options';
+import { NxJestPlaywrightGeneratorNormalizedSchema } from './normalize-options';
 
-export function updateJestConfig(host: Tree, options: NormalizedSchema) {
+export function updateJestConfig(host: Tree, options: NxJestPlaywrightGeneratorNormalizedSchema) {
   addPropertyToJestConfig(host, 'jest.config.js', 'projects', `<rootDir>/${options.projectRoot}`);
 }

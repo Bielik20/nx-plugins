@@ -7,13 +7,14 @@ import {
   Tree,
 } from '@nrwl/devkit';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
+import { normalizeOptions } from '@ns3/nx-core';
 import { join } from 'path';
 import serverlessInitGenerator from '../init/generator';
 import { addJest } from './lib/add-jest';
 import { addLinting } from './lib/add-linting';
 import { getOutTscPath } from './lib/get-out-tsc-path';
 import { getOutputPath } from './lib/get-output-path';
-import { NormalizedSchema, normalizeOptions } from './lib/normalize-options';
+import { ServerlessGeneratorNormalizedSchema } from './lib/normalized-options';
 import { ServerlessGeneratorSchema } from './schema';
 
 export default async function (host: Tree, options: ServerlessGeneratorSchema) {
@@ -68,7 +69,7 @@ export default async function (host: Tree, options: ServerlessGeneratorSchema) {
   return runTasksInSerial(serverlessInitTask, jestTask, lintTask);
 }
 
-function addFiles(host: Tree, options: NormalizedSchema) {
+function addFiles(host: Tree, options: ServerlessGeneratorNormalizedSchema) {
   const templateOptions = {
     ...options,
     ...names(options.name),

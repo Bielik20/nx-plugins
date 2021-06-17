@@ -1,11 +1,11 @@
 import { GeneratorCallback, joinPathFragments, Tree, updateJson } from '@nrwl/devkit';
 import { Linter, lintProjectGenerator } from '@nrwl/linter';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
-import { NormalizedSchema } from './normalize-options';
+import { ServerlessGeneratorNormalizedSchema } from './normalized-options';
 
 export async function addLinting(
   host: Tree,
-  options: NormalizedSchema,
+  options: ServerlessGeneratorNormalizedSchema,
 ): Promise<GeneratorCallback> {
   const lintTask = await lintProjectGenerator(host, {
     linter: options.linter,
