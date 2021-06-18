@@ -12,7 +12,7 @@ npm i -D @ns3/nx-jest-playwright
 ## Generate
 
 ```
-nx generate @ns3/nx-jest-playwright:project my-desktop-e2e --projet my-destkop
+nx generate @ns3/nx-jest-playwright:project my-desktop-e2e --project my-destkop
 ```
 
 Providing `project` flag will generate a config that targets this frontend application.
