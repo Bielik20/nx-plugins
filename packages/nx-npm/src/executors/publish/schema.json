@@ -9,6 +9,11 @@
       "type": "string",
       "description": "NPM_TOKEN used to publish package. Fallbacks to NPM_TOKEN in env."
     },
+    "npmRegistry": {
+      "type": "string",
+      "description": "The base URL of the npm package registry.",
+      "default": "registry.npmjs.org"
+    },
     "dryRun": {
       "type": "boolean",
       "description": "Whether to actually publish or not.",
