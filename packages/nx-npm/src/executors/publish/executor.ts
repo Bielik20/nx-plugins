@@ -10,7 +10,7 @@ export default async function runExecutor(
   const token = getNpmToken(options);
   const outputPath = await getOutputPath(context);
   const nx = readNxJson();
-  const npmrc = generateNpmrc(token, nx.npmScope);
+  const npmrc = generateNpmrc(token, nx.npmScope, options.npmRegistry);
 
   await execProcess('rm -f .npmrc', { cwd: outputPath }).pipe(log()).toPromise();
   await execProcess(`echo "${npmrc}" >> .npmrc`, { cwd: outputPath }).pipe(log()).toPromise();
@@ -43,10 +43,9 @@ function getNpmToken(options: PublishExecutorSchema): string {
   return token;
 }
 
-function generateNpmrc(npmToken: string, npmScope: string): string {
+function generateNpmrc(npmToken: string, npmScope: string, npmRegistry: string): string {
   return `
-registry=http://registry.npmjs.org/
-//registry.npmjs.org/:_authToken=${npmToken}
-@${npmScope}:registry=https://registry.npmjs.org/
+//${npmRegistry}/:_authToken=${npmToken}
+@${npmScope}:registry=https://${npmRegistry}/
 `.trim();
 }
