@@ -1,8 +1,8 @@
 import { cleanup, runPackageManagerInstall, tmpProjPath } from '@nrwl/nx-plugin/testing';
 import { appRootPath } from '@nrwl/workspace/src/utilities/app-root';
-import { runNxNewCommand } from '@ns3/nx-core/testing-utils/run-nx-new-command';
 import { readFileSync, writeFileSync } from 'fs';
 import { ensureDirSync } from 'fs-extra';
+import { runNxNewCommand } from './run-nx-new-command';
 
 type PluginInput = [npmPackageName: string, pluginDistPath: string];
 
