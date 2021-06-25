@@ -45,12 +45,13 @@ async function runJest(
   fileConfig: Config.Argv,
 ) {
   const { slowMo, devtools, headless, browsers, timeout } = options;
-  const { testEnvironmentOptions = {} } = fileConfig;
+  const { testEnvironmentOptions = {}, globals = {} } = fileConfig;
   const jestPlaywrightOptions = testEnvironmentOptions['jest-playwright'] || {};
   const jestPlaywrightLaunchOptions = jestPlaywrightOptions.launchOptions || {};
 
   const config = {
     ...parsedConfig,
+    globals: JSON.stringify({ ...globals, baseUrl }),
     testEnvironmentOptions: {
       ...(testEnvironmentOptions as Record<string, unknown>),
       'jest-playwright': {
@@ -62,7 +63,6 @@ async function runJest(
           devtools: devtools ?? jestPlaywrightLaunchOptions.devtools,
           slowMo: slowMo ?? jestPlaywrightLaunchOptions.slowMo,
           timeout: timeout ?? jestPlaywrightLaunchOptions.timeout,
-          baseUrl,
         },
       },
     },
