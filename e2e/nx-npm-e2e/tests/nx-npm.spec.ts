@@ -19,7 +19,7 @@ describe('nx-npm e2e', () => {
     writeFileSync(tmpProjPath('package.json'), JSON.stringify(p, null, 2));
   });
 
-  it('should create nx-npm', async (done) => {
+  it('should create nx-npm', async () => {
     const plugin = uniq('nx-npm');
 
     await runNxCommandAsync(
@@ -33,7 +33,5 @@ describe('nx-npm e2e', () => {
 
     expect(publishResult.stderr).toContain('Tarball Contents');
     expect(publishResult.stderr).toContain('Tarball Details');
-
-    done();
   });
 });
