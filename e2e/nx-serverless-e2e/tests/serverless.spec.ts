@@ -9,7 +9,7 @@ describe('serverless e2e', () => {
     );
   });
 
-  it('should create serverless', async (done) => {
+  it('should create serverless', async () => {
     const plugin = uniq('nx-serverless');
     await runNxCommandAsync(`generate @ns3/nx-serverless:application ${plugin}`);
 
@@ -18,30 +18,26 @@ describe('serverless e2e', () => {
 
     const lintResult = await runNxCommandAsync(`lint ${plugin}`);
     expect(lintResult.stdout).not.toContain('error Command failed with exit code 1.');
-
-    done();
   });
 
   describe('--directory', () => {
-    it('should create src in the specified directory', async (done) => {
+    it('should create src in the specified directory', async () => {
       const plugin = uniq('serverless');
       await runNxCommandAsync(
         `generate @ns3/nx-serverless:application ${plugin} --directory subdir`,
       );
       expect(() => checkFilesExist(`apps/subdir/${plugin}/src/handlers/foo.ts`)).not.toThrow();
-      done();
     });
   });
 
   describe('--tags', () => {
-    it('should add tags to nx.json', async (done) => {
+    it('should add tags to nx.json', async () => {
       const plugin = uniq('serverless');
       await runNxCommandAsync(
         `generate @ns3/nx-serverless:application ${plugin} --tags e2etag,e2ePackage`,
       );
       const nxJson = readJson('nx.json');
       expect(nxJson.projects[plugin].tags).toEqual(['e2etag', 'e2ePackage']);
-      done();
     });
   });
 });
