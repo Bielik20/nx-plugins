@@ -27,7 +27,6 @@ describe('nx-npm e2e', () => {
     );
     await runNxCommandAsync(`generate @ns3/nx-npm:npm --project ${plugin}`);
 
-    const versionResult = await runNxCommandAsync(`version ${plugin} --pkgVersion 1.0.0`);
     const buildResult = await runNxCommandAsync(`build ${plugin}`);
     const publishResult = await runNxCommandAsync(`publish ${plugin} --npmToken noop --dryRun`);
 
