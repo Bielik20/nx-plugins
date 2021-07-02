@@ -1,0 +1,41 @@
+import { ExecutorContext } from '@nrwl/devkit';
+import { readNxJson } from '@nrwl/workspace';
+import { getProjectConfiguration } from '@ns3/nx-core';
+import { PublishExecutorNormalizedSchema, PublishExecutorSchema } from '../schema';
+
+export async function normalizeOptions(
+  options: PublishExecutorSchema,
+  context: ExecutorContext,
+): Promise<PublishExecutorNormalizedSchema> {
+  const nx = readNxJson();
+
+  return {
+    ...options,
+    npmToken: getNpmToken(options),
+    pkgLocation: await getPkgLocation(options, context),
+    npmScope: nx.npmScope,
+  };
+}
+
+async function getPkgLocation(
+  options: PublishExecutorSchema,
+  context: ExecutorContext,
+): Promise<string> {
+  const config = getProjectConfiguration(context);
+
+  if ('build' in config.targets && 'outputPath' in config.targets.build.options) {
+    return config.targets.build.options.outputPath as string;
+  }
+
+  throw new Error('Project is missing build target with outputPath.');
+}
+
+function getNpmToken(options: PublishExecutorSchema): string {
+  const token = options.npmToken || process.env.NPM_TOKEN;
+
+  if (!token) {
+    throw new Error('npmToken was not provided as an arg nor is it present in env.');
+  }
+
+  return token;
+}

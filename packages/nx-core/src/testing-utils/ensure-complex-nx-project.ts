@@ -1,5 +1,5 @@
 import { cleanup, runPackageManagerInstall, tmpProjPath } from '@nrwl/nx-plugin/testing';
-import { appRootPath } from '@nrwl/workspace/src/utilities/app-root';
+import { appRootPath } from '@nrwl/tao/src/utils/app-root';
 import { readFileSync, writeFileSync } from 'fs';
 import { ensureDirSync } from 'fs-extra';
 import { runNxNewCommand } from './run-nx-new-command';
