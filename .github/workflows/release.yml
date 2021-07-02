@@ -69,7 +69,7 @@ jobs:
         run: yarn nx run-many --projects ${{ needs.install.outputs.publish-comma }} --target version --parallel --pkgVersion ${{ needs.install.outputs.next-version }}
       - name: Build
         if: ${{ needs.install.outputs.publish-comma }}
-        run: yarn nx run-many --projects ${{ needs.install.outputs.publish-comma }} --target build --parallel --buildableProjectDepsInPackageJsonType dependencies
+        run: yarn nx run-many --projects ${{ needs.install.outputs.publish-comma }} --target build --parallel
       - name: Publish
         if: ${{ needs.install.outputs.publish-comma }}
         run: yarn nx run-many --projects ${{ needs.install.outputs.publish-comma }} --target publish --parallel
