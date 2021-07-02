@@ -25,6 +25,7 @@
           "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/packages/nx-core",
+            "buildableProjectDepsInPackageJsonType": "dependencies",
             "tsConfig": "packages/nx-core/tsconfig.lib.json",
             "packageJson": "packages/nx-core/package.json",
             "main": "packages/nx-core/index.ts",
@@ -102,6 +103,7 @@
           "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/packages/nx-jest-playwright",
+            "buildableProjectDepsInPackageJsonType": "dependencies",
             "tsConfig": "packages/nx-jest-playwright/tsconfig.lib.json",
             "packageJson": "packages/nx-jest-playwright/package.json",
             "main": "packages/nx-jest-playwright/index.ts",
@@ -179,6 +181,7 @@
           "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/packages/nx-npm",
+            "buildableProjectDepsInPackageJsonType": "dependencies",
             "tsConfig": "packages/nx-npm/tsconfig.lib.json",
             "packageJson": "packages/nx-npm/package.json",
             "main": "packages/nx-npm/index.ts",
@@ -256,6 +259,7 @@
           "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/packages/nx-serverless",
+            "buildableProjectDepsInPackageJsonType": "dependencies",
             "tsConfig": "packages/nx-serverless/tsconfig.lib.json",
             "packageJson": "packages/nx-serverless/package.json",
             "main": "packages/nx-serverless/index.ts",
