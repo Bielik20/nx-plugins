@@ -15,11 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ns3/nx-core": ["packages/nx-core/src/index.ts"],
-      "@ns3/nx-core/*": ["packages/nx-core/src/*"],
-      "@ns3/nx-jest-playwright": ["packages/nx-jest-playwright/src/index.ts"],
-      "@ns3/nx-npm": ["packages/nx-npm/src/index.ts"],
-      "@ns3/nx-serverless": ["packages/nx-serverless/src/index.ts"]
+      "@ns3/nx-core": ["packages/nx-core"],
+      "@ns3/nx-core/*": ["packages/nx-core/*"],
+      "@ns3/nx-jest-playwright": ["packages/nx-jest-playwright"],
+      "@ns3/nx-npm": ["packages/nx-npm"],
+      "@ns3/nx-serverless": ["packages/nx-serverless"]
     }
   },
   "exclude": ["node_modules", "tmp"]
