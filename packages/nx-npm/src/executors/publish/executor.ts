@@ -1,51 +1,79 @@
-import { ExecutorContext } from '@nrwl/devkit';
-import { readNxJson } from '@nrwl/workspace';
-import { execProcess, getProjectConfiguration, log } from '@ns3/nx-core';
-import { PublishExecutorSchema } from './schema';
+import { ExecutorContext, joinPathFragments } from '@nrwl/devkit';
+import { execProcess, spawnProcess } from '@ns3/nx-core';
+import { readJson, writeJson } from 'fs-extra';
+import { normalizeOptions } from './lib/normalize-options';
+import { PublishExecutorNormalizedSchema, PublishExecutorSchema } from './schema';
 
-export default async function runExecutor(
+export default async function runPublishExecutor(
   options: PublishExecutorSchema,
   context: ExecutorContext,
 ) {
-  const token = getNpmToken(options);
-  const outputPath = await getOutputPath(context);
-  const nx = readNxJson();
-  const npmrc = generateNpmrc(token, nx.npmScope, options.npmRegistry);
+  const normalizedOptions = await normalizeOptions(options, context);
 
-  await execProcess('rm -f .npmrc', { cwd: outputPath }).pipe(log()).toPromise();
-  await execProcess(`echo "${npmrc}" >> .npmrc`, { cwd: outputPath }).pipe(log()).toPromise();
-  await execProcess(`npm publish --dry-run ${options.dryRun}`, { cwd: outputPath })
-    .pipe(log())
-    .toPromise();
+  await removeExistingNpmrc(normalizedOptions);
+  await createNewNpmrc(normalizedOptions);
+  if ('pkgVersion' in normalizedOptions) {
+    await updatePkgVersion(normalizedOptions);
+    await updateDepsVersion(normalizedOptions);
+  }
+  await publishPkg(normalizedOptions);
 
   return {
     success: true,
   };
 }
 
-async function getOutputPath(context: ExecutorContext): Promise<string> {
-  const config = getProjectConfiguration(context);
-
-  if ('build' in config.targets && 'outputPath' in config.targets.build.options) {
-    return config.targets.build.options.outputPath as string;
-  }
-
-  throw new Error('Project is missing build target with outputPath.');
+async function removeExistingNpmrc(normalizedOptions: PublishExecutorNormalizedSchema) {
+  await spawnProcess('rm', ['-f', '.npmrc'], {
+    cwd: normalizedOptions.pkgLocation,
+    stdio: 'inherit',
+  }).toPromise();
 }
 
-function getNpmToken(options: PublishExecutorSchema): string {
-  const token = options.npmToken || process.env.NPM_TOKEN;
-
-  if (!token) {
-    throw new Error('npmToken was not provided as an arg nor is it present in env.');
-  }
-
-  return token;
+async function createNewNpmrc(normalizedOptions: PublishExecutorNormalizedSchema) {
+  const npmrc = generateNpmrc(normalizedOptions);
+  await execProcess(`echo "${npmrc}" >> .npmrc`, {
+    cwd: normalizedOptions.pkgLocation,
+  }).toPromise();
 }
 
-function generateNpmrc(npmToken: string, npmScope: string, npmRegistry: string): string {
+async function updatePkgVersion(normalizedOptions: PublishExecutorNormalizedSchema) {
+  await spawnProcess(`npm`, ['version', normalizedOptions.pkgVersion], {
+    cwd: normalizedOptions.pkgLocation,
+    stdio: 'inherit',
+  }).toPromise();
+}
+
+async function updateDepsVersion(normalizedOptions: PublishExecutorNormalizedSchema) {
+  const pkgJsonPath = joinPathFragments(normalizedOptions.pkgLocation, 'package.json');
+  const tsconfig = await readJson('tsconfig.base.json');
+  const packageJson = await readJson(pkgJsonPath);
+  const paths = tsconfig.compilerOptions.paths;
+  const pathKeys = Object.keys(paths);
+  const version = packageJson.version;
+
+  pathKeys.forEach((key) => {
+    if (key in packageJson.peerDependencies) {
+      packageJson.peerDependencies[key] = `^${version}`;
+    }
+    if (key in packageJson.dependencies) {
+      packageJson.dependencies[key] = `^${version}`;
+    }
+  });
+
+  await writeJson(pkgJsonPath, packageJson, { spaces: 2 });
+}
+
+async function publishPkg(normalizedOptions: PublishExecutorNormalizedSchema) {
+  await spawnProcess(`npm`, ['publish', '--dry-run', `${normalizedOptions.dryRun}`], {
+    cwd: normalizedOptions.pkgLocation,
+    stdio: 'inherit',
+  }).toPromise();
+}
+
+function generateNpmrc(options: PublishExecutorNormalizedSchema): string {
   return `
-//${npmRegistry}/:_authToken=${npmToken}
-@${npmScope}:registry=https://${npmRegistry}/
+//${options.npmRegistry}/:_authToken=${options.npmToken}
+@${options.npmScope}:registry=https://${options.npmRegistry}/
 `.trim();
 }

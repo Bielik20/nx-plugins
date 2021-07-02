@@ -18,6 +18,10 @@
       "type": "boolean",
       "description": "Whether to actually publish or not.",
       "default": false
+    },
+    "pkgVersion": {
+      "type": "string",
+      "description": "Version to set."
     }
   },
   "required": []
