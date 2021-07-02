@@ -1,5 +1,5 @@
 import { checkFilesExist, readJson, runNxCommandAsync, uniq } from '@nrwl/nx-plugin/testing';
-import { ensureComplexNxProject } from '@ns3/nx-core/testing-utils/ensure-complex-nx-project';
+import { ensureComplexNxProject } from '@ns3/nx-core/src/testing-utils/ensure-complex-nx-project';
 
 describe('nx-jest-playwright e2e', () => {
   beforeAll(() => {

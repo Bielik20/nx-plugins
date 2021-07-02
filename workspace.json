@@ -3,7 +3,7 @@
   "projects": {
     "nx-core": {
       "root": "packages/nx-core",
-      "sourceRoot": "packages/nx-core/src",
+      "sourceRoot": "packages/nx-core",
       "projectType": "library",
       "targets": {
         "lint": {
@@ -27,7 +27,7 @@
             "outputPath": "dist/packages/nx-core",
             "tsConfig": "packages/nx-core/tsconfig.lib.json",
             "packageJson": "packages/nx-core/package.json",
-            "main": "packages/nx-core/src/index.ts",
+            "main": "packages/nx-core/index.ts",
             "assets": [
               "packages/nx-core/*.md",
               {
@@ -80,7 +80,7 @@
     },
     "nx-jest-playwright": {
       "root": "packages/nx-jest-playwright",
-      "sourceRoot": "packages/nx-jest-playwright/src",
+      "sourceRoot": "packages/nx-jest-playwright",
       "projectType": "library",
       "targets": {
         "lint": {
@@ -104,7 +104,7 @@
             "outputPath": "dist/packages/nx-jest-playwright",
             "tsConfig": "packages/nx-jest-playwright/tsconfig.lib.json",
             "packageJson": "packages/nx-jest-playwright/package.json",
-            "main": "packages/nx-jest-playwright/src/index.ts",
+            "main": "packages/nx-jest-playwright/index.ts",
             "assets": [
               "packages/nx-jest-playwright/*.md",
               {
@@ -157,7 +157,7 @@
     },
     "nx-npm": {
       "root": "packages/nx-npm",
-      "sourceRoot": "packages/nx-npm/src",
+      "sourceRoot": "packages/nx-npm",
       "projectType": "library",
       "targets": {
         "lint": {
@@ -181,7 +181,7 @@
             "outputPath": "dist/packages/nx-npm",
             "tsConfig": "packages/nx-npm/tsconfig.lib.json",
             "packageJson": "packages/nx-npm/package.json",
-            "main": "packages/nx-npm/src/index.ts",
+            "main": "packages/nx-npm/index.ts",
             "assets": [
               "packages/nx-npm/*.md",
               {
@@ -234,7 +234,7 @@
     },
     "nx-serverless": {
       "root": "packages/nx-serverless",
-      "sourceRoot": "packages/nx-serverless/src",
+      "sourceRoot": "packages/nx-serverless",
       "projectType": "library",
       "targets": {
         "lint": {
@@ -258,7 +258,7 @@
             "outputPath": "dist/packages/nx-serverless",
             "tsConfig": "packages/nx-serverless/tsconfig.lib.json",
             "packageJson": "packages/nx-serverless/package.json",
-            "main": "packages/nx-serverless/src/index.ts",
+            "main": "packages/nx-serverless/index.ts",
             "assets": [
               "packages/nx-serverless/*.md",
               {
