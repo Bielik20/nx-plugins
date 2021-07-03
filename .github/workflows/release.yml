@@ -29,24 +29,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: Execute
+      - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn
       - name: Start Release
         id: semantic
         run: npx semantic-release --dry-run
-      - name: Set publish
-        id: set-publish
-        #  We only want to build publishable libs, hence target publish
-        run: yarn script set-affected --target publish --base ${{ steps.semantic.outputs.last-head || 'HEAD' }} --with-deps
-      - name: Version
-        if: ${{ steps.set-publish.outputs.comma-separated }}
-        run: yarn nx run-many --projects ${{ steps.set-publish.outputs.comma-separated }} --target version --parallel --pkgVersion ${{ steps.semantic.outputs.next-version }}
       - name: Build
-        if: ${{ steps.set-publish.outputs.comma-separated }}
-        run: yarn nx run-many --projects ${{ steps.set-publish.outputs.comma-separated }} --target build --parallel
+        run: yarn nx affected:build --parallel --base ${{ steps.semantic.outputs.last-head || 'HEAD' }} --with-deps
       - name: Publish
-        if: ${{ steps.set-publish.outputs.comma-separated }}
-        run: yarn nx run-many --projects ${{ steps.set-publish.outputs.comma-separated }} --target publish --parallel
+        run: yarn nx affected:publish --parallel --base ${{ steps.semantic.outputs.last-head || 'HEAD' }} --with-deps --pkgVersion ${{ steps.semantic.outputs.next-version }}
       - name: Finish Release
         run: npx semantic-release
