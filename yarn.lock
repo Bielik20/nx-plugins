@@ -2207,19 +2207,19 @@
     yargs "15.4.1"
     yargs-parser "20.0.0"
 
-"@ns3/nx-core@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@ns3/nx-core/-/nx-core-1.1.0.tgz#fc4568ce017ea4e44f5d505486b51cf422005d55"
-  integrity sha512-4q0L9yXtptHbYSsTe9RaqfWmpmW1k+NKQ1/OXnBG18kKeJDlA3EWms9kJImWdWDnoBs1ClFz0tHDUwmS97+zIQ==
+"@ns3/nx-core@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@ns3/nx-core/-/nx-core-1.1.1.tgz#667358869164b08dcc0b79a016b9064db98f5017"
+  integrity sha512-teCbnDQT+BK6EaK+C8+MiToKsUyMgMVQR+hwaYq1SDn0KD9qRsn5hQHpP9OyEjB59akwh63K1nowtREtlJejhg==
   dependencies:
     fs-extra "^9.1.0"
 
-"@ns3/nx-npm@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@ns3/nx-npm/-/nx-npm-1.1.0.tgz#75250e55633ca6e06e1a60aea015f42663d80ef5"
-  integrity sha512-UCEr4vsYV8P9Q//oGf/tJoxYe8+cZAwjPBiM2TMkUWjTh08CKztlJnxVp3egVpF7+1IH76WeQ2lomSPcUgFZ9w==
+"@ns3/nx-npm@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@ns3/nx-npm/-/nx-npm-1.1.1.tgz#e355aa01c1a1b823e3e70cf866621666548320b6"
+  integrity sha512-ZFEXY/pGhLcrU2F1yrW25DYANWdRGth7FLGBcs1trONEevASWVzP3wL4wl558UNlSOYiWxxMBI96aHXZ45Rldw==
   dependencies:
-    "@ns3/nx-core" "1.1.0"
+    "@ns3/nx-core" "^1.1.1"
     fs-extra "^9.1.0"
 
 "@octokit/auth-token@^2.4.4":
