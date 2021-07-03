@@ -53,6 +53,7 @@
     "@nrwl/jest": "12.5.1",
     "@nrwl/linter": "12.5.1",
     "@nrwl/node": "12.5.1",
+    "@nrwl/nx-cloud": "^12.2.7",
     "@nrwl/nx-plugin": "12.5.1",
     "@nrwl/tao": "12.5.1",
     "@nrwl/workspace": "12.5.1",
