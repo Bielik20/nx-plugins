@@ -1,0 +1,24 @@
+{
+  "projectType": "application",
+  "root": "e2e/nx-jest-playwright-e2e",
+  "sourceRoot": "e2e/nx-jest-playwright-e2e/src",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/nx-plugin:e2e",
+      "options": {
+        "target": "nx-jest-playwright-e2e:prepare",
+        "npmPackageName": "@ns3/nx-jest-playwright",
+        "pluginOutputPath": "dist/packages/nx-jest-playwright",
+        "jestConfig": "e2e/nx-jest-playwright-e2e/jest.config.js"
+      }
+    },
+    "prepare": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "nx run nx-jest-playwright:build --with-deps"
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["nx-jest-playwright"]
+}

@@ -25,36 +25,7 @@
       }
     }
   },
-  "projects": {
-    "nx-core": {
-      "tags": []
-    },
-    "nx-core-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-core"]
-    },
-    "nx-jest-playwright": {
-      "tags": []
-    },
-    "nx-jest-playwright-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-jest-playwright"]
-    },
-    "nx-npm": {
-      "tags": []
-    },
-    "nx-npm-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-npm"]
-    },
-    "nx-serverless": {
-      "tags": []
-    },
-    "nx-serverless-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-serverless"]
-    }
-  },
+  "projects": {},
   "workspaceLayout": {
     "appsDir": "e2e",
     "libsDir": "packages"

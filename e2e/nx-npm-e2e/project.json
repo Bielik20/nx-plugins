@@ -1,0 +1,24 @@
+{
+  "projectType": "application",
+  "root": "e2e/nx-npm-e2e",
+  "sourceRoot": "e2e/nx-npm-e2e/src",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/nx-plugin:e2e",
+      "options": {
+        "target": "nx-npm-e2e:prepare",
+        "npmPackageName": "@ns3/nx-npm",
+        "pluginOutputPath": "dist/packages/nx-npm",
+        "jestConfig": "e2e/nx-npm-e2e/jest.config.js"
+      }
+    },
+    "prepare": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "nx run nx-npm:build --with-deps"
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["nx-npm"]
+}
