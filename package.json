@@ -56,6 +56,7 @@
     "@nrwl/nx-plugin": "12.5.1",
     "@nrwl/tao": "12.5.1",
     "@nrwl/workspace": "12.5.1",
+    "@ns3/nx-npm": "^1.0.0",
     "@types/fs-extra": "^9.0.11",
     "@types/jest": "26.0.8",
     "@types/lodash": "^4.14.166",
