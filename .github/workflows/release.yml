@@ -9,8 +9,8 @@ env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
-  install:
-    name: Install Dependencies
+  release:
+    name: Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -39,59 +39,14 @@ jobs:
         id: set-publish
         #  We only want to build publishable libs, hence target publish
         run: yarn script set-affected --target publish --base ${{ steps.semantic.outputs.last-head || 'HEAD' }} --with-deps
-    outputs:
-      next-version: ${{ steps.semantic.outputs.next-version || '0.0.0' }}
-      publish-comma: ${{ steps.set-publish.outputs.comma-separated }}
-
-  publish-libs:
-    name: Publish Libs
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14
-      - name: Load Dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            tools/src/**/*.js
-          key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
-      - name: Add @ns3/nx-npm
-        if: ${{ needs.install.outputs.publish-comma }}
-        run: yarn add @ns3/nx-npm --skip-integrity-check
       - name: Version
-        if: ${{ needs.install.outputs.publish-comma }}
-        run: yarn nx run-many --projects ${{ needs.install.outputs.publish-comma }} --target version --parallel --pkgVersion ${{ needs.install.outputs.next-version }}
+        if: ${{ steps.set-publish.outputs.comma-separated }}
+        run: yarn nx run-many --projects ${{ steps.set-publish.outputs.comma-separated }} --target version --parallel --pkgVersion ${{ steps.semantic.outputs.next-version }}
       - name: Build
-        if: ${{ needs.install.outputs.publish-comma }}
-        run: yarn nx run-many --projects ${{ needs.install.outputs.publish-comma }} --target build --parallel
+        if: ${{ steps.set-publish.outputs.comma-separated }}
+        run: yarn nx run-many --projects ${{ steps.set-publish.outputs.comma-separated }} --target build --parallel
       - name: Publish
-        if: ${{ needs.install.outputs.publish-comma }}
-        run: yarn nx run-many --projects ${{ needs.install.outputs.publish-comma }} --target publish --parallel
-
-  release:
-    name: Release
-    needs: [install, publish-libs]
-    if: ${{ always() }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14
-      - name: Load Dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            tools/src/**/*.js
-          key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
-      - name: Execute
-        run: npx semantic-release --failure ${{ needs.publish-libs.result != 'success' }}
+        if: ${{ steps.set-publish.outputs.comma-separated }}
+        run: yarn nx run-many --projects ${{ steps.set-publish.outputs.comma-separated }} --target publish --parallel
+      - name: Finish Release
+        run: npx semantic-release
