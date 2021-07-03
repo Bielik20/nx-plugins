@@ -49,9 +49,6 @@
             ]
           }
         },
-        "version": {
-          "executor": "@ns3/nx-npm:version"
-        },
         "publish": {
           "executor": "@ns3/nx-npm:publish"
         }
@@ -126,9 +123,6 @@
               }
             ]
           }
-        },
-        "version": {
-          "executor": "@ns3/nx-npm:version"
         },
         "publish": {
           "executor": "@ns3/nx-npm:publish"
@@ -205,9 +199,6 @@
             ]
           }
         },
-        "version": {
-          "executor": "@ns3/nx-npm:version"
-        },
         "publish": {
           "executor": "@ns3/nx-npm:publish"
         }
@@ -282,9 +273,6 @@
               }
             ]
           }
-        },
-        "version": {
-          "executor": "@ns3/nx-npm:version"
         },
         "publish": {
           "executor": "@ns3/nx-npm:publish"
