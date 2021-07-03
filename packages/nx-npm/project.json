@@ -1,0 +1,54 @@
+{
+  "root": "packages/nx-npm",
+  "sourceRoot": "packages/nx-npm",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["packages/nx-npm/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/nx-npm"],
+      "options": {
+        "jestConfig": "packages/nx-npm/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/node:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/nx-npm",
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "tsConfig": "packages/nx-npm/tsconfig.lib.json",
+        "packageJson": "packages/nx-npm/package.json",
+        "main": "packages/nx-npm/index.ts",
+        "assets": [
+          "packages/nx-npm/*.md",
+          {
+            "input": "./packages/nx-npm/src",
+            "glob": "**/*.!(ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-npm",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./packages/nx-npm",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "publish": {
+      "executor": "@ns3/nx-npm:publish"
+    }
+  },
+  "tags": []
+}

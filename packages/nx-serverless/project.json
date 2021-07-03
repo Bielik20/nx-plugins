@@ -1,0 +1,54 @@
+{
+  "root": "packages/nx-serverless",
+  "sourceRoot": "packages/nx-serverless",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["packages/nx-serverless/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/nx-serverless"],
+      "options": {
+        "jestConfig": "packages/nx-serverless/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/node:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/nx-serverless",
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "tsConfig": "packages/nx-serverless/tsconfig.lib.json",
+        "packageJson": "packages/nx-serverless/package.json",
+        "main": "packages/nx-serverless/index.ts",
+        "assets": [
+          "packages/nx-serverless/*.md",
+          {
+            "input": "./packages/nx-serverless/src",
+            "glob": "**/*.!(ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-serverless",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./packages/nx-serverless",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "publish": {
+      "executor": "@ns3/nx-npm:publish"
+    }
+  },
+  "tags": []
+}
