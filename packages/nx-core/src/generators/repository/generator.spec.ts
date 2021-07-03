@@ -1,6 +1,5 @@
+import { Tree } from '@nrwl/devkit';
 import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing';
-import { Tree, readProjectConfiguration } from '@nrwl/devkit';
-
 import generator from './generator';
 import { RepositoryGeneratorSchema } from './schema';
 

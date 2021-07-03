@@ -6,7 +6,10 @@ interface ExecutorResult {
   baseUrl?: string;
 }
 
-export async function* startDevServer(opts: JestPlaywrightExecutorSchema, context: ExecutorContext) {
+export async function* startDevServer(
+  opts: JestPlaywrightExecutorSchema,
+  context: ExecutorContext,
+) {
   const watch = opts.watch || opts.watchAll;
 
   // no dev server, return the provisioned base url

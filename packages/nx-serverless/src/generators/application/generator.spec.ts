@@ -1,7 +1,6 @@
 import { readProjectConfiguration, Tree } from '@nrwl/devkit';
 import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing';
 import { Linter } from '@nrwl/linter';
-
 import generator from './generator';
 import { ServerlessGeneratorSchema } from './schema';
 
