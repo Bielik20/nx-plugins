@@ -1,9 +1,6 @@
 name: Check
 on:
-  push:
-    branches-ignore:
-      - master
-      - 'alpha/*'
+  pull_request:
 
 jobs:
   install:
@@ -31,7 +28,7 @@ jobs:
         run: yarn
       - name: Set Variables
         id: variables
-        run: yarn script set-push-variables
+        run: yarn script set-pr-variables
       - name: Set e2e
         id: set-e2e
         run: yarn script set-affected --target e2e --base ${{ steps.variables.outputs.base }}
