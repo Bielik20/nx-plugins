@@ -24,10 +24,7 @@ export default async function runPublishExecutor(
 }
 
 async function removeExistingNpmrc(normalizedOptions: PublishExecutorNormalizedSchema) {
-  await spawnProcess('rm', ['-f', '.npmrc'], {
-    cwd: normalizedOptions.pkgLocation,
-    stdio: 'inherit',
-  }).toPromise();
+  await execProcess('rm -f .npmrc', { cwd: normalizedOptions.pkgLocation }).toPromise();
 }
 
 async function createNewNpmrc(normalizedOptions: PublishExecutorNormalizedSchema) {

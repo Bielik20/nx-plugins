@@ -36,8 +36,8 @@ jobs:
         id: semantic
         run: npx semantic-release --dry-run
       - name: Build
-        run: yarn nx affected:build --parallel --base ${{ steps.semantic.outputs.last-head || 'HEAD' }} --with-deps
+        run: yarn nx affected --target build --parallel --base ${{ steps.semantic.outputs.last-head || 'HEAD' }} --with-deps
       - name: Publish
-        run: yarn nx affected:publish --parallel --base ${{ steps.semantic.outputs.last-head || 'HEAD' }} --with-deps --pkgVersion ${{ steps.semantic.outputs.next-version }}
+        run: yarn nx affected --target publish --parallel --base ${{ steps.semantic.outputs.last-head || 'HEAD' }} --with-deps --pkgVersion ${{ steps.semantic.outputs.next-version }}
       - name: Finish Release
         run: npx semantic-release
