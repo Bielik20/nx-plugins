@@ -1,6 +1,4 @@
-import { json } from '@angular-devkit/core';
-
-export interface DeployExecutorSchema extends json.JsonObject {
+export interface DeployExecutorSchema extends Record<string, any> {
   outputPath: string;
   noBuild: boolean;
   showHelp?: boolean;

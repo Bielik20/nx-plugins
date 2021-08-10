@@ -1,6 +1,4 @@
-import { json } from '@angular-devkit/core';
-
-export interface BuildExecutorSchema extends json.JsonObject {
+export interface BuildExecutorSchema extends Record<string, any> {
   outputPath: string;
   showHelp?: boolean;
 }
