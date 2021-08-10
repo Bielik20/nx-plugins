@@ -7,8 +7,6 @@
       "executor": "@nrwl/nx-plugin:e2e",
       "options": {
         "target": "nx-npm-e2e:prepare",
-        "npmPackageName": "@ns3/nx-npm",
-        "pluginOutputPath": "dist/packages/nx-npm",
         "jestConfig": "e2e/nx-npm-e2e/jest.config.js"
       }
     },
