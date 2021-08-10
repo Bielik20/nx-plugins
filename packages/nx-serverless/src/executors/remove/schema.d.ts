@@ -1,6 +1,4 @@
-import { json } from '@angular-devkit/core';
-
-export interface RemoveExecutorSchema extends json.JsonObject {
+export interface RemoveExecutorSchema extends Record<string, any> {
   noError: boolean;
   showHelp?: boolean;
 }

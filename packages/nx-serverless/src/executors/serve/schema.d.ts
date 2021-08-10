@@ -1,6 +1,4 @@
-import { json } from '@angular-devkit/core';
-
-export interface ServeExecutorSchema extends json.JsonObject {
+export interface ServeExecutorSchema extends Record<string, any> {
   showHelp?: boolean;
   out?: string;
 }
