@@ -49,7 +49,7 @@ async function runJest(
   const jestPlaywrightOptions = testEnvironmentOptions['jest-playwright'] || {};
   const jestPlaywrightLaunchOptions = jestPlaywrightOptions.launchOptions || {};
 
-  const config = {
+  const config: Config.Argv = {
     ...parsedConfig,
     globals: JSON.stringify({ ...globals, baseUrl }),
     testEnvironmentOptions: {
@@ -66,6 +66,8 @@ async function runJest(
         },
       },
     },
+    watch: options.watch,
+    watchAll: options.watchAll,
   };
 
   const { results } = await runCLI(config, [options.jestConfig]);
