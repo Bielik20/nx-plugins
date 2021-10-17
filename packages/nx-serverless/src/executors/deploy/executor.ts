@@ -8,9 +8,12 @@ import { DeployExecutorSchema } from './schema';
 
 export default async function runExecutor(options: DeployExecutorSchema, context: ExecutorContext) {
   preventPackage(options);
-  handleNoBuild(options);
 
-  const { showHelp, outputPath, ...rest } = options;
+  const { showHelp, outputPath, noBuild, ...rest } = options;
+
+  if (noBuild) {
+    rest.package = './.serverless';
+  }
 
   if (showHelp) {
     return runSlsHelp(context, 'deploy');
@@ -30,11 +33,4 @@ export default async function runExecutor(options: DeployExecutorSchema, context
     },
     context,
   );
-}
-
-function handleNoBuild(options: DeployExecutorSchema): void {
-  if (options.noBuild) {
-    delete options.noBuild;
-    options.package = './.serverless';
-  }
 }
