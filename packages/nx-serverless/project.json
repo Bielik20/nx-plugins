@@ -43,7 +43,8 @@
             "input": "./packages/nx-serverless",
             "glob": "executors.json",
             "output": "."
-          }
+          },
+          "LICENSE"
         ]
       }
     },

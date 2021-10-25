@@ -37,6 +37,10 @@ function adjustGeneratedProject(tree: Tree, schema: { project: string }) {
   projectConfig.sourceRoot = projectConfig.root;
   projectConfig.targets.build.options.main = `${projectConfig.root}/index.ts`;
   projectConfig.targets.build.options.buildableProjectDepsInPackageJsonType = 'dependencies';
+  projectConfig.targets.build.options.assets = [
+    ...projectConfig.targets.build.options.assets,
+    'LICENSE',
+  ];
 
   updateProjectConfiguration(tree, schema.project, projectConfig);
 
@@ -45,13 +49,14 @@ function adjustGeneratedProject(tree: Tree, schema: { project: string }) {
 
   updateJson(tree, projectConfig.targets.build.options.packageJson, (json) => {
     json.main = `index.js`;
+    json.license = 'MIT';
 
     return json;
   });
 
   updateJson(tree, 'tsconfig.base.json', (json) => {
-    json.compilerOptions.paths[`@ns3/${schema.project}`] = [projectConfig.root]
+    json.compilerOptions.paths[`@ns3/${schema.project}`] = [projectConfig.root];
 
     return json;
-  })
+  });
 }
