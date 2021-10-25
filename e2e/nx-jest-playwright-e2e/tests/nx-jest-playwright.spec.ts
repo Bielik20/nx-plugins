@@ -29,13 +29,13 @@ describe('nx-jest-playwright e2e', () => {
   });
 
   describe('--tags', () => {
-    it('should add tags to nx.json', async () => {
+    it('should add tags to project.json', async () => {
       const plugin = uniq('nx-jest-playwright');
       await runNxCommandAsync(
         `generate @ns3/nx-jest-playwright:project ${plugin} --tags e2etag,e2ePackage`,
       );
-      const nxJson = readJson('nx.json');
-      expect(nxJson.projects[plugin].tags).toEqual(['e2etag', 'e2ePackage']);
+      const projectJson = readJson(`apps/${plugin}/project.json`);
+      expect(projectJson.tags).toEqual(['e2etag', 'e2ePackage']);
     });
   });
 });
