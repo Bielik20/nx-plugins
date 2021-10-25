@@ -19,7 +19,7 @@ export default async function jestPlaywrightExecutor(
   options: JestPlaywrightExecutorSchema,
   context: ExecutorContext,
 ) {
-  const jestParsedConfig = jestConfigParser(options, context);
+  const jestParsedConfig = await jestConfigParser(options, context);
   const jestFileConfig = require(options.jestConfig);
   const watch = options.watch || options.watchAll;
 
@@ -52,7 +52,7 @@ async function runJest(
   const config: Config.Argv = {
     ...parsedConfig,
     globals: JSON.stringify({ ...globals, baseUrl }),
-    testEnvironmentOptions: {
+    testEnvironmentOptions: JSON.stringify({
       ...(testEnvironmentOptions as Record<string, unknown>),
       'jest-playwright': {
         ...jestPlaywrightOptions,
@@ -65,7 +65,7 @@ async function runJest(
           timeout: timeout ?? jestPlaywrightLaunchOptions.timeout,
         },
       },
-    },
+    }),
     watch: options.watch,
     watchAll: options.watchAll,
   };

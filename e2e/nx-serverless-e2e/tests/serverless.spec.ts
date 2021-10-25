@@ -31,13 +31,13 @@ describe('serverless e2e', () => {
   });
 
   describe('--tags', () => {
-    it('should add tags to nx.json', async () => {
+    it('should add tags to project.json', async () => {
       const plugin = uniq('serverless');
       await runNxCommandAsync(
         `generate @ns3/nx-serverless:application ${plugin} --tags e2etag,e2ePackage`,
       );
-      const nxJson = readJson('nx.json');
-      expect(nxJson.projects[plugin].tags).toEqual(['e2etag', 'e2ePackage']);
+      const projectJson = readJson(`apps/${plugin}/project.json`);
+      expect(projectJson.tags).toEqual(['e2etag', 'e2ePackage']);
     });
   });
 });
