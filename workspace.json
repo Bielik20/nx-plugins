@@ -9,8 +9,5 @@
     "nx-npm-e2e": "e2e/nx-npm-e2e",
     "nx-serverless": "packages/nx-serverless",
     "nx-serverless-e2e": "e2e/nx-serverless-e2e"
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/workspace"
   }
 }

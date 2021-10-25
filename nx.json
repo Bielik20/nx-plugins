@@ -25,7 +25,6 @@
       }
     }
   },
-  "projects": {},
   "workspaceLayout": {
     "appsDir": "e2e",
     "libsDir": "packages"
@@ -37,5 +36,8 @@
         "projects": "dependencies"
       }
     ]
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/workspace"
   }
 }
