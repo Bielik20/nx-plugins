@@ -43,7 +43,8 @@
             "input": "./packages/nx-core",
             "glob": "executors.json",
             "output": "."
-          }
+          },
+          "LICENSE"
         ]
       }
     },
