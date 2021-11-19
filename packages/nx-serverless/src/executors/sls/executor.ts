@@ -1,6 +1,7 @@
 import { ExecutorContext } from '@nrwl/devkit';
 import { getProjectConfiguration, stringifyArgs } from '@ns3/nx-core';
 import { execSync } from 'child_process';
+import { NX_CONTEXT_KEY } from '../../../plugin/nrwl/nx-constants';
 import { printCommand } from '../../utils/print-command';
 import { SlsExecutorSchema } from './schema';
 
@@ -19,7 +20,7 @@ export default async function runExecutor(options: SlsExecutorSchema, context: E
     stdio: 'inherit',
     env: {
       ...env,
-      nxContext: JSON.stringify(context),
+      [NX_CONTEXT_KEY]: JSON.stringify(context),
     },
   });
 

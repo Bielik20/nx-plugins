@@ -66,6 +66,7 @@
     "@types/yargs": "^16.0.1",
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.33.0",
+    "bestzip": "^2.2.0",
     "commitizen": "^4.2.2",
     "cz-conventional-changelog": "^3.3.0",
     "dotenv": "10.0.0",
