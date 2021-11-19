@@ -1,5 +1,6 @@
 import { ExecutorContext } from '@nrwl/devkit';
-import { execProcess, getProjectConfiguration, log } from '@ns3/nx-core';
+import { getProjectConfiguration } from '@ns3/nx-core';
+import { execSync } from 'child_process';
 import { VersionExecutorSchema } from './schema';
 
 export default async function runExecutor(
@@ -9,7 +10,7 @@ export default async function runExecutor(
   const config = getProjectConfiguration(context);
   const root = config.root;
 
-  await execProcess(`npm version ${options.pkgVersion}`, { cwd: root }).pipe(log()).toPromise();
+  execSync(`npm version ${options.pkgVersion}`, { cwd: root, stdio: 'inherit' });
 
   return {
     success: true,
