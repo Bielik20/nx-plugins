@@ -12,7 +12,6 @@ import { join } from 'path';
 import serverlessInitGenerator from '../init/generator';
 import { addJest } from './lib/add-jest';
 import { addLinting } from './lib/add-linting';
-import { getOutTscPath } from './lib/get-out-tsc-path';
 import { getOutputPath } from './lib/get-output-path';
 import { ServerlessGeneratorNormalizedSchema } from './lib/normalized-options';
 import { ServerlessGeneratorSchema } from './schema';
@@ -20,7 +19,6 @@ import { ServerlessGeneratorSchema } from './schema';
 export default async function (host: Tree, options: ServerlessGeneratorSchema) {
   const normalizedOptions = normalizeOptions(host, { ...options, type: 'app' });
   const outputPath = getOutputPath(normalizedOptions);
-  const out = getOutTscPath(normalizedOptions);
   const serverlessInitTask = await serverlessInitGenerator(host, {
     ...options,
     skipFormat: true,
@@ -32,27 +30,30 @@ export default async function (host: Tree, options: ServerlessGeneratorSchema) {
     sourceRoot: `${normalizedOptions.projectRoot}/src`,
     targets: {
       build: {
-        executor: '@ns3/nx-serverless:build',
-        outputs: ['{options.outputPath}'],
+        executor: '@ns3/nx-serverless:sls',
+        outputs: [outputPath],
         options: {
-          outputPath,
+          command: 'package',
         },
       },
       serve: {
-        executor: '@ns3/nx-serverless:serve',
+        executor: '@ns3/nx-serverless:sls',
         options: {
-          out,
+          command: 'offline',
         },
       },
       deploy: {
-        executor: '@ns3/nx-serverless:deploy',
-        outputs: ['{options.outputPath}'],
+        executor: '@ns3/nx-serverless:sls',
+        outputs: [outputPath],
         options: {
-          outputPath,
+          command: 'deploy',
         },
       },
       remove: {
-        executor: '@ns3/nx-serverless:remove',
+        executor: '@ns3/nx-serverless:sls',
+        options: {
+          command: 'remove',
+        },
       },
     },
     tags: normalizedOptions.parsedTags,
