@@ -1,5 +1,5 @@
 import { ExecutorContext, joinPathFragments } from '@nrwl/devkit';
-import { execProcess, spawnProcess } from '@ns3/nx-core';
+import { execSync } from 'child_process';
 import { readJson, writeJson } from 'fs-extra';
 import { normalizeOptions } from './lib/normalize-options';
 import { PublishExecutorNormalizedSchema, PublishExecutorSchema } from './schema';
@@ -8,37 +8,38 @@ export default async function runPublishExecutor(
   options: PublishExecutorSchema,
   context: ExecutorContext,
 ) {
-  const normalizedOptions = await normalizeOptions(options, context);
+  const normalizedOptions = normalizeOptions(options, context);
 
-  await removeExistingNpmrc(normalizedOptions);
-  await createNewNpmrc(normalizedOptions);
+  removeExistingNpmrc(normalizedOptions);
+  createNewNpmrc(normalizedOptions);
   if ('pkgVersion' in normalizedOptions) {
-    await updatePkgVersion(normalizedOptions);
+    updatePkgVersion(normalizedOptions);
     await updateDepsVersion(normalizedOptions);
   }
-  await publishPkg(normalizedOptions);
+  publishPkg(normalizedOptions);
 
   return {
     success: true,
   };
 }
 
-async function removeExistingNpmrc(normalizedOptions: PublishExecutorNormalizedSchema) {
-  await execProcess('rm -f .npmrc', { cwd: normalizedOptions.pkgLocation }).toPromise();
+function removeExistingNpmrc(normalizedOptions: PublishExecutorNormalizedSchema) {
+  execSync('rm -f .npmrc', { cwd: normalizedOptions.pkgLocation, stdio: 'ignore' });
 }
 
-async function createNewNpmrc(normalizedOptions: PublishExecutorNormalizedSchema) {
+function createNewNpmrc(normalizedOptions: PublishExecutorNormalizedSchema) {
   const npmrc = generateNpmrc(normalizedOptions);
-  await execProcess(`echo "${npmrc}" >> .npmrc`, {
+  execSync(`echo "${npmrc}" >> .npmrc`, {
     cwd: normalizedOptions.pkgLocation,
-  }).toPromise();
+    stdio: 'ignore',
+  });
 }
 
-async function updatePkgVersion(normalizedOptions: PublishExecutorNormalizedSchema) {
-  await spawnProcess(`npm`, ['version', normalizedOptions.pkgVersion], {
+function updatePkgVersion(normalizedOptions: PublishExecutorNormalizedSchema) {
+  execSync(`npm version ${normalizedOptions.pkgVersion}`, {
     cwd: normalizedOptions.pkgLocation,
     stdio: 'inherit',
-  }).toPromise();
+  });
 }
 
 async function updateDepsVersion(normalizedOptions: PublishExecutorNormalizedSchema) {
@@ -61,11 +62,11 @@ async function updateDepsVersion(normalizedOptions: PublishExecutorNormalizedSch
   await writeJson(pkgJsonPath, packageJson, { spaces: 2 });
 }
 
-async function publishPkg(normalizedOptions: PublishExecutorNormalizedSchema) {
-  await spawnProcess(`npm`, ['publish', '--dry-run', `${normalizedOptions.dryRun}`], {
+function publishPkg(normalizedOptions: PublishExecutorNormalizedSchema) {
+  execSync(`npm publish --dry-run ${normalizedOptions.dryRun}`, {
     cwd: normalizedOptions.pkgLocation,
     stdio: 'inherit',
-  }).toPromise();
+  });
 }
 
 function generateNpmrc(options: PublishExecutorNormalizedSchema): string {

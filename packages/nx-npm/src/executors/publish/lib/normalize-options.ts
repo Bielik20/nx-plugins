@@ -3,24 +3,21 @@ import { readNxJson } from '@nrwl/workspace';
 import { getProjectConfiguration } from '@ns3/nx-core';
 import { PublishExecutorNormalizedSchema, PublishExecutorSchema } from '../schema';
 
-export async function normalizeOptions(
+export function normalizeOptions(
   options: PublishExecutorSchema,
   context: ExecutorContext,
-): Promise<PublishExecutorNormalizedSchema> {
+): PublishExecutorNormalizedSchema {
   const nx = readNxJson();
 
   return {
     ...options,
     npmToken: getNpmToken(options),
-    pkgLocation: await getPkgLocation(options, context),
+    pkgLocation: getPkgLocation(options, context),
     npmScope: nx.npmScope,
   };
 }
 
-async function getPkgLocation(
-  options: PublishExecutorSchema,
-  context: ExecutorContext,
-): Promise<string> {
+function getPkgLocation(options: PublishExecutorSchema, context: ExecutorContext): string {
   const config = getProjectConfiguration(context);
 
   if ('build' in config.targets && 'outputPath' in config.targets.build.options) {
