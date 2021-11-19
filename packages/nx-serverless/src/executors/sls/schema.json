@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "title": "Serverless executor",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "command": {
+      "type": "string",
+      "description": "Command to run."
+    },
+    "showHelp": {
+      "type": "boolean",
+      "description": "Show sls help for that command.",
+      "default": false
+    }
+  },
+  "required": ["command"]
+}
