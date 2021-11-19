@@ -1,4 +1,5 @@
 import * as childProcess from 'child_process';
+import { NX_CONTEXT_KEY } from '../../../plugin/nrwl/nx-constants';
 import { testContext } from '../../utils/test-context';
 import executor from './executor';
 
@@ -40,13 +41,13 @@ describe('Sls Executor', () => {
     await executor({ command: 'package' }, testContext);
     const { env } = execSyncMock.mock.calls[0][1];
 
-    expect(env.nxContext).toBe(JSON.stringify(testContext));
+    expect(env[NX_CONTEXT_KEY]).toBe(JSON.stringify(testContext));
   });
 
   it('should overwrite env', async () => {
     const fakeEnv = { foo: 'bar' };
     const output = await executor({ command: 'package', env: fakeEnv }, testContext);
-    const fakeEnvWithNxContext = { ...fakeEnv, nxContext: JSON.stringify(testContext) };
+    const fakeEnvWithNxContext = { ...fakeEnv, [NX_CONTEXT_KEY]: JSON.stringify(testContext) };
 
     expect(output).toEqual(runCommandsReturn);
     expect(execSyncMock).toHaveBeenCalledWith('sls package', {
