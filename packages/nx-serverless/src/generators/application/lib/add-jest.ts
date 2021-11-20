@@ -10,8 +10,8 @@ export async function addJest(host: Tree, options: ServerlessGeneratorNormalized
   const jestTask = await jestProjectGenerator(host, {
     project: options.projectName,
     setupFile: 'none',
+    testEnvironment: 'node',
     skipSerializers: true,
-    supportTsx: options.js,
     babelJest: options.babelJest,
   });
 

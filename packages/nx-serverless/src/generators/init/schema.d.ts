@@ -1,4 +1,5 @@
 export interface InitGeneratorSchema {
-  unitTestRunner?: 'jest' | 'none';
-  skipFormat?: boolean;
+  unitTestRunner: 'jest' | 'none';
+  plugin: 'serverless-bundle' | '@ns3/nx-serverless/plugin';
+  skipFormat: boolean;
 }
