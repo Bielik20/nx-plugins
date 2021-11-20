@@ -16,7 +16,7 @@ export default async function serverlessInitGenerator(host: Tree, options: InitG
     tasks.push(jestTask);
   }
 
-  const installTask = updateDependencies(host);
+  const installTask = updateDependencies(host, options);
   tasks.push(installTask);
 
   if (!options.skipFormat) {
@@ -26,15 +26,17 @@ export default async function serverlessInitGenerator(host: Tree, options: InitG
   return runTasksInSerial(...tasks);
 }
 
-function updateDependencies(host: Tree) {
+function updateDependencies(host: Tree, options: InitGeneratorSchema) {
   return addDependenciesToPackageJson(
     host,
     {},
     {
       '@ns3/nx-serverless': '*',
       serverless: devDependencies['serverless'],
-      'serverless-bundle': devDependencies['serverless-bundle'],
       'serverless-offline': devDependencies['serverless-offline'],
+      ...(options.plugin === 'serverless-bundle'
+        ? { 'serverless-bundle': devDependencies['serverless-bundle'] }
+        : { '@nrwl/node': '*' }),
     },
   );
 }

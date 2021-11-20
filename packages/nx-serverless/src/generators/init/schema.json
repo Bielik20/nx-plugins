@@ -5,6 +5,12 @@
   "title": "Init Nx Serverless Plugin",
   "type": "object",
   "properties": {
+    "plugin": {
+      "description": "Which plugin you want to use within serverless",
+      "type": "string",
+      "enum": ["serverless-bundle", "@ns3/nx-serverless/plugin"],
+      "default": "serverless-bundle"
+    },
     "unitTestRunner": {
       "description": "Adds the specified unit test runner",
       "type": "string",
