@@ -1,7 +1,6 @@
 export const dependencies = {
   'fs-extra': '^10.0.0',
   lodash: '^4.17.20',
-  'serverless-http': '^2.6.1',
   yargs: '^16.2.0',
 } as const;
 
