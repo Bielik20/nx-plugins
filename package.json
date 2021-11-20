@@ -37,7 +37,7 @@
   },
   "private": true,
   "dependencies": {
-    "fs-extra": "^9.1.0",
+    "fs-extra": "^10.0.0",
     "lodash": "^4.17.20",
     "serverless-http": "^2.6.1",
     "yargs": "^16.2.0"
@@ -84,9 +84,9 @@
     "prettier": "2.3.2",
     "semantic-release": "^17.3.0",
     "semver": "^7.3.5",
-    "serverless": "^2.39.0",
-    "serverless-bundle": "^4.3.0",
-    "serverless-offline": "^7.0.0",
+    "serverless": "^2.66.2",
+    "serverless-bundle": "^5.1.0",
+    "serverless-offline": "^8.3.0",
     "ts-jest": "27.0.5",
     "ts-node": "~9.1.1",
     "tslib": "^2.0.0",
