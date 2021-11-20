@@ -5,6 +5,12 @@
   "title": "Nx Serverless Application Options Schema",
   "type": "object",
   "properties": {
+    "plugin": {
+      "description": "Which plugin you want to use within serverless",
+      "type": "string",
+      "enum": ["serverless-bundle", "@ns3/nx-serverless/plugin"],
+      "default": "serverless-bundle"
+    },
     "name": {
       "type": "string",
       "description": "",
@@ -36,11 +42,6 @@
       "description": "Port to listen on.",
       "default": 3333
     },
-    "js": {
-      "type": "boolean",
-      "description": "Generate JavaScript files rather than TypeScript files.",
-      "default": false
-    },
     "tags": {
       "type": "string",
       "description": "Add tags to the project (used for linting)",
@@ -55,6 +56,11 @@
       "description": "Skip formatting files",
       "type": "boolean",
       "default": false
+    },
+    "strict": {
+      "type": "boolean",
+      "description": "Whether to enable tsconfig strict mode or not.",
+      "default": true
     }
   },
   "required": ["name"]

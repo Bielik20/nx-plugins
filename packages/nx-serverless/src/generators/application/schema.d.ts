@@ -1,6 +1,7 @@
 import { Linter } from '@nrwl/linter';
 
 export interface ServerlessGeneratorSchema {
+  plugin: 'serverless-bundle' | '@ns3/nx-serverless/plugin';
   name: string;
   tags?: string;
   directory?: string;
@@ -8,6 +9,6 @@ export interface ServerlessGeneratorSchema {
   unitTestRunner: 'jest' | 'none';
   port: number;
   babelJest?: boolean;
-  js?: boolean;
+  strict: boolean;
   skipFormat?: boolean;
 }

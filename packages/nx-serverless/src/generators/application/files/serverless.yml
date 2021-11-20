@@ -1,21 +1,29 @@
 service: <%= name %>
 
+configValidationMode: error # remove in serverless v3
+variablesResolutionMode: 20210326 # remove in serverless v3
+
 plugins:
-  - serverless-bundle
+  - '<%= plugin %>'
   - serverless-offline
 
+package:
+  individually: true
+
 custom:
-  stage: ${opt:serviceStage, 'dev'}
-  bundle:
-    linting: false
-    tsConfig: 'tsconfig.app.json'
+  stage: ${opt:stage, 'dev'}
   serverless-offline:
     httpPort: <%= port %>
+    lambdaPort: <%= port - 1000 %>
     noPrependStageInUrl: true
+<% if (plugin == 'serverless-bundle') {
+%>  bundle:
+    linting: false
+    tsConfig: 'tsconfig.app.json'<% } %>
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs14.x
   stage: ${self:custom.stage}
   endpointType: regional
   timeout: 20

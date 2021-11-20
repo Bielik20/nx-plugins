@@ -9,35 +9,45 @@ describe('serverless e2e', () => {
     );
   });
 
-  it('should create serverless', async () => {
-    const plugin = uniq('nx-serverless');
-    await runNxCommandAsync(`generate @ns3/nx-serverless:application ${plugin}`);
+  describe('serverless-bundle', () => {
+    it('should create serverless', async () => {
+      const plugin = uniq('nx-serverless');
+      await runNxCommandAsync(`generate @ns3/nx-serverless:application ${plugin}`);
 
-    const buildResult = await runNxCommandAsync(`build ${plugin}`);
-    expect(buildResult.stdout).toContain('Running: sls package');
+      const buildResult = await runNxCommandAsync(`build ${plugin}`);
+      expect(buildResult.stdout).toContain('Running: sls package');
+      expect(buildResult.stdout).toContain('Serverless: Bundling with Webpack...');
 
-    const lintResult = await runNxCommandAsync(`lint ${plugin}`);
-    expect(lintResult.stdout).not.toContain('error Command failed with exit code 1.');
-  });
-
-  describe('--directory', () => {
-    it('should create src in the specified directory', async () => {
-      const plugin = uniq('serverless');
-      await runNxCommandAsync(
-        `generate @ns3/nx-serverless:application ${plugin} --directory subdir`,
-      );
-      expect(() => checkFilesExist(`apps/subdir/${plugin}/src/handlers/foo.ts`)).not.toThrow();
+      const lintResult = await runNxCommandAsync(`lint ${plugin}`);
+      expect(lintResult.stdout).not.toContain('error Command failed with exit code 1.');
     });
   });
 
-  describe('--tags', () => {
-    it('should add tags to project.json', async () => {
+  describe('@ns3/nx-serverless/plugin', () => {
+    it('should create serverless', async () => {
+      const plugin = uniq('nx-serverless');
+      await runNxCommandAsync(
+        `generate @ns3/nx-serverless:application ${plugin} --plugin @ns3/nx-serverless/plugin`,
+      );
+
+      const buildResult = await runNxCommandAsync(`build ${plugin}`);
+      expect(buildResult.stdout).toContain('Running: sls package');
+      expect(buildResult.stdout).toContain('Serverless: Building with nx buildTarget:');
+
+      const lintResult = await runNxCommandAsync(`lint ${plugin}`);
+      expect(lintResult.stdout).not.toContain('error Command failed with exit code 1.');
+    });
+  });
+
+  describe('--directory and --tags', () => {
+    it('should create src in the specified directory with tags', async () => {
       const plugin = uniq('serverless');
       await runNxCommandAsync(
-        `generate @ns3/nx-serverless:application ${plugin} --tags e2etag,e2ePackage`,
+        `generate @ns3/nx-serverless:application ${plugin} --directory subdir --tags e2etag,e2ePackage`,
       );
-      const projectJson = readJson(`apps/${plugin}/project.json`);
+      const projectJson = readJson(`apps/subdir/${plugin}/project.json`);
       expect(projectJson.tags).toEqual(['e2etag', 'e2ePackage']);
+      expect(() => checkFilesExist(`apps/subdir/${plugin}/src/handlers/foo.ts`)).not.toThrow();
     });
   });
 });
