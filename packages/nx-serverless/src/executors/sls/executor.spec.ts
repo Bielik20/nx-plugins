@@ -47,7 +47,27 @@ describe('Sls Executor', () => {
   it('should overwrite env', async () => {
     const fakeEnv = { foo: 'bar' };
     const output = await executor({ command: 'package', env: fakeEnv }, testContext);
-    const fakeEnvWithNxContext = { ...fakeEnv, [NX_CONTEXT_KEY]: JSON.stringify(testContext) };
+    const fakeEnvWithNxContext = {
+      ...fakeEnv,
+      [NX_CONTEXT_KEY]: JSON.stringify(testContext),
+      NODE_OPTIONS: '--enable-source-maps',
+    };
+
+    expect(output).toEqual(runCommandsReturn);
+    expect(execSyncMock).toHaveBeenCalledWith('sls package', {
+      cwd: 'apps/serverless839554',
+      stdio: 'inherit',
+      env: fakeEnvWithNxContext,
+    });
+  });
+
+  it('env should overwrite NODE_OPTIONS', async () => {
+    const fakeEnv = { foo: 'bar', NODE_OPTIONS: undefined };
+    const output = await executor({ command: 'package', env: fakeEnv }, testContext);
+    const fakeEnvWithNxContext = {
+      ...fakeEnv,
+      [NX_CONTEXT_KEY]: JSON.stringify(testContext),
+    };
 
     expect(output).toEqual(runCommandsReturn);
     expect(execSyncMock).toHaveBeenCalledWith('sls package', {

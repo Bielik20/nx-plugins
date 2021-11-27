@@ -19,6 +19,7 @@ export default async function runExecutor(options: SlsExecutorSchema, context: E
     cwd: projectRoot,
     stdio: 'inherit',
     env: {
+      NODE_OPTIONS: '--enable-source-maps',
       ...env,
       [NX_CONTEXT_KEY]: JSON.stringify(context),
     },
