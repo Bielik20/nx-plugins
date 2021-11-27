@@ -19,6 +19,11 @@
       "description": "Whether to actually publish or not.",
       "default": false
     },
+    "tag": {
+      "type": "string",
+      "description": "Tag for this package release.",
+      "default": "latest"
+    },
     "pkgVersion": {
       "type": "string",
       "description": "Version to set."

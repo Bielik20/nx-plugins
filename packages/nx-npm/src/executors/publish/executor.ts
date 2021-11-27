@@ -63,7 +63,7 @@ async function updateDepsVersion(normalizedOptions: PublishExecutorNormalizedSch
 }
 
 function publishPkg(normalizedOptions: PublishExecutorNormalizedSchema) {
-  execSync(`npm publish --dry-run ${normalizedOptions.dryRun}`, {
+  execSync(`npm publish --dry-run ${normalizedOptions.dryRun} --tag ${normalizedOptions.tag}`, {
     cwd: normalizedOptions.pkgLocation,
     stdio: 'inherit',
   });
