@@ -33,6 +33,7 @@ provider:
   environment:
     APP_ENV: ${self:custom.stage}
     IS_PRODUCTION: '${file(./src/environments/config.${self:custom.stage}.json):is_production}'
+    NODE_OPTIONS: --enable-source-maps
 
 functions:
   foo:
