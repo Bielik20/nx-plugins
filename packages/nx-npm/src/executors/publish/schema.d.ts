@@ -3,6 +3,7 @@ export interface PublishExecutorSchema {
   npmRegistry: string;
   dryRun?: boolean;
   pkgVersion?: string;
+  tag: string;
 }
 
 export interface PublishExecutorNormalizedSchema {
@@ -12,4 +13,5 @@ export interface PublishExecutorNormalizedSchema {
   dryRun?: boolean;
   pkgLocation: string;
   pkgVersion?: string;
+  tag: string;
 }
