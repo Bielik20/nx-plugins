@@ -1,4 +1,5 @@
 import { hasNativeZip, nativeZip, nodeZip } from 'bestzip';
+import { ensureDir } from 'fs-extra';
 import * as glob from 'glob';
 import { join } from 'path';
 import { FunctionDecorator } from '../functions/function-decorator';
@@ -12,6 +13,7 @@ export class PackagingManager {
   }
 
   async pack(functions: ReadonlyArray<FunctionDecorator>, outputAbsolutePath: string) {
+    await ensureDir(join(this.originalServicePath, '.serverless'));
     if (this.serverless.service.package.individually === true) {
       await this.packIndividually(functions, outputAbsolutePath);
     } else {
