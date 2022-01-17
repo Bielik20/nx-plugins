@@ -1,5 +1,7 @@
 export const dependencies = {
+  bestzip: '^2.2.0',
   'fs-extra': '^10.0.0',
+  glob: '^7.2.0',
   lodash: '^4.17.20',
   yargs: '^16.2.0',
 } as const;
@@ -28,7 +30,6 @@ export const devDependencies = {
   '@types/yargs': '^16.0.1',
   '@typescript-eslint/eslint-plugin': '5.3.1',
   '@typescript-eslint/parser': '5.3.1',
-  bestzip: '^2.2.0',
   commitizen: '^4.2.4',
   'cz-conventional-changelog': '^3.3.0',
   dotenv: '10.0.0',
