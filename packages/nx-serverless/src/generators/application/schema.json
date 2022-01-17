@@ -6,7 +6,7 @@
   "type": "object",
   "properties": {
     "plugin": {
-      "description": "Which plugin you want to use within serverless",
+      "description": "Which plugin you want to use within serverless. @ns3/nx-serverless/plugin is still experimental.",
       "type": "string",
       "enum": ["serverless-bundle", "@ns3/nx-serverless/plugin"],
       "default": "serverless-bundle"
