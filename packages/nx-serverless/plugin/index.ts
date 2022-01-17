@@ -64,6 +64,7 @@ class NxServerlessPlugin {
   }
 
   private prepare() {
+    this.printExperimentalWarning();
     if (this.serverless.service.provider.name !== 'aws') {
       throw new Error('The only supported provider is AWS');
     }
@@ -73,6 +74,12 @@ class NxServerlessPlugin {
     const functions = generateFunctions(this.serverless, this.options);
 
     return { nx, packaging, functions };
+  }
+
+  private printExperimentalWarning() {
+    this.serverless.cli.log(
+      '"@ns3/nx-serverless/plugin" is experimental and can change without a major release.',
+    );
   }
 }
 
