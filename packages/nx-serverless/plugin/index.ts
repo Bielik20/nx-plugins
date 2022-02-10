@@ -10,8 +10,10 @@ class NxServerlessPlugin {
   readonly commands = {
     package: NX_SLS_COMMAND_OPTIONS,
     deploy: NX_SLS_COMMAND_OPTIONS,
+    'deploy function': NX_SLS_COMMAND_OPTIONS,
     'invoke local': NX_SLS_COMMAND_OPTIONS,
     offline: NX_SLS_COMMAND_OPTIONS,
+    'offline cloudside': NX_SLS_COMMAND_OPTIONS,
     'step-functions-offline': NX_SLS_COMMAND_OPTIONS,
   };
   readonly hooks: { [key: string]: () => void };
