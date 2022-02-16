@@ -57,7 +57,6 @@ export class FunctionDecorator {
     }
 
     // Can't find the files. Watch will have an exception anyway. So throw one with error.
-    this.serverless.cli.log(`Cannot locate handler - ${fileName} not found`);
-    throw new Error('Cannot locate handler - ${fileName} not found');
+    throw new Error(`Cannot locate handler - ${fileName} not found`);
   }
 }

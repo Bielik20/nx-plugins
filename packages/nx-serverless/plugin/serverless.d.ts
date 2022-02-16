@@ -58,4 +58,17 @@ declare namespace Serverless {
   interface PluginManager {
     spawn(command: string): Promise<void>;
   }
+
+  interface Logging {
+    log: {
+      error: (text: string) => void;
+      warning: (text: string) => void;
+      notice: (text: string) => void;
+      info: (text: string) => void;
+      debug: (text: string) => void;
+      verbose: (text: string) => void;
+      success: (text: string) => void;
+    };
+    writeText: (text: string | string[]) => void;
+  }
 }

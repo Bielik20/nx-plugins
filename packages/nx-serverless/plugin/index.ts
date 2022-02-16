@@ -8,7 +8,11 @@ import { PackagingManager } from './packaging/packaging-manager';
 class NxServerlessPlugin {
   readonly hooks: { [key: string]: () => void };
 
-  constructor(private serverless: Serverless.Instance, private options: Serverless.Options) {
+  constructor(
+    private serverless: Serverless.Instance,
+    private options: Serverless.Options,
+    private logging: Serverless.Logging,
+  ) {
     this.hooks = {
       'before:package:createDeploymentArtifacts': async () => {
         const { nx, packaging, functions } = this.prepare();
@@ -58,10 +62,10 @@ class NxServerlessPlugin {
   private prepare() {
     this.printExperimentalWarning();
     if (this.serverless.service.provider.name !== 'aws') {
-      throw new Error('The only supported provider is AWS');
+      throw new Error('The only supported provider is "aws"');
     }
 
-    const nx = new NxFacade(this.serverless);
+    const nx = new NxFacade(this.serverless, this.logging);
     const packaging = new PackagingManager(this.serverless);
     const functions = generateFunctions(this.serverless, this.options);
 
@@ -69,7 +73,7 @@ class NxServerlessPlugin {
   }
 
   private printExperimentalWarning() {
-    this.serverless.cli.log(
+    this.logging.log.warning(
       '"@ns3/nx-serverless/plugin" is experimental and can change without a major release.',
     );
   }

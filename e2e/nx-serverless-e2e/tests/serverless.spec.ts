@@ -14,9 +14,9 @@ describe('serverless e2e', () => {
       const plugin = uniq('nx-serverless');
       await runNxCommandAsync(`generate @ns3/nx-serverless:application ${plugin}`);
 
-      const buildResult = await runNxCommandAsync(`build ${plugin}`);
-      expect(buildResult.stdout).toContain('Running: sls package');
-      expect(buildResult.stdout).toContain('Serverless: Bundling with Webpack...');
+      const buildResult = await runNxCommandAsync(`package ${plugin}`);
+      expect(buildResult.stdout).toContain('Running: npx sls package');
+      expect(buildResult.stderr).toContain('✔ Service packaged');
 
       const lintResult = await runNxCommandAsync(`lint ${plugin}`);
       expect(lintResult.stdout).not.toContain('error Command failed with exit code 1.');
@@ -30,9 +30,9 @@ describe('serverless e2e', () => {
         `generate @ns3/nx-serverless:application ${plugin} --plugin @ns3/nx-serverless/plugin`,
       );
 
-      const buildResult = await runNxCommandAsync(`build ${plugin}`);
-      expect(buildResult.stdout).toContain('Running: sls package');
-      expect(buildResult.stdout).toContain('Serverless: Building with nx buildTarget:');
+      const buildResult = await runNxCommandAsync(`package ${plugin}`);
+      expect(buildResult.stdout).toContain('Running: npx sls package');
+      expect(buildResult.stderr).toContain('✔ Service packaged');
 
       const lintResult = await runNxCommandAsync(`lint ${plugin}`);
       expect(lintResult.stdout).not.toContain('error Command failed with exit code 1.');
