@@ -1,7 +1,7 @@
 import { ExecutorContext, runExecutor } from '@nrwl/devkit';
 import { join } from 'path';
 import { FunctionDecorator } from '../functions/function-decorator';
-import { NX_CONTEXT_KEY } from './nx-constants';
+import { NX_BUILD_TARGET_KEY, NX_CONTEXT_KEY } from './nx-constants';
 
 interface NxEntry {
   /**
@@ -40,11 +40,11 @@ export class NxFacade {
     return this.context.workspace.projects[this.targetDescription.project];
   }
 
-  constructor(private serverless: Serverless.Instance, options: Serverless.Options) {
+  constructor(private serverless: Serverless.Instance) {
     try {
-      const [project, target, configuration] = options.buildTarget.split(':');
+      const [project, target, configuration] = process.env[NX_BUILD_TARGET_KEY].split(':');
       this.targetDescription = { project, target, configuration };
-      this.buildTarget = options.buildTarget;
+      this.buildTarget = process.env[NX_BUILD_TARGET_KEY];
       this.context = JSON.parse(process.env[NX_CONTEXT_KEY]);
     } catch (e) {
       throw new Error(

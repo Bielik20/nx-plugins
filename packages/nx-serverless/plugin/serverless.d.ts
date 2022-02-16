@@ -38,7 +38,6 @@ declare namespace Serverless {
   interface Options {
     function?: string;
     skipPackage?: boolean;
-    buildTarget: string;
   }
 
   interface Function {
