@@ -16,7 +16,7 @@ describe('Sls Executor', () => {
     const output = await executor({ command: 'package' }, testContext);
 
     expect(output).toEqual(runCommandsReturn);
-    expect(execSyncMock).toHaveBeenCalledWith('sls package', {
+    expect(execSyncMock).toHaveBeenCalledWith('npx sls package', {
       cwd: 'apps/serverless839554',
       stdio: 'inherit',
       env: expect.anything(),
@@ -30,7 +30,7 @@ describe('Sls Executor', () => {
     );
 
     expect(output).toEqual(runCommandsReturn);
-    expect(execSyncMock).toHaveBeenCalledWith('sls deploy --foo=foo-value --bar=bar-value', {
+    expect(execSyncMock).toHaveBeenCalledWith('npx sls deploy --foo=foo-value --bar=bar-value', {
       cwd: 'apps/serverless839554',
       stdio: 'inherit',
       env: expect.anything(),
@@ -54,7 +54,7 @@ describe('Sls Executor', () => {
     };
 
     expect(output).toEqual(runCommandsReturn);
-    expect(execSyncMock).toHaveBeenCalledWith('sls package', {
+    expect(execSyncMock).toHaveBeenCalledWith('npx sls package', {
       cwd: 'apps/serverless839554',
       stdio: 'inherit',
       env: fakeEnvWithNxContext,
@@ -70,7 +70,7 @@ describe('Sls Executor', () => {
     };
 
     expect(output).toEqual(runCommandsReturn);
-    expect(execSyncMock).toHaveBeenCalledWith('sls package', {
+    expect(execSyncMock).toHaveBeenCalledWith('npx sls package', {
       cwd: 'apps/serverless839554',
       stdio: 'inherit',
       env: fakeEnvWithNxContext,

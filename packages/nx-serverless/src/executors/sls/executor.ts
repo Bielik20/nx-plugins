@@ -12,7 +12,7 @@ export default async function runExecutor(options: SlsExecutorSchema, context: E
     ...rest,
     ...(showHelp ? { help: true } : {}),
   });
-  const fullCommand = `sls ${command} ${stringifiedArgs}`.trim();
+  const fullCommand = `npx sls ${command} ${stringifiedArgs}`.trim();
 
   printCommand(fullCommand);
   execSync(fullCommand, {
