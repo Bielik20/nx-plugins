@@ -40,7 +40,7 @@ export class NxFacade {
     return this.context.workspace.projects[this.targetDescription.project];
   }
 
-  constructor(private serverless: Serverless.Instance) {
+  constructor(private serverless: Serverless.Instance, private logging: Serverless.Logging) {
     try {
       const [project, target, configuration] = process.env[NX_BUILD_TARGET_KEY].split(':');
       this.targetDescription = { project, target, configuration };
@@ -68,7 +68,7 @@ export class NxFacade {
   private async *compile(functions: ReadonlyArray<FunctionDecorator>, watch: boolean) {
     const additionalEntryPoints = this.generateEntries(functions);
 
-    this.serverless.cli.log(`Building with nx buildTarget: "${this.buildTarget}"`);
+    this.logging.log.info(`Building with nx buildTarget: "${this.buildTarget}"`);
 
     for await (const output of await runExecutor(
       this.targetDescription,
