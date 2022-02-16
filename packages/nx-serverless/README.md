@@ -36,7 +36,7 @@ nx generate @ns3/nx-serverless:app my-app-name --plugin @ns3/nx-serverless/plugi
 ## Available commands
 
 ```
-nx run my-app-name:build
+nx run my-app-name:package
 nx run my-app-name:serve
 nx run my-app-name:deploy
 nx run my-app-name:remove

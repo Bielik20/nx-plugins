@@ -28,24 +28,37 @@ describe('serverless generator', () => {
         projectType: 'application',
         sourceRoot: 'apps/sample/src',
         targets: {
-          build: {
-            executor: '@ns3/nx-serverless:sls',
-            outputs: ['apps/sample/.serverless', 'dist/apps/sample'],
-            options: {
-              command: 'package',
-            },
-          },
           serve: {
             executor: '@ns3/nx-serverless:sls',
             options: {
               command: 'offline',
             },
           },
+          package: {
+            executor: '@ns3/nx-serverless:sls',
+            outputs: ['apps/sample/.serverless', 'dist/apps/sample'],
+            dependsOn: [
+              {
+                target: 'build',
+                projects: 'dependencies',
+              },
+            ],
+            options: {
+              command: 'package',
+            },
+          },
           deploy: {
             executor: '@ns3/nx-serverless:sls',
             outputs: ['apps/sample/.serverless', 'dist/apps/sample'],
+            dependsOn: [
+              {
+                target: 'package',
+                projects: 'self',
+              },
+            ],
             options: {
               command: 'deploy',
+              package: '.serverless',
             },
           },
           remove: {
@@ -97,7 +110,7 @@ describe('serverless generator', () => {
         projectType: 'application',
         sourceRoot: 'apps/sample/src',
         targets: {
-          'build-base': {
+          build: {
             executor: '@nrwl/node:build',
             outputs: ['{options.outputPath}'],
             options: {
@@ -119,23 +132,36 @@ describe('serverless generator', () => {
             executor: '@ns3/nx-serverless:sls',
             options: {
               command: 'offline',
-              buildTarget: 'sample:build-base',
+              buildTarget: 'sample:build',
             },
           },
-          build: {
+          package: {
             executor: '@ns3/nx-serverless:sls',
             outputs: ['apps/sample/.serverless', 'dist/apps/sample'],
+            dependsOn: [
+              {
+                target: 'build',
+                projects: 'dependencies',
+              },
+            ],
             options: {
               command: 'package',
-              buildTarget: 'sample:build-base:production',
+              buildTarget: 'sample:build:production',
             },
           },
           deploy: {
             executor: '@ns3/nx-serverless:sls',
             outputs: ['apps/sample/.serverless', 'dist/apps/sample'],
+            dependsOn: [
+              {
+                target: 'package',
+                projects: 'self',
+              },
+            ],
             options: {
               command: 'deploy',
-              buildTarget: 'sample:build-base:production',
+              package: '.serverless',
+              buildTarget: 'sample:build:production',
             },
           },
           remove: {

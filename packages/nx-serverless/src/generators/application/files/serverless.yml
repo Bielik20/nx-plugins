@@ -1,8 +1,5 @@
 service: <%= name %>
 
-configValidationMode: error # remove in serverless v3
-variablesResolutionMode: 20210326 # remove in serverless v3
-
 plugins:
   - '<%= plugin %>'
   - serverless-offline
@@ -21,18 +18,21 @@ custom:
     linting: false
     tsConfig: 'tsconfig.app.json'<% } %>
 
+params:
+  prod:
+    production: true
+  default:
+    production: false
+
 provider:
   name: aws
   runtime: nodejs14.x
   stage: ${self:custom.stage}
   endpointType: regional
   timeout: 20
-  lambdaHashingVersion: 20201221 # removes deprecation warning (remove in serverless v3)
-  apiGateway:
-    shouldStartNameWithService: true # removes deprecation warning (remove in serverless v3)
   environment:
     APP_ENV: ${self:custom.stage}
-    IS_PRODUCTION: '${file(./src/environments/config.${self:custom.stage}.json):is_production}'
+    IS_PRODUCTION: ${param:production}
     NODE_OPTIONS: --enable-source-maps
 
 functions:

@@ -62,6 +62,8 @@ function updateTsConfig(tree: Tree, options: ServerlessGeneratorNormalizedSchema
         ...json.compilerOptions,
         forceConsistentCasingInFileNames: true,
         strict: true,
+        noImplicitOverride: true,
+        noPropertyAccessFromIndexSignature: true,
         noImplicitReturns: true,
         noFallthroughCasesInSwitch: true,
       };
