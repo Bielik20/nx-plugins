@@ -9,6 +9,10 @@
       "type": "string",
       "description": "Command to run."
     },
+    "buildTarget": {
+      "type": "string",
+      "description": "In case of using @ns3/nx-serverless/plugin instruct what to run to compile the code."
+    },
     "showHelp": {
       "type": "boolean",
       "description": "Show sls help for that command.",
