@@ -8,7 +8,7 @@ export function getProjectConfig(
   options: ServerlessGeneratorNormalizedSchema,
 ): ProjectConfiguration {
   const outputPath = getOutputPath(options);
-  const buildTargetName = 'build-base';
+  const buildTargetName = 'build';
   const buildTargetDev = `${options.name}:${buildTargetName}`;
   const buildTargetProd = `${buildTargetDev}:production`;
   const buildBaseConfig = getBuildBaseConfig(options);
@@ -30,9 +30,15 @@ export function getProjectConfig(
             : {}),
         },
       },
-      build: {
+      package: {
         executor: '@ns3/nx-serverless:sls',
         outputs: [outputPath, buildBaseConfig.options.outputPath],
+        dependsOn: [
+          {
+            target: 'build',
+            projects: 'dependencies',
+          },
+        ],
         options: {
           command: 'package',
           ...(options.plugin === '@ns3/nx-serverless/plugin'
@@ -43,8 +49,15 @@ export function getProjectConfig(
       deploy: {
         executor: '@ns3/nx-serverless:sls',
         outputs: [outputPath, buildBaseConfig.options.outputPath],
+        dependsOn: [
+          {
+            target: 'package',
+            projects: 'self',
+          },
+        ],
         options: {
           command: 'deploy',
+          package: '.serverless',
           ...(options.plugin === '@ns3/nx-serverless/plugin'
             ? { buildTarget: buildTargetProd }
             : {}),
