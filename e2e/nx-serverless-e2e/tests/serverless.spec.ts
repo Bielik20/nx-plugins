@@ -16,7 +16,7 @@ describe('serverless e2e', () => {
 
       const buildResult = await runNxCommandAsync(`package ${plugin}`);
       expect(buildResult.stdout).toContain('Running: npx sls package');
-      expect(buildResult.stderr).toContain('✔ Service packaged');
+      expect(buildResult.stdout).toContain('Service packaged');
 
       const lintResult = await runNxCommandAsync(`lint ${plugin}`);
       expect(lintResult.stdout).not.toContain('error Command failed with exit code 1.');
@@ -32,7 +32,7 @@ describe('serverless e2e', () => {
 
       const buildResult = await runNxCommandAsync(`package ${plugin}`);
       expect(buildResult.stdout).toContain('Running: npx sls package');
-      expect(buildResult.stderr).toContain('✔ Service packaged');
+      expect(buildResult.stdout).toContain('Service packaged');
 
       const lintResult = await runNxCommandAsync(`lint ${plugin}`);
       expect(lintResult.stdout).not.toContain('error Command failed with exit code 1.');
