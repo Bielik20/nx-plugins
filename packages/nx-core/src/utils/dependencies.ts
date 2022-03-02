@@ -1,5 +1,6 @@
 export const dependencies = {
   bestzip: '^2.2.0',
+  execa: '^5.0.0',
   'fs-extra': '^10.0.0',
   glob: '^7.2.0',
   lodash: '^4.17.20',
