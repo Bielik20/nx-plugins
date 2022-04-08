@@ -9,6 +9,7 @@ import {
 import { Linter } from '@nrwl/linter';
 import pluginGenerator from '@nrwl/nx-plugin/src/generators/plugin/plugin';
 import npmGenerator from '@ns3/nx-npm/src/generators/npm/generator';
+import { join } from "path";
 import { Schema } from './schema';
 
 export default async function (host: Tree, schema: Schema) {
@@ -21,6 +22,7 @@ export default async function (host: Tree, schema: Schema) {
     unitTestRunner: 'jest',
     linter: Linter.EsLint,
     importPath: `@ns3/${schema.name}`,
+    compiler: 'tsc',
   });
   await adjustGeneratedProject(host, { project: schema.name });
   await npmGenerator(host, { project: schema.name, skipFormat: true, access: 'public' });
@@ -47,7 +49,7 @@ function adjustGeneratedProject(tree: Tree, schema: { project: string }) {
   tree.delete(`${projectConfig.root}/src/index.ts`);
   tree.write(`${projectConfig.root}/index.ts`, '');
 
-  updateJson(tree, projectConfig.targets.build.options.packageJson, (json) => {
+  updateJson(tree, join(projectConfig.root, 'package.json'), (json) => {
     json.main = `index.js`;
     json.license = 'MIT';
 
