@@ -1,5 +1,4 @@
-import { joinPathFragments } from '@nrwl/devkit';
-import { ProjectConfiguration } from '@nrwl/tao/src/shared/workspace';
+import { joinPathFragments, ProjectConfiguration } from '@nrwl/devkit';
 import { getBuildBaseConfig } from './get-build-base-config';
 import { getOutputPath } from './get-output-path';
 import { ServerlessGeneratorNormalizedSchema } from './normalized-options';

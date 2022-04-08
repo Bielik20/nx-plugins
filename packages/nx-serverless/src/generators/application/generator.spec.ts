@@ -111,7 +111,7 @@ describe('serverless generator', () => {
         sourceRoot: 'apps/sample/src',
         targets: {
           build: {
-            executor: '@nrwl/node:build',
+            executor: '@nrwl/node:webpack',
             outputs: ['{options.outputPath}'],
             options: {
               outputPath: 'dist/apps/sample',

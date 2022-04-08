@@ -3,7 +3,7 @@ import { NormalizedOptions } from '@ns3/nx-core';
 
 export function getBuildBaseConfig(options: NormalizedOptions): TargetConfiguration {
   return {
-    executor: '@nrwl/node:build',
+    executor: '@nrwl/node:webpack',
     outputs: ['{options.outputPath}'],
     options: {
       outputPath: joinPathFragments('dist', options.projectRoot),
