@@ -60,7 +60,6 @@
     "@nrwl/nx-cloud": "13.2.2",
     "@nrwl/nx-plugin": "13.10.0",
     "@nrwl/workspace": "13.10.0",
-    "@ns3/nx-npm": "2.3.0",
     "@types/fs-extra": "^9.0.13",
     "@types/jest": "27.0.2",
     "@types/lodash": "^4.14.181",

@@ -2800,21 +2800,6 @@
     yargs "^17.4.0"
     yargs-parser "21.0.1"
 
-"@ns3/nx-core@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@ns3/nx-core/-/nx-core-2.3.0.tgz#9cb0c3bae6d05d66cb19ab3cb7100369819cdf0a"
-  integrity sha512-EtltPtWr8yY8nSLXzRGbFgQU0+u76R/Ix/hlOMnE0kJ+lrBUAyeM9vSnQw6wTv5DwNApw6OdFbygF5n8q0cedw==
-  dependencies:
-    fs-extra "^10.0.0"
-
-"@ns3/nx-npm@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@ns3/nx-npm/-/nx-npm-2.3.0.tgz#906ac499514e6d0187b987121d7b658288ac26de"
-  integrity sha512-1QrxwHls6aZfisLmXOV5ku1ZrqmSjI/nRVLeetuT2FkVzFsefG9RjuS4kTu0SJy0C8+FFfCJ7J3Yp98OCPdt9Q==
-  dependencies:
-    "@ns3/nx-core" "^2.3.0"
-    fs-extra "^10.0.0"
-
 "@octokit/auth-token@^2.4.4":
   version "2.4.5"
   resolved "https://registry.yarnpkg.com/@octokit/auth-token/-/auth-token-2.4.5.tgz#568ccfb8cb46f36441fac094ce34f7a875b197f3"
