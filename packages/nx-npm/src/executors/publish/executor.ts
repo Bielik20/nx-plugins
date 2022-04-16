@@ -14,7 +14,10 @@ export default async function runPublishExecutor(
   createNewNpmrc(normalizedOptions);
   if ('pkgVersion' in normalizedOptions) {
     updatePkgVersion(normalizedOptions);
-    await updateDepsVersion(normalizedOptions);
+    await syncDepsVersion(normalizedOptions);
+  }
+  if (normalizedOptions.caretDepsVersion) {
+    await caretDepsVersion(normalizedOptions);
   }
   publishPkg(normalizedOptions);
 
@@ -42,24 +45,53 @@ function updatePkgVersion(normalizedOptions: PublishExecutorNormalizedSchema) {
   });
 }
 
-async function updateDepsVersion(normalizedOptions: PublishExecutorNormalizedSchema) {
+async function syncDepsVersion(normalizedOptions: PublishExecutorNormalizedSchema) {
   const pkgJsonPath = joinPathFragments(normalizedOptions.pkgLocation, 'package.json');
-  const tsconfig = await readJson('tsconfig.base.json');
   const packageJson = await readJson(pkgJsonPath);
-  const paths = tsconfig.compilerOptions.paths;
-  const pathKeys = Object.keys(paths);
+  const projectsNames = await getAllProjectsNames();
   const version = packageJson.version;
 
-  pathKeys.forEach((key) => {
-    if (key in packageJson.peerDependencies) {
-      packageJson.peerDependencies[key] = `^${version}`;
+  projectsNames.forEach((name) => {
+    if (name in packageJson.peerDependencies) {
+      packageJson.peerDependencies[name] = version;
     }
-    if (key in packageJson.dependencies) {
-      packageJson.dependencies[key] = `^${version}`;
+    if (name in packageJson.dependencies) {
+      packageJson.dependencies[name] = version;
     }
   });
 
   await writeJson(pkgJsonPath, packageJson, { spaces: 2 });
+}
+
+async function caretDepsVersion(normalizedOptions: PublishExecutorNormalizedSchema) {
+  const pkgJsonPath = joinPathFragments(normalizedOptions.pkgLocation, 'package.json');
+  const packageJson = await readJson(pkgJsonPath);
+  const projectsNames = await getAllProjectsNames();
+
+  projectsNames.forEach((name) => {
+    if (name in packageJson.peerDependencies) {
+      packageJson.peerDependencies[name] = addCaret(packageJson.peerDependencies[name]);
+    }
+    if (name in packageJson.dependencies) {
+      packageJson.peerDependencies[name] = addCaret(packageJson.dependencies[name]);
+    }
+  });
+
+  await writeJson(pkgJsonPath, packageJson, { spaces: 2 });
+}
+
+async function getAllProjectsNames() {
+  const tsconfig = await readJson('tsconfig.base.json');
+  const paths = tsconfig.compilerOptions.paths;
+  return Object.keys(paths);
+}
+
+function addCaret(value: string) {
+  if (value.startsWith('v')) {
+    return value;
+  } else {
+    return `v${value}`;
+  }
 }
 
 function publishPkg(normalizedOptions: PublishExecutorNormalizedSchema) {
