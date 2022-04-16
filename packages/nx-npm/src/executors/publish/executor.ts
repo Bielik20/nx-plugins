@@ -87,10 +87,10 @@ async function getAllProjectsNames() {
 }
 
 function addCaret(value: string) {
-  if (value.startsWith('v')) {
+  if (value.startsWith('^')) {
     return value;
   } else {
-    return `v${value}`;
+    return `^${value}`;
   }
 }
 
