@@ -73,7 +73,7 @@ async function caretDepsVersion(normalizedOptions: PublishExecutorNormalizedSche
       packageJson.peerDependencies[name] = addCaret(packageJson.peerDependencies[name]);
     }
     if (name in packageJson.dependencies) {
-      packageJson.peerDependencies[name] = addCaret(packageJson.dependencies[name]);
+      packageJson.dependencies[name] = addCaret(packageJson.dependencies[name]);
     }
   });
 
