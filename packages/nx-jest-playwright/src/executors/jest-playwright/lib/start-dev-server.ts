@@ -22,7 +22,7 @@ export async function* startDevServer(
 
   for await (const output of await runExecutor<ExecutorResult>(
     { project, target, configuration },
-    { watch },
+    watch ? { watch } : {},
     context,
   )) {
     if (!output.success && !watch) {
