@@ -6,5 +6,5 @@
     "allowJs": true,
     "types": ["jest-playwright-preset", "expect-playwright", "jest", "node"]
   },
-  "include": ["src/**/*.ts", "src/**/*.js"]
+  "include": ["src/**/*.ts", "src/**/*.js", "jest.config.ts"]
 }
