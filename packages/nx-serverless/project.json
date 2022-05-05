@@ -1,5 +1,4 @@
 {
-  "root": "packages/nx-serverless",
   "sourceRoot": "packages/nx-serverless",
   "projectType": "library",
   "targets": {
@@ -14,7 +13,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/packages/nx-serverless"],
       "options": {
-        "jestConfig": "packages/nx-serverless/jest.config.js",
+        "jestConfig": "packages/nx-serverless/jest.config.ts",
         "passWithNoTests": true
       }
     },

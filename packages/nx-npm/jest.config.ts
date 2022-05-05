@@ -1,6 +1,6 @@
 module.exports = {
-  displayName: 'nx-jest-playwright',
-  preset: '../../jest.preset.js',
+  displayName: 'nx-npm',
+
   globals: {
     'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' },
   },
@@ -8,6 +8,7 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/packages/nx-jest-playwright',
+  coverageDirectory: '../../coverage/packages/nx-npm',
   testEnvironment: 'node',
+  preset: '../../jest.preset.ts',
 };
