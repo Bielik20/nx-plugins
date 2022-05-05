@@ -52,10 +52,10 @@ async function syncDepsVersion(normalizedOptions: PublishExecutorNormalizedSchem
   const version = packageJson.version;
 
   projectsNames.forEach((name) => {
-    if (name in packageJson.peerDependencies) {
+    if (name in (packageJson.peerDependencies || {})) {
       packageJson.peerDependencies[name] = version;
     }
-    if (name in packageJson.dependencies) {
+    if (name in (packageJson.dependencies || {})) {
       packageJson.dependencies[name] = version;
     }
   });
@@ -69,10 +69,10 @@ async function caretDepsVersion(normalizedOptions: PublishExecutorNormalizedSche
   const projectsNames = await getAllProjectsNames();
 
   projectsNames.forEach((name) => {
-    if (name in packageJson.peerDependencies) {
+    if (name in (packageJson.peerDependencies || {})) {
       packageJson.peerDependencies[name] = addCaret(packageJson.peerDependencies[name]);
     }
-    if (name in packageJson.dependencies) {
+    if (name in (packageJson.dependencies || {})) {
       packageJson.dependencies[name] = addCaret(packageJson.dependencies[name]);
     }
   });
