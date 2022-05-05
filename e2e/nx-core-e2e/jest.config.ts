@@ -1,6 +1,6 @@
 module.exports = {
   displayName: 'nx-core-e2e',
-  preset: '../../jest.preset.js',
+  preset: '../../jest.preset.ts',
   testTimeout: 90000,
   globals: {
     'ts-jest': {

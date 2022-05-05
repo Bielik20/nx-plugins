@@ -75,7 +75,7 @@ describe('serverless generator', () => {
             executor: '@nrwl/jest:jest',
             outputs: ['coverage/apps/sample'],
             options: {
-              jestConfig: 'apps/sample/jest.config.js',
+              jestConfig: 'apps/sample/jest.config.ts',
               passWithNoTests: true,
             },
           },
@@ -178,7 +178,7 @@ describe('serverless generator', () => {
             executor: '@nrwl/jest:jest',
             outputs: ['coverage/apps/sample'],
             options: {
-              jestConfig: 'apps/sample/jest.config.js',
+              jestConfig: 'apps/sample/jest.config.ts',
               passWithNoTests: true,
             },
           },

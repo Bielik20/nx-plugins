@@ -6,7 +6,7 @@
       "executor": "@nrwl/nx-plugin:e2e",
       "options": {
         "target": "nx-jest-playwright-e2e:prepare",
-        "jestConfig": "e2e/nx-jest-playwright-e2e/jest.config.js"
+        "jestConfig": "e2e/nx-jest-playwright-e2e/jest.config.ts"
       }
     },
     "prepare": {

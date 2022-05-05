@@ -12,7 +12,6 @@ import * as path from 'path';
 import jestPlaywrightInitGenerator from '../init/generator';
 import { addLinting } from './lib/add-linting';
 import { NxJestPlaywrightGeneratorNormalizedSchema } from './lib/normalize-options';
-import { updateJestConfig } from './lib/update-jestconfig';
 import { NxJestPlaywrightGeneratorSchema } from './schema';
 
 export default async function (host: Tree, options: NxJestPlaywrightGeneratorSchema) {
@@ -28,7 +27,7 @@ export default async function (host: Tree, options: NxJestPlaywrightGeneratorSch
         executor: '@ns3/nx-jest-playwright:jest-playwright',
         options: {
           devServerTarget: options.project ? `${options.project}:serve` : undefined,
-          jestConfig: `${normalizedOptions.projectRoot}/jest.config.js`,
+          jestConfig: `${normalizedOptions.projectRoot}/jest.config.ts`,
           passWithNoTests: true,
         },
         configurations: {
@@ -43,7 +42,6 @@ export default async function (host: Tree, options: NxJestPlaywrightGeneratorSch
   });
 
   addFiles(host, normalizedOptions);
-  updateJestConfig(host, normalizedOptions);
 
   const lintTask = await addLinting(host, normalizedOptions);
 
