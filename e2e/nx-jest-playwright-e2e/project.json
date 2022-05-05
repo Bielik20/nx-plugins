@@ -1,6 +1,5 @@
 {
   "projectType": "application",
-  "root": "e2e/nx-jest-playwright-e2e",
   "sourceRoot": "e2e/nx-jest-playwright-e2e/src",
   "targets": {
     "e2e": {

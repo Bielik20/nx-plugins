@@ -1,5 +1,4 @@
 {
-  "root": "packages/nx-npm",
   "sourceRoot": "packages/nx-npm",
   "projectType": "library",
   "targets": {
@@ -14,7 +13,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/packages/nx-npm"],
       "options": {
-        "jestConfig": "packages/nx-npm/jest.config.js",
+        "jestConfig": "packages/nx-npm/jest.config.ts",
         "passWithNoTests": true
       }
     },

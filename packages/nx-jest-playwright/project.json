@@ -1,5 +1,4 @@
 {
-  "root": "packages/nx-jest-playwright",
   "sourceRoot": "packages/nx-jest-playwright",
   "projectType": "library",
   "targets": {
@@ -14,7 +13,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/packages/nx-jest-playwright"],
       "options": {
-        "jestConfig": "packages/nx-jest-playwright/jest.config.js",
+        "jestConfig": "packages/nx-jest-playwright/jest.config.ts",
         "passWithNoTests": true
       }
     },
