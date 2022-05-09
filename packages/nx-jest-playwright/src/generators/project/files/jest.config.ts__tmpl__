@@ -5,7 +5,7 @@ module.exports = {
   preset: 'jest-playwright-preset',
   globals: {
     'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.e2e.json',
+      tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
   displayName: '<%= name %>',
