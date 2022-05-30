@@ -36,6 +36,10 @@ export class FunctionDecorator {
     return handler.substring(0, fnNameLastAppearanceIndex - 1);
   }
 
+  get includePatterns(): string[] {
+    return this.func.package?.include || [];
+  }
+
   /**
    * For
    * - src/handlers/get-user-by-id.handler
