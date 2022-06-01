@@ -1,6 +1,6 @@
 module.exports = {
   displayName: 'nx-jest-playwright-e2e',
-  preset: '../../jest.preset.ts',
+  preset: '../../jest.preset.js',
   testTimeout: 120000,
   globals: {
     'ts-jest': {

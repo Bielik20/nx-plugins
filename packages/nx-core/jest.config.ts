@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   displayName: 'nx-core',
 
   globals: {
@@ -10,5 +10,5 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/packages/nx-core',
   testEnvironment: 'node',
-  preset: '../../jest.preset.ts',
+  preset: '../../jest.preset.js',
 };
