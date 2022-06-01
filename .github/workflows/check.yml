@@ -92,6 +92,7 @@ jobs:
     needs: [install]
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         project: ${{ fromJson(needs.install.outputs.e2e-array) }}
     steps:
