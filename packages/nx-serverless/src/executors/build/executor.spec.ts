@@ -22,6 +22,7 @@ describe('Build Executor', () => {
     expect(output).toBe(runCommandsReturn);
     expect(runCommandsMock).toHaveBeenCalledWith(
       {
+        __unparsed__: [],
         command: 'sls package',
         outputPath: '',
         cwd: 'apps/serverless839554',
