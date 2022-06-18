@@ -1,14 +1,17 @@
-const { testEnvironment, ...nxPreset } = require('@nrwl/jest/preset');
+import nxPreset from '@nrwl/jest/preset';
+
+const { testEnvironment, ...rest } = nxPreset;
 
 module.exports = {
-  ...nxPreset,
+  ...rest,
   preset: 'jest-playwright-preset',
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-    },
-  },
   displayName: '<%= name %>',
+  globals: {
+    'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' },
+  },
+  transform: {
+    '^.+\\.[tj]sx?$': 'ts-jest',
+  },
   testEnvironmentOptions: {
     'jest-playwright': {
       browsers: ['chromium'],

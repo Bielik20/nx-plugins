@@ -1,10 +1,8 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "sourceMap": false,
     "outDir": "<%= offsetFromRoot %>dist/out-tsc",
-    "allowJs": true,
     "types": ["jest-playwright-preset", "expect-playwright", "jest", "node"]
   },
-  "include": ["src/**/*.ts", "src/**/*.js", "jest.config.ts"]
+  "include": ["src/**/*.ts", "src/**/*.js", "**/*.d.ts", "jest.config.ts"]
 }
