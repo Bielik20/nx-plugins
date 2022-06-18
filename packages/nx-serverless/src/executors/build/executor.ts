@@ -24,6 +24,7 @@ export default async function runExecutor(options: BuildExecutorSchema, context:
 
   return runCommands(
     {
+      __unparsed__: [],
       command,
       outputPath,
       color: true,

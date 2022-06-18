@@ -1,5 +1,4 @@
-import { ExecutorContext } from '@nrwl/devkit';
-import { readNxJson } from '@nrwl/workspace';
+import { ExecutorContext, readNxJson } from '@nrwl/devkit';
 import { getProjectConfiguration } from '@ns3/nx-core';
 import { PublishExecutorNormalizedSchema, PublishExecutorSchema } from '../schema';
 
