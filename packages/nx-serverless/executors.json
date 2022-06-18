@@ -1,26 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
   "executors": {
-    "build": {
-      "implementation": "./src/executors/build/executor",
-      "schema": "./src/executors/build/schema.json",
-      "description": "build executor"
-    },
-    "serve": {
-      "implementation": "./src/executors/serve/executor",
-      "schema": "./src/executors/serve/schema.json",
-      "description": "serve executor"
-    },
-    "deploy": {
-      "implementation": "./src/executors/deploy/executor",
-      "schema": "./src/executors/deploy/schema.json",
-      "description": "deploy executor"
-    },
-    "remove": {
-      "implementation": "./src/executors/remove/executor",
-      "schema": "./src/executors/remove/schema.json",
-      "description": "remove executor"
-    },
     "sls": {
       "implementation": "./src/executors/sls/executor",
       "schema": "./src/executors/sls/schema.json",
