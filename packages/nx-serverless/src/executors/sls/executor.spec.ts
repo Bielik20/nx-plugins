@@ -1,9 +1,10 @@
 import * as execa from 'execa';
-import { NX_CONTEXT_KEY } from '../../../plugin/nrwl/nx-constants';
 import { testContext } from '../../utils/test-context';
 import executor from './executor';
 
 const runCommandsReturn = { success: true };
+
+jest.mock('fs-extra');
 
 describe('Sls Executor', () => {
   let execSyncMock: jest.SpyInstance;
@@ -24,7 +25,7 @@ describe('Sls Executor', () => {
       expect(output).toEqual(runCommandsReturn);
       expect(execSyncMock).toHaveBeenCalledWith('npx sls package', {
         all: false,
-        cwd: 'apps/serverless839554',
+        cwd: 'apps/serverlessMock',
         stdio: 'inherit',
         env: expect.anything(),
       });
@@ -39,53 +40,48 @@ describe('Sls Executor', () => {
       expect(output).toEqual(runCommandsReturn);
       expect(execSyncMock).toHaveBeenCalledWith('npx sls deploy --foo=foo-value --bar=bar-value', {
         all: false,
-        cwd: 'apps/serverless839554',
+        cwd: 'apps/serverlessMock',
         stdio: 'inherit',
         env: expect.anything(),
       });
     });
 
-    it('should include nx context in env', async () => {
-      await executor({ command: 'package' }, testContext);
-      const { env } = execSyncMock.mock.calls[0][1];
-
-      expect(env[NX_CONTEXT_KEY]).toBe(JSON.stringify(testContext));
-    });
-
     it('should overwrite env', async () => {
       const fakeEnv = { foo: 'bar' };
       const output = await executor({ command: 'package', env: fakeEnv }, testContext);
-      const fakeEnvWithNxContext = {
+      const expectedEnv = {
         ...fakeEnv,
         FORCE_COLOR: 'true',
-        [NX_CONTEXT_KEY]: JSON.stringify(testContext),
         NODE_OPTIONS: '--enable-source-maps',
+        NS3_NX_SERVERLESS_CONFIG_PATH:
+          '/base/ns3/tmp/nx-e2e/proj/tmp/apps/serverlessMock/nx-serverless-build-undefined.json',
       };
 
       expect(output).toEqual(runCommandsReturn);
       expect(execSyncMock).toHaveBeenCalledWith('npx sls package', {
         all: false,
-        cwd: 'apps/serverless839554',
+        cwd: 'apps/serverlessMock',
         stdio: 'inherit',
-        env: fakeEnvWithNxContext,
+        env: expectedEnv,
       });
     });
 
     it('env should overwrite NODE_OPTIONS', async () => {
       const fakeEnv = { foo: 'bar', NODE_OPTIONS: undefined };
       const output = await executor({ command: 'package', env: fakeEnv }, testContext);
-      const fakeEnvWithNxContext = {
+      const expectedEnv = {
         ...fakeEnv,
         FORCE_COLOR: 'true',
-        [NX_CONTEXT_KEY]: JSON.stringify(testContext),
+        NS3_NX_SERVERLESS_CONFIG_PATH:
+          '/base/ns3/tmp/nx-e2e/proj/tmp/apps/serverlessMock/nx-serverless-build-undefined.json',
       };
 
       expect(output).toEqual(runCommandsReturn);
       expect(execSyncMock).toHaveBeenCalledWith('npx sls package', {
         all: false,
-        cwd: 'apps/serverless839554',
+        cwd: 'apps/serverlessMock',
         stdio: 'inherit',
-        env: fakeEnvWithNxContext,
+        env: expectedEnv,
       });
     });
   });

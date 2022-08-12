@@ -1,2 +1,0 @@
-export const NX_CONTEXT_KEY = 'NS3_NX_CONTEXT';
-export const NX_BUILD_TARGET_KEY = 'NS3_NX_BUILD_TARGET';
