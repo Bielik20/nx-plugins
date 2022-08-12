@@ -2,12 +2,16 @@ import 'dotenv/config';
 import { ExecutorContext } from '@nrwl/devkit';
 import { getProjectConfiguration, stringifyArgs } from '@ns3/nx-core';
 import * as execa from 'execa';
-import { NX_BUILD_TARGET_KEY, NX_CONTEXT_KEY } from '../../../plugin/nrwl/nx-constants';
+import {
+  NX_SERVERLESS_CONFIG_PATH_KEY,
+  prepareNxServerlessConfig,
+} from '../../../plugin/nrwl/nx-serverless-config';
 import { printCommand } from '../../utils/print-command';
 import { SlsExecutorSchema } from './schema';
 
 export default async function runExecutor(options: SlsExecutorSchema, context: ExecutorContext) {
   const { showHelp, buildTarget, command, env = process.env, ...rest } = options;
+  const configPath = await prepareNxServerlessConfig(context, buildTarget);
   const IS_CI_RUN = process.env.CI === 'true';
   const projectRoot = getProjectConfiguration(context).root;
   const stringifiedArgs = stringifyArgs({
@@ -25,8 +29,7 @@ export default async function runExecutor(options: SlsExecutorSchema, context: E
       FORCE_COLOR: 'true',
       NODE_OPTIONS: '--enable-source-maps',
       ...env,
-      [NX_CONTEXT_KEY]: JSON.stringify(context),
-      [NX_BUILD_TARGET_KEY]: buildTarget,
+      [NX_SERVERLESS_CONFIG_PATH_KEY]: configPath,
     },
   });
 

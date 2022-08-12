@@ -1,7 +1,7 @@
 import { ExecutorContext, runExecutor } from '@nrwl/devkit';
 import { join } from 'path';
 import { FunctionDecorator } from '../functions/function-decorator';
-import { NX_BUILD_TARGET_KEY, NX_CONTEXT_KEY } from './nx-constants';
+import { getNxServerlessConfig } from './nx-serverless-config';
 
 interface NxEntry {
   /**
@@ -42,10 +42,11 @@ export class NxFacade {
 
   constructor(private serverless: Serverless.Instance, private logging: Serverless.Logging) {
     try {
-      const [project, target, configuration] = process.env[NX_BUILD_TARGET_KEY].split(':');
+      const config = getNxServerlessConfig();
+      const [project, target, configuration] = config.buildTarget.split(':');
       this.targetDescription = { project, target, configuration };
-      this.buildTarget = process.env[NX_BUILD_TARGET_KEY];
-      this.context = JSON.parse(process.env[NX_CONTEXT_KEY]);
+      this.buildTarget = config.buildTarget;
+      this.context = config.context;
     } catch (e) {
       throw new Error(
         '@nrwl/nx context not found. This is probably because you are running serverless outside nx command.',
