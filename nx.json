@@ -32,6 +32,9 @@
   },
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
+    "publish": {
+      "dependsOn": ["build", "^publish"]
+    },
     "build": {
       "dependsOn": ["^build"]
     }
