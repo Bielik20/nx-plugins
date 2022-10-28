@@ -12,7 +12,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/nx-jest-playwright"],
+      "outputs": ["{workspaceRoot}/coverage/packages/nx-jest-playwright"],
       "options": {
         "jestConfig": "packages/nx-jest-playwright/jest.config.ts",
         "passWithNoTests": true
