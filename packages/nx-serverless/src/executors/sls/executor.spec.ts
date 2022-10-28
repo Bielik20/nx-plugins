@@ -33,7 +33,7 @@ describe('Sls Executor', () => {
 
     it('should pass inline arguments', async () => {
       const output = await executor(
-        { foo: 'foo-value', bar: 'bar-value', command: 'deploy ' },
+        { foo: 'foo-value', bar: 'bar-value', command: 'deploy' },
         testContext,
       );
 
