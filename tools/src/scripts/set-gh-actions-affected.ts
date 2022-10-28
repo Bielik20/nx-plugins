@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import { appRootPath } from '@nrwl/workspace/src/utilities/app-root';
+import { workspaceRoot } from '@nrwl/devkit';
 import { execSync } from 'child_process';
 
 export function setGhActionsAffected() {
@@ -12,7 +12,7 @@ export function setGhActionsAffected() {
 
     const result = execSync(`nx print-affected ${args.join(' ')}`, {
       encoding: 'utf8',
-      cwd: appRootPath,
+      cwd: workspaceRoot,
     }).trim();
 
     const array = result ? result.split(',').map((x) => x.trim()) : [];
