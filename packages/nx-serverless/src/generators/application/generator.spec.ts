@@ -39,12 +39,7 @@ describe('serverless generator', () => {
           package: {
             executor: '@ns3/nx-serverless:sls',
             outputs: ['apps/sample/.serverless', 'dist/apps/sample'],
-            dependsOn: [
-              {
-                target: 'build',
-                projects: 'dependencies',
-              },
-            ],
+            dependsOn: ['^build'],
             options: {
               command: 'package',
             },
@@ -52,12 +47,7 @@ describe('serverless generator', () => {
           deploy: {
             executor: '@ns3/nx-serverless:sls',
             outputs: ['apps/sample/.serverless', 'dist/apps/sample'],
-            dependsOn: [
-              {
-                target: 'package',
-                projects: 'self',
-              },
-            ],
+            dependsOn: ['package'],
             options: {
               command: 'deploy',
               package: '.serverless',
@@ -142,12 +132,7 @@ describe('serverless generator', () => {
           package: {
             executor: '@ns3/nx-serverless:sls',
             outputs: ['apps/sample/.serverless', 'dist/apps/sample'],
-            dependsOn: [
-              {
-                target: 'build',
-                projects: 'dependencies',
-              },
-            ],
+            dependsOn: ['^build'],
             options: {
               command: 'package',
               buildTarget: 'sample:build:production',
@@ -156,12 +141,7 @@ describe('serverless generator', () => {
           deploy: {
             executor: '@ns3/nx-serverless:sls',
             outputs: ['apps/sample/.serverless', 'dist/apps/sample'],
-            dependsOn: [
-              {
-                target: 'package',
-                projects: 'self',
-              },
-            ],
+            dependsOn: ['package'],
             options: {
               command: 'deploy',
               package: '.serverless',
