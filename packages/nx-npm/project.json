@@ -6,13 +6,18 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["packages/nx-npm/**/*.ts"]
+        "lintFilePatterns": [
+          "packages/nx-npm/**/*.ts",
+          "packages/nx-npm/generators.json",
+          "packages/nx-npm/executors.json",
+          "packages/nx-npm/package.json"
+        ]
       },
       "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/packages/nx-npm"],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "packages/nx-npm/jest.config.ts",
         "passWithNoTests": true
@@ -23,15 +28,18 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/nx-npm",
-        "buildableProjectDepsInPackageJsonType": "dependencies",
-        "tsConfig": "packages/nx-npm/tsconfig.lib.json",
-        "packageJson": "packages/nx-npm/package.json",
         "main": "packages/nx-npm/index.ts",
+        "tsConfig": "packages/nx-npm/tsconfig.lib.json",
         "assets": [
           "packages/nx-npm/*.md",
           {
             "input": "./packages/nx-npm/src",
-            "glob": "**/*.!(ts)",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-npm/src",
+            "glob": "**/*.d.ts",
             "output": "./src"
           },
           {

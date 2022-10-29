@@ -6,13 +6,18 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["packages/nx-jest-playwright/**/*.ts"]
+        "lintFilePatterns": [
+          "packages/nx-jest-playwright/**/*.ts",
+          "packages/nx-jest-playwright/generators.json",
+          "packages/nx-jest-playwright/executors.json",
+          "packages/nx-jest-playwright/package.json"
+        ]
       },
       "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/packages/nx-jest-playwright"],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "packages/nx-jest-playwright/jest.config.ts",
         "passWithNoTests": true
@@ -23,15 +28,18 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/nx-jest-playwright",
-        "buildableProjectDepsInPackageJsonType": "dependencies",
-        "tsConfig": "packages/nx-jest-playwright/tsconfig.lib.json",
-        "packageJson": "packages/nx-jest-playwright/package.json",
         "main": "packages/nx-jest-playwright/index.ts",
+        "tsConfig": "packages/nx-jest-playwright/tsconfig.lib.json",
         "assets": [
           "packages/nx-jest-playwright/*.md",
           {
             "input": "./packages/nx-jest-playwright/src",
-            "glob": "**/*.!(ts)",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-jest-playwright/src",
+            "glob": "**/*.d.ts",
             "output": "./src"
           },
           {
