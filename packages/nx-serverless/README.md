@@ -44,6 +44,27 @@ nx run my-app-name:lint
 nx run my-app-name:test
 ```
 
+## Stage
+
+To control Serverless `stage` param you can use
+
+### ⚠️ Flag
+
+`--stage` flag, but that won't get forwarded to dependant tasks.
+
+```shell
+nx run my-app-name:deploy --stage my-stage
+```
+
+### ✅ Env Variable
+
+`STAGE` env variable, `package` and `deploy` targets are configured to take it into account.
+As a bonus you can use it later to also configure e2e tests for your service etc.
+
+```shell
+STAGE=my-stage nx run my-app-name:deploy
+```
+
 ## Custom commands
 
 Should you need a more specific command that is not included you can run it like:

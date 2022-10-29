@@ -32,12 +32,7 @@ export function getProjectConfig(
       package: {
         executor: '@ns3/nx-serverless:sls',
         outputs: [outputPath, buildBaseConfig.options.outputPath],
-        dependsOn: [
-          {
-            target: 'build',
-            projects: 'dependencies',
-          },
-        ],
+        dependsOn: ['^build'],
         options: {
           command: 'package',
           ...(options.plugin === '@ns3/nx-serverless/plugin'
@@ -48,12 +43,7 @@ export function getProjectConfig(
       deploy: {
         executor: '@ns3/nx-serverless:sls',
         outputs: [outputPath, buildBaseConfig.options.outputPath],
-        dependsOn: [
-          {
-            target: 'package',
-            projects: 'self',
-          },
-        ],
+        dependsOn: ['package'],
         options: {
           command: 'deploy',
           package: '.serverless',

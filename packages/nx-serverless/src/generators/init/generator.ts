@@ -8,16 +8,15 @@ import {
 } from '@nrwl/devkit';
 import { jestInitGenerator } from '@nrwl/jest';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
-import { setDefaultCollection } from '@nrwl/workspace/src/utilities/set-default-collection';
 import { devDependencies } from '@ns3/nx-core';
 import { InitGeneratorSchema } from './schema';
 
 export default async function serverlessInitGenerator(host: Tree, options: InitGeneratorSchema) {
   const tasks: GeneratorCallback[] = [];
 
-  setDefaultCollection(host, '@ns3/nx-serverless');
   updateGitignore(host);
   addCacheableOperation(host);
+  setupTargetDefaults(host);
 
   if (!options.unitTestRunner || options.unitTestRunner === 'jest') {
     const jestTask = jestInitGenerator(host, {});
@@ -64,20 +63,52 @@ function updateGitignore(host: Tree) {
 
 function addCacheableOperation(tree: Tree) {
   const workspace = readWorkspaceConfiguration(tree);
-  if (
-    !workspace.tasksRunnerOptions ||
-    !workspace.tasksRunnerOptions.default ||
-    workspace.tasksRunnerOptions.default.runner !== '@nrwl/workspace/tasks-runners/default'
-  ) {
+  if (!workspace.tasksRunnerOptions || !workspace.tasksRunnerOptions.default) {
     return;
   }
 
-  workspace.tasksRunnerOptions.default.options = workspace.tasksRunnerOptions.default.options || {};
+  workspace.tasksRunnerOptions.default.options ??= {};
+  workspace.tasksRunnerOptions.default.options.cacheableOperations ??= [];
 
-  workspace.tasksRunnerOptions.default.options.cacheableOperations =
-    workspace.tasksRunnerOptions.default.options.cacheableOperations || [];
   if (!workspace.tasksRunnerOptions.default.options.cacheableOperations.includes('package')) {
     workspace.tasksRunnerOptions.default.options.cacheableOperations.push('package');
   }
+  if (!workspace.tasksRunnerOptions.default.options.cacheableOperations.includes('deploy')) {
+    workspace.tasksRunnerOptions.default.options.cacheableOperations.push('deploy');
+  }
+
   updateWorkspaceConfiguration(tree, workspace);
+}
+
+function setupTargetDefaults(tree: Tree) {
+  const workspaceConfiguration = readWorkspaceConfiguration(tree);
+
+  if (!workspaceConfiguration.namedInputs) {
+    workspaceConfiguration.namedInputs ??= {};
+    workspaceConfiguration.namedInputs.default ??= ['{projectRoot}/**/*'];
+    workspaceConfiguration.namedInputs.production ??= [
+      'default',
+      '!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)',
+      '!{projectRoot}/tsconfig.spec.json',
+      '!{projectRoot}/jest.config.[jt]s',
+      '!{projectRoot}/.eslintrc.json',
+    ];
+  }
+
+  const inputs = [
+    'production',
+    '^production',
+    {
+      env: 'STAGE',
+    },
+  ];
+
+  workspaceConfiguration.targetDefaults ??= {};
+  workspaceConfiguration.targetDefaults.deploy ??= {};
+  workspaceConfiguration.targetDefaults.deploy.inputs ??= inputs;
+
+  workspaceConfiguration.targetDefaults.package ??= {};
+  workspaceConfiguration.targetDefaults.package.inputs ??= inputs;
+
+  updateWorkspaceConfiguration(tree, workspaceConfiguration);
 }
