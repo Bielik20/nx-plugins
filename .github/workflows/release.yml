@@ -17,25 +17,14 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Cache Dependencies
-        id: cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            node_modules
-            tools/src/**/*.js
-          key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: '.nvmrc'
-      - name: Install Dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn
+      - name: Setup
+        uses: ./.github/actions/setup
       - name: Start Release
         id: semantic
         run: npx semantic-release --dry-run
+      - name: Build
+        run: yarn nx affected --target build --parallel 3 --base ${{ steps.semantic.outputs.last-head || 'HEAD' }}
       - name: Publish
-        run: yarn nx affected --target publish --parallel --base ${{ steps.semantic.outputs.last-head || 'HEAD' }} --pkgVersion ${{ steps.semantic.outputs.next-version }} --tag ${{ steps.semantic.outputs.channel }}
+        run: yarn nx affected --target publish --parallel 3 --base ${{ steps.semantic.outputs.last-head || 'HEAD' }} --pkgVersion ${{ steps.semantic.outputs.next-version }} --tag ${{ steps.semantic.outputs.channel }}
       - name: Finish Release
         run: npx semantic-release

@@ -38,7 +38,7 @@ jobs:
       - name: Set publish
         id: set-publish
         #  We only want to build publishable libs, hence target publish
-        run: yarn script set-affected --target publish --base ${{ steps.semantic.outputs.last-head || 'HEAD' }} --with-deps
+        run: yarn script set-affected --target publish --base ${{ steps.semantic.outputs.last-head || 'HEAD' }}
     outputs:
       next-version: ${{ steps.semantic.outputs.next-version || '0.0.0' }}
       publish-comma: ${{ steps.set-publish.outputs.comma-separated }}
