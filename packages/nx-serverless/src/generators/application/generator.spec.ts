@@ -24,6 +24,8 @@ describe('serverless generator', () => {
       await generator(appTree, options);
       const config = readProjectConfiguration(appTree, 'sample');
       expect(config).toEqual({
+        $schema: '../../node_modules/nx/schemas/project-schema.json',
+        name: 'sample',
         root: 'apps/sample',
         projectType: 'application',
         sourceRoot: 'apps/sample/src',
@@ -73,7 +75,7 @@ describe('serverless generator', () => {
           },
           test: {
             executor: '@nrwl/jest:jest',
-            outputs: ['coverage/apps/sample'],
+            outputs: ['{workspaceRoot}/coverage/{projectRoot}'],
             options: {
               jestConfig: 'apps/sample/jest.config.ts',
               passWithNoTests: true,
@@ -106,6 +108,8 @@ describe('serverless generator', () => {
       await generator(appTree, options);
       const config = readProjectConfiguration(appTree, 'sample');
       expect(config).toEqual({
+        $schema: '../../node_modules/nx/schemas/project-schema.json',
+        name: 'sample',
         root: 'apps/sample',
         projectType: 'application',
         sourceRoot: 'apps/sample/src',
@@ -176,7 +180,7 @@ describe('serverless generator', () => {
           },
           test: {
             executor: '@nrwl/jest:jest',
-            outputs: ['coverage/apps/sample'],
+            outputs: ['{workspaceRoot}/coverage/{projectRoot}'],
             options: {
               jestConfig: 'apps/sample/jest.config.ts',
               passWithNoTests: true,
