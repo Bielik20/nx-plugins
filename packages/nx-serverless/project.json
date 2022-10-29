@@ -6,13 +6,18 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["packages/nx-serverless/**/*.ts"]
+        "lintFilePatterns": [
+          "packages/nx-serverless/**/*.ts",
+          "packages/nx-serverless/generators.json",
+          "packages/nx-serverless/executors.json",
+          "packages/nx-serverless/package.json"
+        ]
       },
       "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/packages/nx-serverless"],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "packages/nx-serverless/jest.config.ts",
         "passWithNoTests": true
@@ -23,15 +28,18 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/nx-serverless",
-        "buildableProjectDepsInPackageJsonType": "dependencies",
-        "tsConfig": "packages/nx-serverless/tsconfig.lib.json",
-        "packageJson": "packages/nx-serverless/package.json",
         "main": "packages/nx-serverless/index.ts",
+        "tsConfig": "packages/nx-serverless/tsconfig.lib.json",
         "assets": [
           "packages/nx-serverless/*.md",
           {
             "input": "./packages/nx-serverless/src",
-            "glob": "**/*.!(ts)",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-serverless/src",
+            "glob": "**/*.d.ts",
             "output": "./src"
           },
           {
