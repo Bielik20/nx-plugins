@@ -1,0 +1,33 @@
+name: 'Setup'
+description: 'Run basic setup'
+
+inputs:
+  affected:
+    required: false
+    default: false
+    type: boolean
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Cache Dependencies
+      id: cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          node_modules
+          tools/src/**/*.js
+        key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version-file: '.nvmrc'
+    - name: Install
+      if: steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: yarn
+    - name: Derive appropriate SHAs for base and head for `nx affected` commands
+      if: ${{ inputs.affected == 'true' }}
+      uses: nrwl/nx-set-shas@v3
+      with:
+        main-branch-name: 'master'

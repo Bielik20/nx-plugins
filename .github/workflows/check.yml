@@ -1,123 +1,45 @@
 name: Check
 on:
   pull_request:
+env:
+  NX_CLOUD_DISTRIBUTED_EXECUTION_AGENT_COUNT: 4
+  NX_CLOUD_DISTRIBUTED_EXECUTION: false
 
 jobs:
-  install:
-    name: Install Dependencies
+  controller:
+    name: Controller
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Cache Dependencies
-        id: cache
-        uses: actions/cache@v3
+      - name: Setup
+        uses: ./.github/actions/setup
         with:
-          path: |
-            node_modules
-            tools/src/**/*.js
-          key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+          affected: true
+      - run: npx nx-cloud start-ci-run
+      - name: Run Commands
+        uses: ./.github/actions/run-commands-in-parallel
         with:
-          node-version-file: '.nvmrc'
-      - name: Execute
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn
-      - name: Set Variables
-        id: variables
-        run: yarn script set-pr-variables
-      - name: Set e2e
-        id: set-e2e
-        run: yarn script set-affected --target e2e --base ${{ steps.variables.outputs.base }}
-      - name: Set lint
-        id: set-lint
-        run: yarn script set-affected --target lint --base ${{ steps.variables.outputs.base }}
-      - name: Set test
-        id: set-test
-        run: yarn script set-affected --target test --base ${{ steps.variables.outputs.base }}
-    outputs:
-      e2e-array: ${{ steps.set-e2e.outputs.array }}
-      lint-comma: ${{ steps.set-lint.outputs.comma-separated }}
-      test-comma: ${{ steps.set-test.outputs.comma-separated }}
+          parallel-commands-on-agents: |
+            npx nx affected --target=e2e --parallel=1
+            npx nx affected --target=lint --parallel=3 --silent
+            npx nx affected --target=test --parallel=3 --quiet
+      - run: npx nx-cloud stop-all-agents
+        if: ${{ always() }}
 
-  lint:
-    name: Lint
-    needs: install
+  agents:
+    name: Agent
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: '.nvmrc'
-      - name: Load Dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            node_modules
-            tools/src/**/*.js
-          key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
-      - name: Execute
-        if: ${{ needs.install.outputs.lint-comma }}
-        run: npm run nx -- run-many --projects ${{ needs.install.outputs.lint-comma }} --target lint --parallel -- --quiet
-
-  test:
-    name: Test
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: '.nvmrc'
-      - name: Load Dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            node_modules
-            tools/src/**/*.js
-          key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
-      - name: Execute
-        if: ${{ needs.install.outputs.test-comma }}
-        run: yarn nx run-many --projects ${{ needs.install.outputs.test-comma }} --target test --parallel
-
-  e2e:
-    name: E2E
-    needs: [install]
-    runs-on: ubuntu-latest
+    timeout-minutes: 60
     strategy:
-      fail-fast: false
       matrix:
-        project: ${{ fromJson(needs.install.outputs.e2e-array) }}
+        agent: [1, 2, 3, 4]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: '.nvmrc'
-      - name: Load Dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            node_modules
-            tools/src/**/*.js
-          key: dependencies-${{ runner.os }}-${{ hashFiles('yarn.lock', 'tools/src/**/*.ts') }}
-      - name: Execute
-        run: yarn nx run ${{ matrix.project }}:e2e
-
-  e2e-done:
-    name: E2E
-    needs: [install, e2e]
-    if: ${{ always() }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check status
-        if: ${{ needs.e2e.result != 'success' && !contains(needs.install.outputs.e2e-array, '[]') }}
-        run: exit 1
+      - name: Setup
+        uses: ./.github/actions/setup
+      - name: Start Nx Agent ${{ matrix.agent }}
+        run: npx nx-cloud start-agent

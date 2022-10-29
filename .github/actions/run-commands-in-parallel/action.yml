@@ -1,0 +1,89 @@
+name: 'Run Commands in Parallel'
+description: "Based on https://github.com/nrwl/ci"
+
+inputs:
+  parallel-commands:
+    required: false
+    type: string
+  parallel-commands-on-agents:
+    required: false
+    type: string
+
+runs:
+  using: 'composite'
+  steps:
+    # An unfortunate side-effect of the way reusable workflows work is that by the time they are pulled into the "caller"
+    # repo, they are effectively completely embedded in that context. This means that we cannot reference any files which
+    # are local to this repo which defines the workflow, and we therefore need to work around this by embedding the contents
+    # of the shell utilities for executing commands into the workflow directly.
+    - name: Create command utils
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const { writeFileSync } = require('fs');
+          const runCommandsInParallelScript = `
+            # Extract the provided commands from the stringified JSON array.
+            IFS=$'\n' read -d '' -a userCommands < <((jq -c -r '.[]') <<<"$1")
+            # Invoke the provided commands in parallel and collect their exit codes.
+            pids=()
+            for userCommand in "\${userCommands[@]}"; do
+              eval "$userCommand" & pids+=($!)
+            done
+            # If any one of the invoked commands exited with a non-zero exit code, exit the whole thing with code 1.
+            for pid in \${pids[*]}; do
+              if ! wait $pid; then
+                exit 1
+              fi
+            done
+            # All the invoked commands must have exited with code zero.
+            exit 0
+          `;
+          writeFileSync('./.github/workflows/run-commands-in-parallel.sh', runCommandsInParallelScript);
+
+    - name: Prepare command utils
+      shell: bash
+      # We need to escape the workspace path to be consistent cross-platform: https://github.com/actions/runner/issues/1066
+      run: chmod +x ${GITHUB_WORKSPACE//\\//}/.github/workflows/run-commands-in-parallel.sh
+
+    - name: Process parallel commands configuration
+      uses: actions/github-script@v6
+      id: parallel_commands_config
+      env:
+        PARALLEL_COMMANDS: ${{ inputs.parallel-commands }}
+        PARALLEL_COMMANDS_ON_AGENTS: ${{ inputs.parallel-commands-on-agents }}
+      with:
+        # For the ones configured for main, explicitly set NX_CLOUD_DISTRIBUTED_EXECUTION to false, taking into account commands chained with &&
+        # within the strings. In order to properly escape single quotes we need to do some manual replacing and escaping so that the commands
+        # are forwarded onto the run-commands-in-parallel.sh script appropriately.
+        script: |
+          const parallelCommandsOnMainStr = process.env.PARALLEL_COMMANDS || '';
+          const parallelCommandsOnAgentsStr = process.env.PARALLEL_COMMANDS_ON_AGENTS || '';
+          const parallelCommandsOnMain = parallelCommandsOnMainStr
+            .split('\n')
+            .map(command => command.trim())
+            .filter(command => command.length > 0)
+            .map(s => s.replace(/'/g, '%27'));
+          const parallelCommandsOnAgents = parallelCommandsOnAgentsStr
+            .split('\n')
+            .map(command => command.trim())
+            .filter(command => command.length > 0)
+            .map(s => s.replace(/'/g, '%27'));
+          const formattedArrayOfCommands = [
+            ...parallelCommandsOnMain.map(s => s
+              .split(' && ')
+              .map(s => `NX_CLOUD_DISTRIBUTED_EXECUTION=false ${s}`)
+              .join(' && ')
+            ),
+            ...parallelCommandsOnAgents,
+          ];
+          const stringifiedEncodedArrayOfCommands = JSON.stringify(formattedArrayOfCommands)
+            .replace(/%27/g, "'\\''");
+          return stringifiedEncodedArrayOfCommands
+        result-encoding: string
+
+    - name: Run any configured parallel commands on main and agent jobs
+      shell: bash
+      # We need to escape the workspace path to be consistent cross-platform: https://github.com/actions/runner/issues/1066
+      run: ${GITHUB_WORKSPACE//\\//}/.github/workflows/run-commands-in-parallel.sh '${{ steps.parallel_commands_config.outputs.result }}'
+      env:
+        NX_CLOUD_DISTRIBUTED_EXECUTION: true
