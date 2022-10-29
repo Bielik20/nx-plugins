@@ -1,5 +1,5 @@
+import { workspaceRoot } from '@nrwl/devkit';
 import { cleanup, runPackageManagerInstall, tmpProjPath } from '@nrwl/nx-plugin/testing';
-import { appRootPath } from '@nrwl/tao/src/utils/app-root';
 import { readFileSync, writeFileSync } from 'fs';
 import { ensureDirSync } from 'fs-extra';
 import { runNxNewCommand } from './run-nx-new-command';
@@ -19,7 +19,7 @@ function patchPackageJsonForPlugins(inputs: PluginInput[]) {
   const p = JSON.parse(readFileSync(pPath).toString());
 
   inputs.forEach(([npmPackageName, pluginDistPath]) => {
-    p.devDependencies[npmPackageName] = `file:${appRootPath}/${pluginDistPath}`;
+    p.devDependencies[npmPackageName] = `file:${workspaceRoot}/${pluginDistPath}`;
     updatePackageInDist([npmPackageName, pluginDistPath], inputs);
   });
 
@@ -27,13 +27,13 @@ function patchPackageJsonForPlugins(inputs: PluginInput[]) {
 }
 
 function updatePackageInDist(target: PluginInput, inputs: PluginInput[]) {
-  const pPath = `${appRootPath}/${target[1]}/package.json`;
+  const pPath = `${workspaceRoot}/${target[1]}/package.json`;
   const p = JSON.parse(readFileSync(pPath).toString());
 
   inputs
     .filter(([npmPackageName]) => npmPackageName in p.dependencies)
     .forEach(([npmPackageName, pluginDistPath]) => {
-      p.dependencies[npmPackageName] = `file:${appRootPath}/${pluginDistPath}`;
+      p.dependencies[npmPackageName] = `file:${workspaceRoot}/${pluginDistPath}`;
     });
 
   writeFileSync(pPath, JSON.stringify(p, null, 2));

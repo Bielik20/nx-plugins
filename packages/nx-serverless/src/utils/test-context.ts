@@ -14,7 +14,6 @@ export const testContext: ExecutorContext = {
         targets: { build: { executor: '@ns3/nx-serverless:build' } },
       },
     },
-    cli: { defaultCollection: '@nrwl/workspace' },
   },
   projectName: 'serverlessMock',
   targetName: 'build',

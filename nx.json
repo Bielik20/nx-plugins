@@ -22,11 +22,15 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
     "publish": {
-      "dependsOn": ["build", "^publish"]
+      "dependsOn": ["build", "^publish"],
+      "inputs": ["production", "^production"]
     },
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
+    },
+    "e2e": {
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
     },
     "test": {
       "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
