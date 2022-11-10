@@ -1,4 +1,5 @@
 {
+  "name": "nx-jest-playwright",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/nx-jest-playwright",
   "projectType": "library",
