@@ -31,6 +31,7 @@
         "outputPath": "dist/packages/nx-serverless",
         "main": "packages/nx-serverless/index.ts",
         "tsConfig": "packages/nx-serverless/tsconfig.lib.json",
+        "buildableProjectDepsInPackageJsonType": "dependencies",
         "assets": [
           "packages/nx-serverless/*.md",
           {

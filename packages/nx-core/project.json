@@ -31,6 +31,7 @@
         "outputPath": "dist/packages/nx-core",
         "main": "packages/nx-core/index.ts",
         "tsConfig": "packages/nx-core/tsconfig.lib.json",
+        "buildableProjectDepsInPackageJsonType": "dependencies",
         "assets": [
           "packages/nx-core/*.md",
           {
