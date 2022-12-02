@@ -22,8 +22,17 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
     "publish": {
-      "dependsOn": ["^publish"],
-      "inputs": ["production", "^production"]
+      "dependsOn": ["^publish", "build"],
+      "inputs": [
+        "production",
+        "^production",
+        {
+          "env": "NPM_PACKAGE_TAG"
+        },
+        {
+          "env": "NPM_PACKAGE_VERSION"
+        }
+      ]
     },
     "build": {
       "dependsOn": ["^build"],

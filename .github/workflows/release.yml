@@ -19,12 +19,15 @@ jobs:
           fetch-depth: 0
       - name: Setup
         uses: ./.github/actions/setup
+        with:
+          affected: true
       - name: Start Release
         id: semantic
         run: npx semantic-release --dry-run
-      - name: Build
-        run: yarn nx affected --target build --parallel 3 --base ${{ steps.semantic.outputs.last-head || 'HEAD' }}
       - name: Publish
-        run: yarn nx affected --target publish --parallel 3 --base ${{ steps.semantic.outputs.last-head || 'HEAD' }} --pkgVersion ${{ steps.semantic.outputs.next-version }} --tag ${{ steps.semantic.outputs.channel }}
+        run: yarn nx affected --target publish --parallel 3
+        env:
+          NPM_PACKAGE_TAG: ${{ steps.semantic.outputs.channel }}
+          NPM_PACKAGE_VERSION: ${{ steps.semantic.outputs.next-version }}
       - name: Finish Release
         run: npx semantic-release
