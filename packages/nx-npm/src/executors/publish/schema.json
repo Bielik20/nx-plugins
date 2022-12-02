@@ -23,12 +23,11 @@
     },
     "tag": {
       "type": "string",
-      "description": "Tag for this package release.",
-      "default": "latest"
+      "description": "Tag for this package release. Fallbacks to NPM_PACKAGE_TAG in env then to latest."
     },
     "pkgVersion": {
       "type": "string",
-      "description": "Version to set."
+      "description": "Version to set. Fallbacks to NPM_PACKAGE_VERSION in env."
     },
     "caretDepsVersion": {
       "type": "boolean",

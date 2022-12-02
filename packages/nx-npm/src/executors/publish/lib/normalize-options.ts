@@ -13,6 +13,8 @@ export function normalizeOptions(
     npmToken: getNpmToken(options),
     pkgLocation: getPkgLocation(options, context),
     npmScope: nx.npmScope,
+    pkgVersion: options.pkgVersion || process.env['NPM_PACKAGE_VERSION'],
+    tag: options.tag || process.env['NPM_PACKAGE_TAG'] || 'latest',
   };
 }
 

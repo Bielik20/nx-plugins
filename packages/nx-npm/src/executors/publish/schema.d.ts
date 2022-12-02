@@ -4,7 +4,7 @@ export interface PublishExecutorSchema {
   dryRun?: boolean;
   caretDepsVersion?: boolean;
   pkgVersion?: string;
-  tag: string;
+  tag?: string;
 }
 
 export interface PublishExecutorNormalizedSchema {

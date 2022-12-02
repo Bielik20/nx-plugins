@@ -12,7 +12,7 @@ export default async function runPublishExecutor(
 
   removeExistingNpmrc(normalizedOptions);
   createNewNpmrc(normalizedOptions);
-  if ('pkgVersion' in normalizedOptions) {
+  if (typeof normalizedOptions.pkgVersion === 'string') {
     updatePkgVersion(normalizedOptions);
     await syncDepsVersion(normalizedOptions);
   }
