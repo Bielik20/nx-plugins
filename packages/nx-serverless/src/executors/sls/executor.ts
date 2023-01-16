@@ -6,6 +6,7 @@ import {
   NX_SERVERLESS_CONFIG_PATH_KEY,
   prepareNxServerlessConfig,
 } from '../../../plugin/nrwl/nx-serverless-config';
+import { getSlsCommand } from '../../utils/get-sls-command';
 import { printCommand } from '../../utils/print-command';
 import { SlsExecutorSchema } from './schema';
 
@@ -18,7 +19,9 @@ export default async function runExecutor(options: SlsExecutorSchema, context: E
     ...rest,
     ...(showHelp ? { help: true } : {}),
   });
-  const fullCommand = `npx sls ${command} ${stringifiedArgs}`.trim();
+
+  const slsCommand = getSlsCommand();
+  const fullCommand = `${slsCommand} ${command} ${stringifiedArgs}`.trim();
 
   printCommand(fullCommand);
   const result = await execa.command(fullCommand, {
