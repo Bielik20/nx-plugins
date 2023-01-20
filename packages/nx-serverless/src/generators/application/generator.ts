@@ -53,8 +53,8 @@ function updateTsConfig(tree: Tree, options: ServerlessGeneratorNormalizedSchema
   updateJson(tree, join(options.projectRoot, 'tsconfig.json'), (json) => {
     json.compilerOptions = {
       ...json.compilerOptions,
-      lib: ['es2020'],
-      target: 'es2020',
+      lib: ['es2022'],
+      target: 'es2022',
     };
 
     if (options.strict) {
