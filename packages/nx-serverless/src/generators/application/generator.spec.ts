@@ -7,7 +7,7 @@ import { ServerlessGeneratorSchema } from './schema';
 describe('serverless generator', () => {
   let appTree: Tree;
   beforeEach(() => {
-    appTree = createTreeWithEmptyWorkspace();
+    appTree = createTreeWithEmptyWorkspace({ layout: 'apps-libs' });
   });
 
   describe('serverless-bundle', () => {
