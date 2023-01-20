@@ -1,4 +1,4 @@
-import { ExecutorContext, readNxJson } from '@nrwl/devkit';
+import { ExecutorContext } from '@nrwl/devkit';
 import { getProjectConfiguration } from '@ns3/nx-core';
 import { PublishExecutorNormalizedSchema, PublishExecutorSchema } from '../schema';
 
@@ -6,13 +6,17 @@ export function normalizeOptions(
   options: PublishExecutorSchema,
   context: ExecutorContext,
 ): PublishExecutorNormalizedSchema {
-  const nx = readNxJson();
+  const npmScope = context.workspace?.npmScope;
+
+  if (!npmScope) {
+    throw new Error('Missing npmScope in workspace');
+  }
 
   return {
     ...options,
     npmToken: getNpmToken(options),
     pkgLocation: getPkgLocation(options, context),
-    npmScope: nx.npmScope,
+    npmScope: npmScope,
     pkgVersion: options.pkgVersion || process.env['NPM_PACKAGE_VERSION'],
     tag: options.tag || process.env['NPM_PACKAGE_TAG'] || 'latest',
   };
