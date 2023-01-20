@@ -2,12 +2,5 @@
   "$schema": "http://json-schema.org/schema",
   "name": "Nx Core",
   "version": "0.0.1",
-  "generators": {
-    "repository": {
-      "factory": "./src/generators/repository/generator",
-      "schema": "./src/generators/repository/schema.json",
-      "aliases": ["repo"],
-      "description": "repository generator"
-    }
-  }
+  "generators": {}
 }
