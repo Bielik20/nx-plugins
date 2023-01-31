@@ -64,6 +64,12 @@ describe('serverless generator', () => {
             options: {},
           },
           test: {
+            configurations: {
+              ci: {
+                ci: true,
+                codeCoverage: true,
+              },
+            },
             executor: '@nrwl/jest:jest',
             outputs: ['{workspaceRoot}/coverage/{projectRoot}'],
             options: {
@@ -159,6 +165,12 @@ describe('serverless generator', () => {
             options: {},
           },
           test: {
+            configurations: {
+              ci: {
+                ci: true,
+                codeCoverage: true,
+              },
+            },
             executor: '@nrwl/jest:jest',
             outputs: ['{workspaceRoot}/coverage/{projectRoot}'],
             options: {
