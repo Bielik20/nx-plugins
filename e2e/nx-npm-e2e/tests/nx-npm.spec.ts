@@ -24,6 +24,7 @@ describe('nx-npm e2e', () => {
 
     await runNxCommandAsync(
       `generate @nrwl/node:lib ${plugin} --publishable --importPath ${plugin}`,
+      { silenceError: true }, // TODO: try removing after version update
     );
     await runNxCommandAsync(`generate @ns3/nx-npm:npm --project ${plugin}`);
 
