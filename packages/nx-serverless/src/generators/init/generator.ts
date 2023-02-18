@@ -43,7 +43,7 @@ function updateDependencies(host: Tree, options: InitGeneratorSchema) {
       'serverless-offline': devDependencies['serverless-offline'],
       ...(options.plugin === 'serverless-bundle'
         ? { 'serverless-bundle': devDependencies['serverless-bundle'] }
-        : { '@nrwl/node': '*' }),
+        : { '@nrwl/webpack': '*' }),
     },
   );
 }

@@ -111,20 +111,21 @@ describe('serverless generator', () => {
         sourceRoot: 'apps/sample/src',
         targets: {
           build: {
-            executor: '@nrwl/node:webpack',
+            executor: '@nrwl/webpack:webpack',
             outputs: ['{options.outputPath}'],
             options: {
               outputPath: 'dist/apps/sample',
               main: 'apps/sample/src/main.ts',
               tsConfig: 'apps/sample/tsconfig.app.json',
-              externalDependencies: 'all',
+              externalDependencies: 'none',
+              target: 'node',
+              compiler: 'tsc',
             },
             configurations: {
               production: {
                 optimization: true,
                 extractLicenses: true,
                 inspect: false,
-                externalDependencies: 'none',
               },
             },
           },
