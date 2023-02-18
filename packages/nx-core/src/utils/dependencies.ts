@@ -16,7 +16,7 @@ export const devDependencies = {
   '@nrwl/jest': '15.7.2',
   '@nrwl/js': '15.7.2',
   '@nrwl/linter': '15.7.2',
-  '@nrwl/node': '15.7.2',
+  '@nrwl/webpack': '15.7.2',
   '@nrwl/nx-cloud': '15.0.3',
   '@nrwl/nx-plugin': '15.7.2',
   '@nrwl/workspace': '15.7.2',
