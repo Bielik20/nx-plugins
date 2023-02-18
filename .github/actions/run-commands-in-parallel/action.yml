@@ -29,14 +29,15 @@ runs:
             for userCommand in "\${userCommands[@]}"; do
               eval "$userCommand" & pids+=($!)
             done
+            exitcode=0
             # If any one of the invoked commands exited with a non-zero exit code, exit the whole thing with code 1.
             for pid in \${pids[*]}; do
               if ! wait $pid; then
-                exit 1
+                exitcode=1
               fi
             done
             # All the invoked commands must have exited with code zero.
-            exit 0
+            exit $exitcode
           `;
           writeFileSync('./.github/workflows/run-commands-in-parallel.sh', runCommandsInParallelScript);
 
