@@ -2,9 +2,9 @@ import {
   addDependenciesToPackageJson,
   formatFiles,
   GeneratorCallback,
-  readWorkspaceConfiguration,
+  readNxJson,
   Tree,
-  updateWorkspaceConfiguration,
+  updateNxJson,
 } from '@nrwl/devkit';
 import { jestInitGenerator } from '@nrwl/jest';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
@@ -62,31 +62,31 @@ function updateGitignore(host: Tree) {
 }
 
 function addCacheableOperation(tree: Tree) {
-  const workspace = readWorkspaceConfiguration(tree);
-  if (!workspace.tasksRunnerOptions || !workspace.tasksRunnerOptions.default) {
+  const nxJson = readNxJson(tree);
+  if (!nxJson.tasksRunnerOptions || !nxJson.tasksRunnerOptions.default) {
     return;
   }
 
-  workspace.tasksRunnerOptions.default.options ??= {};
-  workspace.tasksRunnerOptions.default.options.cacheableOperations ??= [];
+  nxJson.tasksRunnerOptions.default.options ??= {};
+  nxJson.tasksRunnerOptions.default.options.cacheableOperations ??= [];
 
-  if (!workspace.tasksRunnerOptions.default.options.cacheableOperations.includes('package')) {
-    workspace.tasksRunnerOptions.default.options.cacheableOperations.push('package');
+  if (!nxJson.tasksRunnerOptions.default.options.cacheableOperations.includes('package')) {
+    nxJson.tasksRunnerOptions.default.options.cacheableOperations.push('package');
   }
-  if (!workspace.tasksRunnerOptions.default.options.cacheableOperations.includes('deploy')) {
-    workspace.tasksRunnerOptions.default.options.cacheableOperations.push('deploy');
+  if (!nxJson.tasksRunnerOptions.default.options.cacheableOperations.includes('deploy')) {
+    nxJson.tasksRunnerOptions.default.options.cacheableOperations.push('deploy');
   }
 
-  updateWorkspaceConfiguration(tree, workspace);
+  updateNxJson(tree, nxJson);
 }
 
 function setupTargetDefaults(tree: Tree) {
-  const workspaceConfiguration = readWorkspaceConfiguration(tree);
+  const nxJson = readNxJson(tree);
 
-  if (!workspaceConfiguration.namedInputs) {
-    workspaceConfiguration.namedInputs ??= {};
-    workspaceConfiguration.namedInputs.default ??= ['{projectRoot}/**/*'];
-    workspaceConfiguration.namedInputs.production ??= [
+  if (!nxJson.namedInputs) {
+    nxJson.namedInputs ??= {};
+    nxJson.namedInputs.default ??= ['{projectRoot}/**/*'];
+    nxJson.namedInputs.production ??= [
       'default',
       '!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)',
       '!{projectRoot}/tsconfig.spec.json',
@@ -103,12 +103,12 @@ function setupTargetDefaults(tree: Tree) {
     },
   ];
 
-  workspaceConfiguration.targetDefaults ??= {};
-  workspaceConfiguration.targetDefaults.deploy ??= {};
-  workspaceConfiguration.targetDefaults.deploy.inputs ??= inputs;
+  nxJson.targetDefaults ??= {};
+  nxJson.targetDefaults.deploy ??= {};
+  nxJson.targetDefaults.deploy.inputs ??= inputs;
 
-  workspaceConfiguration.targetDefaults.package ??= {};
-  workspaceConfiguration.targetDefaults.package.inputs ??= inputs;
+  nxJson.targetDefaults.package ??= {};
+  nxJson.targetDefaults.package.inputs ??= inputs;
 
-  updateWorkspaceConfiguration(tree, workspaceConfiguration);
+  updateNxJson(tree, nxJson);
 }
