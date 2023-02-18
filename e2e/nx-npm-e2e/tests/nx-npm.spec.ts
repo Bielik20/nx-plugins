@@ -10,7 +10,7 @@ describe('nx-npm e2e', () => {
       ['@ns3/nx-core', 'dist/packages/nx-core'],
     );
     const pmc = getPackageManagerCommand();
-    await runCommandAsync(`${pmc.addDev} @nrwl/node`);
+    await runCommandAsync(`${pmc.addDev} @nrwl/js`);
     const p = JSON.parse(readFileSync(tmpProjPath('package.json')).toString());
     p['repository'] = {
       type: 'git',
@@ -22,10 +22,7 @@ describe('nx-npm e2e', () => {
   it('should create nx-npm', async () => {
     const plugin = uniq('nx-npm');
 
-    await runNxCommandAsync(
-      `generate @nrwl/node:lib ${plugin} --publishable --importPath ${plugin}`,
-      { silenceError: true }, // TODO: try removing after version update
-    );
+    await runNxCommandAsync(`generate @nrwl/js:lib ${plugin} --importPath ${plugin}`);
     await runNxCommandAsync(`generate @ns3/nx-npm:npm --project ${plugin}`);
 
     const buildResult = await runNxCommandAsync(`build ${plugin}`);
