@@ -8,7 +8,7 @@ export function getProjectConfig(
 ): ProjectConfiguration {
   const outputPath = getOutputPath(options);
   const buildTargetName = 'build';
-  const buildTargetDev = `${options.name}:${buildTargetName}`;
+  const buildTargetDev = `${options.projectName}:${buildTargetName}`;
   const buildTargetProd = `${buildTargetDev}:production`;
   const buildBaseConfig = getBuildBaseConfig(options);
 
