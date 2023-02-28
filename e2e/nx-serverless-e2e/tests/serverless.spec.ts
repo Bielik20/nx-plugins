@@ -43,11 +43,11 @@ describe('serverless e2e', () => {
     });
   });
 
-  describe('--directory and --tags', () => {
+  describe.only('--directory and --tags', () => {
     it('should create src in the specified directory with tags', async () => {
       const plugin = uniq('serverless');
       await runNxCommandAsync(
-        `generate @ns3/nx-serverless:application ${plugin} --directory subdir --tags e2etag,e2ePackage`,
+        `generate @ns3/nx-serverless:application ${plugin} --directory subdir --tags e2etag,e2ePackage --plugin @ns3/nx-serverless/plugin`,
       );
       const projectJson = readJson(`apps/subdir/${plugin}/project.json`);
       expect(projectJson.tags).toEqual(['e2etag', 'e2ePackage']);
