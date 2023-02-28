@@ -8,8 +8,8 @@ import {
 } from '@nrwl/devkit';
 import { Linter } from '@nrwl/linter';
 import pluginGenerator from '@nrwl/nx-plugin/src/generators/plugin/plugin';
-import npmGenerator from '@ns3/nx-npm/src/generators/npm/generator';
-import { join } from "path";
+import { commandSync } from 'execa';
+import { join } from 'path';
 import { Schema } from './schema';
 
 export default async function (host: Tree, schema: Schema) {
@@ -18,18 +18,18 @@ export default async function (host: Tree, schema: Schema) {
     tags: schema.tags,
     skipTsConfig: false,
     skipFormat: true,
-    standaloneConfig: true,
     unitTestRunner: 'jest',
     linter: Linter.EsLint,
     importPath: `@ns3/${schema.name}`,
+    skipLintChecks: false,
     compiler: 'tsc',
   });
   await adjustGeneratedProject(host, { project: schema.name });
-  await npmGenerator(host, { project: schema.name, skipFormat: true, access: 'public' });
   await formatFiles(host);
 
   return () => {
     installPackagesTask(host);
+    commandSync(`yarn nx generate @ns3/nx-npm:npm --project ${schema.name} --access public`);
   };
 }
 
