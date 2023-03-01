@@ -1,0 +1,15 @@
+{
+  "name": "@ns3/nx-playwright",
+  "version": "0.0.1",
+  "main": "index.js",
+  "generators": "./generators.json",
+  "executors": "./executors.json",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Bielik20/nx-plugins"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
