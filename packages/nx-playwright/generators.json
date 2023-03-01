@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "nx-playwright",
+  "version": "0.0.1",
+  "generators": {
+    "nx-playwright": {
+      "factory": "./src/generators/nx-playwright/generator",
+      "schema": "./src/generators/nx-playwright/schema.json",
+      "description": "nx-playwright generator"
+    }
+  }
+}

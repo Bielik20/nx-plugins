@@ -19,6 +19,7 @@
       "@ns3/nx-core/*": ["packages/nx-core/*"],
       "@ns3/nx-jest-playwright": ["packages/nx-jest-playwright"],
       "@ns3/nx-npm": ["packages/nx-npm"],
+      "@ns3/nx-playwright": ["packages/nx-playwright"],
       "@ns3/nx-serverless": ["packages/nx-serverless"]
     }
   },
