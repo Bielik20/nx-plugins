@@ -22,6 +22,11 @@
     "baseUrl": {
       "type": "string",
       "description": "Use this to pass directly the address of your distant server address with the port running your application."
+    },
+    "watch": {
+      "type": "boolean",
+      "description": "Recompile and run tests when files change.",
+      "default": false
     }
   },
   "required": ["command"]
