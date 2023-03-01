@@ -1,0 +1,10 @@
+{
+  "extends": "<%= rootTsConfigPath %>",
+  "compilerOptions": {
+    "sourceMap": false,
+    "outDir": "<%= offsetFromRoot %>dist/out-tsc",
+    "allowJs": true,
+    "types": ["node"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.js", "playwright.config.ts"]
+}
