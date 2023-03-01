@@ -1,7 +1,7 @@
 import executor from './executor';
-import { BuildExecutorSchema } from './schema';
+import { PlaywrightExecutorSchema } from './schema';
 
-const options: BuildExecutorSchema = {};
+const options: PlaywrightExecutorSchema = {};
 
 describe('Build Executor', () => {
   it('can run', async () => {
