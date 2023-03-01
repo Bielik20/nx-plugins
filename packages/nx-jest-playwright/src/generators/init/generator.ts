@@ -1,7 +1,7 @@
 import { addDependenciesToPackageJson, formatFiles, Tree, updateJson } from '@nrwl/devkit';
 import { jestInitGenerator } from '@nrwl/jest';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
-import { devDependencies } from '@ns3/nx-core';
+import { jestPlaywrightPresetVersion, playwrightVersion } from '../../utils/versions';
 import { InitGeneratorSchema } from './schema';
 
 export default async function jestPlaywrightInitGenerator(
@@ -22,8 +22,8 @@ export default async function jestPlaywrightInitGenerator(
     {},
     {
       ['@ns3/nx-jest-playwright']: '*',
-      'jest-playwright-preset': devDependencies['jest-playwright-preset'],
-      playwright: devDependencies['playwright'],
+      'jest-playwright-preset': jestPlaywrightPresetVersion,
+      playwright: playwrightVersion,
     },
   );
 
