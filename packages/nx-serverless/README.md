@@ -73,3 +73,10 @@ Should you need a more specific command that is not included you can run it like
 nx run my-app-name:sls --command logs
 nx run my-app-name:sls --command 'invoke local'
 ```
+
+All arguments are forwarded. 
+If there is an argument that conflicts with Nx or this executor simply suffix it with `_`.
+For example:
+
+- instead of `--help`
+- use `--help_`
