@@ -3,4 +3,5 @@ export interface PlaywrightExecutorSchema {
   baseUrl?: string;
   devServerTarget?: string;
   skipServe?: boolean;
+  watch?: boolean;
 }
