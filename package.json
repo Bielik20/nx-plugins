@@ -79,7 +79,7 @@
     "husky": "^8.0.3",
     "jest": "29.4.3",
     "jest-environment-jsdom": "29.4.3",
-    "jest-playwright-preset": "^2.0.0",
+    "jest-playwright-preset": "^3.0.1",
     "jsonc-eslint-parser": "^2.1.0",
     "lint-staged": "^13.1.2",
     "nx": "15.8.1",

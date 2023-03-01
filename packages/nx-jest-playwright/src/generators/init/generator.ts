@@ -31,5 +31,5 @@ export default async function jestPlaywrightInitGenerator(
     await formatFiles(host);
   }
 
-  return runTasksInSerial(jestTask, installTask);
+  return runTasksInSerial(await jestTask, installTask);
 }
