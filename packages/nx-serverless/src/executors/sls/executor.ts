@@ -1,13 +1,13 @@
 import 'dotenv/config';
 import { ExecutorContext } from '@nrwl/devkit';
 import { getProjectConfiguration, stringifyArgs } from '@ns3/nx-core';
+import { printCommand } from '@ns3/nx-core/src/utils/print-command';
 import * as execa from 'execa';
 import {
   NX_SERVERLESS_CONFIG_PATH_KEY,
   prepareNxServerlessConfig,
 } from '../../../plugin/nrwl/nx-serverless-config';
 import { getSlsCommand } from '../../utils/get-sls-command';
-import { printCommand } from '../../utils/print-command';
 import { SlsExecutorSchema } from './schema';
 
 export default async function runExecutor(options: SlsExecutorSchema, context: ExecutorContext) {
