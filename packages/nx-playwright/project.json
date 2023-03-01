@@ -1,0 +1,72 @@
+{
+  "name": "nx-playwright",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/nx-playwright",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/nx-playwright",
+        "main": "packages/nx-playwright/index.ts",
+        "tsConfig": "packages/nx-playwright/tsconfig.lib.json",
+        "assets": [
+          "packages/nx-playwright/*.md",
+          {
+            "input": "./packages/nx-playwright/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-playwright/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-playwright",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./packages/nx-playwright",
+            "glob": "executors.json",
+            "output": "."
+          },
+          "LICENSE"
+        ],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/nx-playwright/**/*.ts",
+          "packages/nx-playwright/generators.json",
+          "packages/nx-playwright/executors.json",
+          "packages/nx-playwright/package.json"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/nx-playwright/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "publish": {
+      "executor": "@ns3/nx-npm:publish"
+    }
+  },
+  "tags": []
+}
