@@ -40,6 +40,7 @@
     "@swc/helpers": "~0.4.11",
     "bestzip": "^2.2.1",
     "execa": "^5.0.0",
+    "flat": "^5.0.2",
     "fs-extra": "^11.1.0",
     "glob": "^8.1.0",
     "lodash": "^4.17.20"
@@ -61,6 +62,7 @@
     "@swc-node/register": "^1.4.2",
     "@swc/cli": "~0.1.55",
     "@swc/core": "^1.2.173",
+    "@types/flat": "^5.0.2",
     "@types/fs-extra": "^11.0.1",
     "@types/jest": "28.1.1",
     "@types/lodash": "^4.14.191",
