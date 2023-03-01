@@ -10,7 +10,7 @@ import { getSlsCommand } from '../../utils/get-sls-command';
 import { SlsExecutorSchema } from './schema';
 
 export default async function runExecutor(options: SlsExecutorSchema, context: ExecutorContext) {
-  const { buildTarget, command, env = process.env, ...rest } = options;
+  const { buildTarget, command, env = {}, ...rest } = options;
   const configPath = await prepareNxServerlessConfig(context, buildTarget);
   const IS_CI_RUN = process.env.CI === 'true';
   const projectRoot = getProjectConfiguration(context).root;
@@ -26,6 +26,7 @@ export default async function runExecutor(options: SlsExecutorSchema, context: E
     env: {
       FORCE_COLOR: 'true',
       NODE_OPTIONS: '--enable-source-maps',
+      ...process.env,
       ...env,
       [NX_SERVERLESS_CONFIG_PATH_KEY]: configPath,
     },
