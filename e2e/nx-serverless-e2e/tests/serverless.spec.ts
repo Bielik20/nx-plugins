@@ -43,7 +43,7 @@ describe('serverless e2e', () => {
     });
   });
 
-  describe.only('--directory and --tags', () => {
+  describe('--directory and --tags', () => {
     it('should create src in the specified directory with tags', async () => {
       const plugin = uniq('serverless');
       await runNxCommandAsync(
