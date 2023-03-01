@@ -1,3 +1,4 @@
+export * from './src/utils/get-package-major-version';
 export * from './src/utils/get-project-configuration';
 export * from './src/utils/normalize-options';
 export * from './src/utils/print-command';
