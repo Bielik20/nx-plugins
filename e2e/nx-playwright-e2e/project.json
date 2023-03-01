@@ -5,10 +5,19 @@
   "sourceRoot": "e2e/nx-playwright-e2e/src",
   "targets": {
     "e2e": {
-      "executor": "@nrwl/nx-plugin:e2e",
+      "executor": "nx:run-commands",
       "options": {
-        "target": "nx-playwright:build",
-        "jestConfig": "e2e/nx-playwright-e2e/jest.config.ts"
+        "commands": [
+          "yarn nx run nx-playwright:build",
+          "SWC_NODE_PROJECT=e2e/nx-playwright-e2e/tsconfig.json node -r @swc-node/register --test e2e/nx-playwright-e2e/tests/nx-playwright.spec.ts"
+        ],
+        "parallel": false
+      }
+    },
+    "prepare": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx run nx-playwright:build"
       }
     }
   },
