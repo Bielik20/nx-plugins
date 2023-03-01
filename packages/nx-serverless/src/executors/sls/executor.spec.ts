@@ -46,10 +46,11 @@ describe('Sls Executor', () => {
       });
     });
 
-    it('should overwrite env', async () => {
+    it('should append env', async () => {
       const fakeEnv = { foo: 'bar' };
       const output = await executor({ command: 'package', env: fakeEnv }, testContext);
       const expectedEnv = {
+        ...process.env,
         ...fakeEnv,
         FORCE_COLOR: 'true',
         NODE_OPTIONS: '--enable-source-maps',
@@ -70,6 +71,7 @@ describe('Sls Executor', () => {
       const fakeEnv = { foo: 'bar', NODE_OPTIONS: undefined };
       const output = await executor({ command: 'package', env: fakeEnv }, testContext);
       const expectedEnv = {
+        ...process.env,
         ...fakeEnv,
         FORCE_COLOR: 'true',
         NS3_NX_SERVERLESS_CONFIG_PATH:
