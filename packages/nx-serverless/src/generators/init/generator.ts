@@ -8,7 +8,11 @@ import {
 } from '@nrwl/devkit';
 import { jestInitGenerator } from '@nrwl/jest';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
-import { devDependencies } from '@ns3/nx-core';
+import {
+  serverlessBundleVersion,
+  serverlessOfflineVersion,
+  serverlessVersion,
+} from '../../utils/versions';
 import { InitGeneratorSchema } from './schema';
 
 export default async function serverlessInitGenerator(host: Tree, options: InitGeneratorSchema) {
@@ -39,10 +43,10 @@ function updateDependencies(host: Tree, options: InitGeneratorSchema) {
     {},
     {
       '@ns3/nx-serverless': '*',
-      serverless: devDependencies['serverless'],
-      'serverless-offline': devDependencies['serverless-offline'],
+      serverless: serverlessVersion,
+      'serverless-offline': serverlessOfflineVersion,
       ...(options.plugin === 'serverless-bundle'
-        ? { 'serverless-bundle': devDependencies['serverless-bundle'] }
+        ? { 'serverless-bundle': serverlessBundleVersion }
         : { '@nrwl/webpack': '*' }),
     },
   );

@@ -1,7 +1,6 @@
 import 'dotenv/config';
 import { ExecutorContext } from '@nrwl/devkit';
-import { getProjectConfiguration, stringifyArgs } from '@ns3/nx-core';
-import { printCommand } from '@ns3/nx-core/src/utils/print-command';
+import { getProjectConfiguration, printCommand, stringifyArgs } from '@ns3/nx-core';
 import * as execa from 'execa';
 import {
   NX_SERVERLESS_CONFIG_PATH_KEY,
