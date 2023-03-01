@@ -14,6 +14,10 @@
     "buildTarget": {
       "type": "string",
       "description": "In case of using @ns3/nx-serverless/plugin instruct what to run to compile the code."
+    },
+    "env": {
+      "type": "object",
+      "description": "A key-value Pair of environment variables to pass to Serverless runner."
     }
   },
   "required": ["command"]
