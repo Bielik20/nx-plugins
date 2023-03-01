@@ -8,8 +8,7 @@ export default async function runExecutor(
   options: PlaywrightExecutorSchema,
   context: ExecutorContext,
 ) {
-  const { devServerTarget, command, skipServe, baseUrl, ...rest } = options;
-  const watch = false; // not supported;
+  const { devServerTarget, skipServe, baseUrl, watch, command, ...rest } = options;
   const devServerOptions = { devServerTarget, skipServe, baseUrl, watch } as const;
   const pmc = getPackageManagerCommand();
   const args = stringifyArgs(rest, { shorthand: true });
