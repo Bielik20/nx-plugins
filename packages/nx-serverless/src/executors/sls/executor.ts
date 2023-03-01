@@ -10,15 +10,11 @@ import { getSlsCommand } from '../../utils/get-sls-command';
 import { SlsExecutorSchema } from './schema';
 
 export default async function runExecutor(options: SlsExecutorSchema, context: ExecutorContext) {
-  const { showHelp, buildTarget, command, env = process.env, ...rest } = options;
+  const { buildTarget, command, env = process.env, ...rest } = options;
   const configPath = await prepareNxServerlessConfig(context, buildTarget);
   const IS_CI_RUN = process.env.CI === 'true';
   const projectRoot = getProjectConfiguration(context).root;
-  const stringifiedArgs = stringifyArgs({
-    ...rest,
-    ...(showHelp ? { help: true } : {}),
-  });
-
+  const stringifiedArgs = stringifyArgs(rest, { shorthand: true });
   const slsCommand = getSlsCommand();
   const fullCommand = `${slsCommand} ${command} ${stringifiedArgs}`.trim();
 
