@@ -24,7 +24,7 @@ export default async function jestPlaywrightExecutor(
   const watch = options.watch || options.watchAll;
 
   let success: boolean;
-  for await (const baseUrl of startDevServer(options, context)) {
+  for await (const baseUrl of startDevServer({ ...options, watch }, context)) {
     try {
       success = await runJest(baseUrl, options, jestParsedConfig, jestFileConfig);
       if (!watch) break;
