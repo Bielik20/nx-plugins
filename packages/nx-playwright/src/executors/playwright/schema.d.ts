@@ -1,1 +1,6 @@
-export interface PlaywrightExecutorSchema {} // eslint-disable-line
+export interface PlaywrightExecutorSchema {
+  command: string;
+  baseUrl?: string;
+  devServerTarget?: string;
+  skipServe?: boolean;
+}

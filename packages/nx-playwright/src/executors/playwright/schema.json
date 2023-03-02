@@ -5,6 +5,24 @@
   "title": "Playwright executor",
   "description": "",
   "type": "object",
-  "properties": {},
-  "required": []
+  "properties": {
+    "command": {
+      "type": "string",
+      "description": "Command to run."
+    },
+    "skipServe": {
+      "type": "boolean",
+      "description": "Skip dev-server build.",
+      "default": false
+    },
+    "devServerTarget": {
+      "type": "string",
+      "description": "Dev server target to run tests against."
+    },
+    "baseUrl": {
+      "type": "string",
+      "description": "Use this to pass directly the address of your distant server address with the port running your application."
+    }
+  },
+  "required": ["command"]
 }
