@@ -6,7 +6,7 @@ export function normalizeOptions(
   options: PublishExecutorSchema,
   context: ExecutorContext,
 ): PublishExecutorNormalizedSchema {
-  const npmScope = context.workspace?.npmScope;
+  const npmScope = context.nxJsonConfiguration?.npmScope;
 
   if (!npmScope) {
     throw new Error('Missing npmScope in workspace');
