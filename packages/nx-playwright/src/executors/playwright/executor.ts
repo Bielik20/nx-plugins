@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { ExecutorContext, getPackageManagerCommand, logger } from '@nrwl/devkit';
 import { printCommand, startDevServer, stringifyArgs } from '@ns3/nx-core';
 import * as execa from 'execa';
