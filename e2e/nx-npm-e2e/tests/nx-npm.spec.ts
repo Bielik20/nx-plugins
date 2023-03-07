@@ -22,7 +22,7 @@ describe('nx-npm e2e', () => {
   it('should create nx-npm', async () => {
     const plugin = uniq('nx-npm');
 
-    await runNxCommandAsync(`generate @nrwl/js:lib ${plugin} --importPath ${plugin}`);
+    await runNxCommandAsync(`generate @nrwl/js:lib ${plugin} --importPath ${plugin} --bundler tsc`);
     await runNxCommandAsync(`generate @ns3/nx-npm:npm --project ${plugin}`);
 
     const buildResult = await runNxCommandAsync(`build ${plugin}`);
