@@ -6,11 +6,9 @@ module.exports = {
   ...rest,
   preset: 'jest-playwright-preset',
   displayName: '<%= name %>',
-  globals: {
-    'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' },
-  },
+  globals: {},
   transform: {
-    '^.+\\.[tj]sx?$': 'ts-jest',
+    '^.+\\.[tj]sx?$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
   testEnvironmentOptions: {
     'jest-playwright': {
