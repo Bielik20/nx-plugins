@@ -23,7 +23,7 @@ export default async function serverlessInitGenerator(host: Tree, options: InitG
   setupTargetDefaults(host);
 
   if (!options.unitTestRunner || options.unitTestRunner === 'jest') {
-    const jestTask = jestInitGenerator(host, {});
+    const jestTask = await jestInitGenerator(host, {});
     tasks.push(jestTask);
   }
 
