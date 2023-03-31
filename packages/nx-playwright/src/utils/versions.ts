@@ -1,1 +1,1 @@
-export const playwrightRunnerVersion = '^1.31.1';
+export const playwrightRunnerVersion = '^1.32.1';
