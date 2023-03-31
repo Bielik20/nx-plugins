@@ -11,7 +11,7 @@ export default async function runExecutor(
   const { devServerTarget, skipServe, baseUrl, watch, command, ...rest } = options;
   const devServerOptions = { devServerTarget, skipServe, baseUrl, watch } as const;
   const pmc = getPackageManagerCommand();
-  const args = stringifyArgs(rest, { shorthand: true });
+  const args = stringifyArgs({ ...rest, ui: watch ? true : rest['ui'] }, { shorthand: true });
   const fullCommand = `${pmc.exec} ${command} ${args}`.trim();
 
   let success: boolean;
