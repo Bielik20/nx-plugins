@@ -29,11 +29,11 @@ export interface StartDevServerOptions {
   devServerTarget?: string;
   skipServe?: boolean;
   baseUrl?: string;
-  watch?: boolean; // Only affects DevServer, Playwright doesn't support it :(
+  watch?: boolean; // Runs Playwright in UI mode
 }
 ```
 
-With an exception that `watch` is not supported at the moment as `Playwright` doesn't have a concept of [watch/open](https://github.com/microsoft/playwright/issues/7035) like Cypress does.
+With `--watch` flag it runs `Playwright` in [UI mode](https://github.com/microsoft/playwright/releases/tag/v1.32.0).
 
 `baseUrl` is passed as `BASE_URL` env variable.
 
