@@ -3,6 +3,12 @@
 A plugin to run jest-playwright e2e tests in nx monorepo.
 It works similarly to cypress runner in a sense that you can pass either `devServerTarget` or `baseUrl`.
 
+## ⚠️ Deprecation Notice ⚠️
+
+Just like `jest-playwright-preset` we recommend the official [Playwright test-runner (@playwright/test)](https://playwright.dev/docs/test-intro) via **[@ns3/nx-playwright](https://www.npmjs.com/package/@ns3/nx-playwright)**.
+
+We will continue to support this package as long as it remains compatible with `@nrwl/jest` package and `jest-playwright-preset` is supported.
+
 ## Install
 
 ```
