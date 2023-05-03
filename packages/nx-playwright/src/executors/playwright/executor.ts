@@ -1,6 +1,6 @@
 import 'dotenv/config';
-import { ExecutorContext, getPackageManagerCommand, logger } from '@nrwl/devkit';
 import { printCommand, startDevServer, stringifyArgs } from '@ns3/nx-core';
+import { ExecutorContext, getPackageManagerCommand, logger } from '@nx/devkit';
 import * as execa from 'execa';
 import { PlaywrightExecutorSchema } from './schema';
 

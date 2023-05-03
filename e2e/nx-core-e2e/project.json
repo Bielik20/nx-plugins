@@ -5,7 +5,7 @@
   "sourceRoot": "e2e/nx-core-e2e/src",
   "targets": {
     "e2e": {
-      "executor": "@nrwl/nx-plugin:e2e",
+      "executor": "@nx/plugin:e2e",
       "options": {
         "target": "nx-core-e2e:prepare",
         "passWithNoTests": true,

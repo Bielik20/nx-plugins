@@ -1,4 +1,4 @@
-import { readProjectConfiguration, Tree, updateProjectConfiguration } from '@nrwl/devkit';
+import { readProjectConfiguration, Tree, updateProjectConfiguration } from '@nx/devkit';
 import { NxNpmGeneratorSchema } from '../schema';
 
 export function updateWorkspace(tree: Tree, options: NxNpmGeneratorSchema) {

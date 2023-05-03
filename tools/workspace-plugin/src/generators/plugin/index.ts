@@ -5,9 +5,9 @@ import {
   Tree,
   updateJson,
   updateProjectConfiguration,
-} from '@nrwl/devkit';
-import { Linter } from '@nrwl/linter';
-import pluginGenerator from '@nrwl/nx-plugin/src/generators/plugin/plugin';
+} from '@nx/devkit';
+import { Linter } from '@nx/linter';
+import pluginGenerator from '@nx/plugin/src/generators/plugin/plugin';
 import { commandSync } from 'execa';
 import { join } from 'path';
 import { Schema } from './schema';

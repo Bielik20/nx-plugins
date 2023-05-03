@@ -7,7 +7,7 @@ It works similarly to cypress runner in a sense that you can pass either `devSer
 
 Just like `jest-playwright-preset` we recommend the official [Playwright test-runner (@playwright/test)](https://playwright.dev/docs/test-intro) via **[@ns3/nx-playwright](https://www.npmjs.com/package/@ns3/nx-playwright)**.
 
-We will continue to support this package as long as it remains compatible with `@nrwl/jest` package and `jest-playwright-preset` is supported.
+We will continue to support this package as long as it remains compatible with `@nx/jest` package and `jest-playwright-preset` is supported.
 
 ## Install
 
@@ -30,8 +30,8 @@ nx run my-desktop-e2e:e2e
 ```
 
 You may use flag specified for that runner. Most notable:
-* `--watch`
-* `--slowMo 1000` - so that you can see what is happening.
-* `--headless false` - will start browser.
-* `--devtools` - just like headless but will also open devtools (works only in chrome).
 
+- `--watch`
+- `--slowMo 1000` - so that you can see what is happening.
+- `--headless false` - will start browser.
+- `--devtools` - just like headless but will also open devtools (works only in chrome).

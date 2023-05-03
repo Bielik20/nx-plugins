@@ -1,4 +1,4 @@
-import { ExecutorContext, runExecutor } from '@nrwl/devkit';
+import { ExecutorContext, runExecutor } from '@nx/devkit';
 import { join } from 'path';
 import { FunctionDecorator } from '../functions/function-decorator';
 import { getNxServerlessConfig } from './nx-serverless-config';

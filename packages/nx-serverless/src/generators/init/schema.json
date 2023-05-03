@@ -1,6 +1,5 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "cli": "nx",
   "id": "NxServerlessInit",
   "title": "Init Nx Serverless Plugin",
   "type": "object",

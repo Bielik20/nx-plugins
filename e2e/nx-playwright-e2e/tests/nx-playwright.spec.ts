@@ -4,7 +4,7 @@ import {
   runCommandAsync,
   runNxCommandAsync,
   uniq,
-} from '@nrwl/nx-plugin/testing';
+} from '@nx/plugin/testing';
 import { ensureComplexNxProject } from '@ns3/nx-core/src/testing-utils/ensure-complex-nx-project';
 import * as assert from 'node:assert/strict';
 import { after, before, describe, it } from 'node:test';
@@ -35,9 +35,17 @@ describe('nx-playwright e2e', () => {
     assert.match(sanitised, /Successfully ran target e2e for project/);
 
     const helpResult = await runNxCommandAsync(`e2e ${project} --help_`, { silenceError: true });
-    const hResult = await runNxCommandAsync(`e2e ${project} app.spec.ts -h_`, { silenceError: true });
-    assert.match(helpResult.stdout, /yarn playwright test --config=.*\/playwright.config.ts --help/);
-    assert.match(hResult.stdout, /yarn playwright test app.spec.ts --config=.*\/playwright.config.ts -h/);
+    const hResult = await runNxCommandAsync(`e2e ${project} app.spec.ts -h_`, {
+      silenceError: true,
+    });
+    assert.match(
+      helpResult.stdout,
+      /yarn playwright test --config=.*\/playwright.config.ts --help/,
+    );
+    assert.match(
+      hResult.stdout,
+      /yarn playwright test app.spec.ts --config=.*\/playwright.config.ts -h/,
+    );
   });
 
   describe('--directory', () => {

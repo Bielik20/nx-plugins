@@ -25,7 +25,7 @@ nx generate @ns3/nx-serverless:app my-app-name
 
 You can opt in to use experimental `@ns3/nx-serverless/plugin`.
 It supports only `aws` as a provider, but works both with nx cache and incremental build.
-It uses `@nrwl/webpack:webpack` executor to compile the code.
+It uses `@nx/webpack:webpack` executor to compile the code.
 It also means that it will respect `target` you set in `tsconfig.json`.
 You can use `externalDependencies` option of `build` target to exclude certain dependencies from the bundle (like aws sdk).
 
@@ -74,7 +74,7 @@ nx run my-app-name:sls --command logs
 nx run my-app-name:sls --command 'invoke local'
 ```
 
-All arguments are forwarded. 
+All arguments are forwarded.
 If there is an argument that conflicts with Nx or this executor simply suffix it with `_`.
 For example:
 

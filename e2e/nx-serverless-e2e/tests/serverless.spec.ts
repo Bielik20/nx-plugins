@@ -1,4 +1,4 @@
-import { checkFilesExist, readJson, runNxCommandAsync, uniq } from '@nrwl/nx-plugin/testing';
+import { checkFilesExist, readJson, runNxCommandAsync, uniq } from '@nx/plugin/testing';
 import { ensureComplexNxProject } from '@ns3/nx-core/src/testing-utils/ensure-complex-nx-project';
 
 describe('serverless e2e', () => {

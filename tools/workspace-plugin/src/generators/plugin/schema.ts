@@ -1,4 +1,4 @@
-export interface Schema  {
+export interface Schema {
   name: string;
   tags?: string;
 }

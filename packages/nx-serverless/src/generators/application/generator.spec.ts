@@ -1,6 +1,6 @@
-import { readProjectConfiguration, Tree } from '@nrwl/devkit';
-import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing';
-import { Linter } from '@nrwl/linter';
+import { readProjectConfiguration, Tree } from '@nx/devkit';
+import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
+import { Linter } from '@nx/linter';
 import generator from './generator';
 import { ServerlessGeneratorSchema } from './schema';
 
@@ -70,7 +70,7 @@ describe('serverless generator', () => {
                 codeCoverage: true,
               },
             },
-            executor: '@nrwl/jest:jest',
+            executor: '@nx/jest:jest',
             outputs: ['{workspaceRoot}/coverage/{projectRoot}'],
             options: {
               jestConfig: 'apps/sample/jest.config.ts',
@@ -78,7 +78,7 @@ describe('serverless generator', () => {
             },
           },
           lint: {
-            executor: '@nrwl/linter:eslint',
+            executor: '@nx/linter:eslint',
             outputs: ['{options.outputFile}'],
             options: {
               lintFilePatterns: ['apps/sample/src/**/*.{ts,tsx,js,jsx}'],
@@ -111,7 +111,7 @@ describe('serverless generator', () => {
         sourceRoot: 'apps/sample/src',
         targets: {
           build: {
-            executor: '@nrwl/webpack:webpack',
+            executor: '@nx/webpack:webpack',
             outputs: ['{options.outputPath}'],
             options: {
               outputPath: 'dist/apps/sample',
@@ -172,7 +172,7 @@ describe('serverless generator', () => {
                 codeCoverage: true,
               },
             },
-            executor: '@nrwl/jest:jest',
+            executor: '@nx/jest:jest',
             outputs: ['{workspaceRoot}/coverage/{projectRoot}'],
             options: {
               jestConfig: 'apps/sample/jest.config.ts',
@@ -180,7 +180,7 @@ describe('serverless generator', () => {
             },
           },
           lint: {
-            executor: '@nrwl/linter:eslint',
+            executor: '@nx/linter:eslint',
             outputs: ['{options.outputFile}'],
             options: {
               lintFilePatterns: ['apps/sample/src/**/*.{ts,tsx,js,jsx}'],

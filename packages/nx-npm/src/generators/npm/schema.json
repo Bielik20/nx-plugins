@@ -1,6 +1,5 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "cli": "nx",
   "id": "NxNpm",
   "title": "Add npm version and publish capabilities",
   "type": "object",

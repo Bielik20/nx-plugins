@@ -1,3 +1,4 @@
+import { normalizeOptions } from '@ns3/nx-core';
 import {
   addProjectConfiguration,
   formatFiles,
@@ -6,9 +7,8 @@ import {
   offsetFromRoot,
   Tree,
   updateJson,
-} from '@nrwl/devkit';
-import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
-import { normalizeOptions } from '@ns3/nx-core';
+} from '@nx/devkit';
+import { runTasksInSerial } from '@nx/workspace/src/utilities/run-tasks-in-serial';
 import { join } from 'path';
 import serverlessInitGenerator from '../init/generator';
 import { addJest } from './lib/add-jest';

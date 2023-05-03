@@ -5,9 +5,9 @@ import {
   readNxJson,
   Tree,
   updateNxJson,
-} from '@nrwl/devkit';
-import { jestInitGenerator } from '@nrwl/jest';
-import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
+} from '@nx/devkit';
+import { jestInitGenerator } from '@nx/jest';
+import { runTasksInSerial } from '@nx/workspace/src/utilities/run-tasks-in-serial';
 import {
   serverlessBundleVersion,
   serverlessOfflineVersion,
@@ -47,7 +47,7 @@ function updateDependencies(host: Tree, options: InitGeneratorSchema) {
       'serverless-offline': serverlessOfflineVersion,
       ...(options.plugin === 'serverless-bundle'
         ? { 'serverless-bundle': serverlessBundleVersion }
-        : { '@nrwl/webpack': '*' }),
+        : { '@nx/webpack': '*' }),
     },
   );
 }

@@ -1,5 +1,5 @@
-import { ExecutorContext } from '@nrwl/devkit';
 import { getProjectConfiguration } from '@ns3/nx-core';
+import { ExecutorContext } from '@nx/devkit';
 import { ensureDir, readJSONSync, writeJSON } from 'fs-extra';
 import { join } from 'path';
 

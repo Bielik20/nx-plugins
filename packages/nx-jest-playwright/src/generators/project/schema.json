@@ -1,6 +1,5 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "cli": "nx",
   "id": "NxJestPlaywrightProject",
   "title": "Add a Jest Playwright Project",
   "type": "object",

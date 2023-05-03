@@ -1,6 +1,5 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "cli": "nx",
   "id": "NxPlaywrightInit",
   "title": "Initialize the @ns3/nx-playwright plugin",
   "type": "object",

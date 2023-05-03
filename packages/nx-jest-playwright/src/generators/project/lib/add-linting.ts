@@ -1,6 +1,6 @@
-import { GeneratorCallback, joinPathFragments, Tree, updateJson } from '@nrwl/devkit';
-import { Linter, lintProjectGenerator } from '@nrwl/linter';
-import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
+import { GeneratorCallback, joinPathFragments, Tree, updateJson } from '@nx/devkit';
+import { Linter, lintProjectGenerator } from '@nx/linter';
+import { runTasksInSerial } from '@nx/workspace/src/utilities/run-tasks-in-serial';
 import { NxJestPlaywrightGeneratorNormalizedSchema } from './normalize-options';
 
 export async function addLinting(

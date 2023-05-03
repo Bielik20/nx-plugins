@@ -1,5 +1,5 @@
-import { Tree } from '@nrwl/devkit';
-import { jestProjectGenerator } from '@nrwl/jest';
+import { Tree } from '@nx/devkit';
+import { jestProjectGenerator } from '@nx/jest';
 import { ServerlessGeneratorNormalizedSchema } from './normalized-options';
 
 export async function addJest(host: Tree, options: ServerlessGeneratorNormalizedSchema) {
