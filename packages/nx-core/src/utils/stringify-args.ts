@@ -1,4 +1,4 @@
-import { names } from '@nrwl/devkit';
+import { names } from '@nx/devkit';
 import { flatten } from 'flat';
 
 interface Options {

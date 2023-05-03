@@ -1,4 +1,4 @@
-import { joinPathFragments, readJson, readProjectConfiguration, Tree } from '@nrwl/devkit';
+import { joinPathFragments, readJson, readProjectConfiguration, Tree } from '@nx/devkit';
 import { NxNpmGeneratorSchema } from '../schema';
 
 export function checkForNpmConfig(tree: Tree, options: NxNpmGeneratorSchema) {

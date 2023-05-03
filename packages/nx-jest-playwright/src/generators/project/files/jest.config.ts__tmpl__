@@ -1,4 +1,4 @@
-import nxPreset from '@nrwl/jest/preset';
+import nxPreset from '@nx/jest/preset';
 
 const { testEnvironment, ...rest } = nxPreset;
 

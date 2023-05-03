@@ -1,7 +1,7 @@
 import { Config } from '@jest/types';
-import { ExecutorContext, logger } from '@nrwl/devkit';
-import { jestConfigParser } from '@nrwl/jest/src/executors/jest/jest.impl';
 import { startDevServer } from '@ns3/nx-core';
+import { ExecutorContext, logger } from '@nx/devkit';
+import { jestConfigParser } from '@nx/jest/src/executors/jest/jest.impl';
 import { runCLI } from 'jest';
 import { JestPlaywrightExecutorSchema } from './schema';
 

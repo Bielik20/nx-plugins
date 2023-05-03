@@ -1,4 +1,4 @@
-import { joinPathFragments, readProjectConfiguration, Tree, updateJson } from '@nrwl/devkit';
+import { joinPathFragments, readProjectConfiguration, Tree, updateJson } from '@nx/devkit';
 import { NxNpmGeneratorSchema } from '../schema';
 import { getRepositoryField } from './get-repository-field';
 

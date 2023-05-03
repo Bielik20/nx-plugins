@@ -1,4 +1,4 @@
-import { ExecutorContext, parseTargetString, readTargetOptions, runExecutor } from '@nrwl/devkit';
+import { ExecutorContext, parseTargetString, readTargetOptions, runExecutor } from '@nx/devkit';
 
 export interface StartDevServerOptions {
   devServerTarget?: string;

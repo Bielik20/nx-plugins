@@ -1,4 +1,4 @@
-import { joinPathFragments, ProjectConfiguration } from '@nrwl/devkit';
+import { joinPathFragments, ProjectConfiguration } from '@nx/devkit';
 import { getBuildBaseConfig } from './get-build-base-config';
 import { getOutputPath } from './get-output-path';
 import { ServerlessGeneratorNormalizedSchema } from './normalized-options';

@@ -1,3 +1,4 @@
+import { getPackageMajorVersion, normalizeOptions } from '@ns3/nx-core';
 import {
   addProjectConfiguration,
   formatFiles,
@@ -7,11 +8,10 @@ import {
   names,
   offsetFromRoot,
   Tree,
-} from '@nrwl/devkit';
-import { Linter, lintProjectGenerator } from '@nrwl/linter';
-import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
-import { getRelativePathToRootTsConfig } from '@nrwl/workspace/src/utilities/typescript';
-import { getPackageMajorVersion, normalizeOptions } from '@ns3/nx-core';
+} from '@nx/devkit';
+import { Linter, lintProjectGenerator } from '@nx/linter';
+import { runTasksInSerial } from '@nx/workspace/src/utilities/run-tasks-in-serial';
+import { getRelativePathToRootTsConfig } from '@nx/workspace/src/utilities/typescript';
 import * as path from 'path';
 import playwrightInitGenerator from '../init/generator';
 import { PlaywrightGeneratorNormalizedSchema, PlaywrightGeneratorSchema } from './schema';

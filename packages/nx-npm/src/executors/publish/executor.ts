@@ -1,4 +1,4 @@
-import { ExecutorContext, joinPathFragments } from '@nrwl/devkit';
+import { ExecutorContext, joinPathFragments } from '@nx/devkit';
 import { execSync } from 'child_process';
 import { readJson, writeJson } from 'fs-extra';
 import { normalizeOptions } from './lib/normalize-options';

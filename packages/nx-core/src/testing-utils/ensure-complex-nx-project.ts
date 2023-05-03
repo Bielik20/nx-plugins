@@ -1,5 +1,5 @@
-import { workspaceRoot } from '@nrwl/devkit';
-import { cleanup, runPackageManagerInstall, tmpProjPath } from '@nrwl/nx-plugin/testing';
+import { workspaceRoot } from '@nx/devkit';
+import { cleanup, runPackageManagerInstall, tmpProjPath } from '@nx/plugin/testing';
 import { readFileSync, writeFileSync } from 'fs';
 import { ensureDirSync } from 'fs-extra';
 import { runNxNewCommand } from './run-nx-new-command';

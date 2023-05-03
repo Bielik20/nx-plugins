@@ -1,4 +1,4 @@
-import { detectPackageManager } from '@nrwl/devkit';
+import { detectPackageManager } from '@nx/devkit';
 
 export function getSlsCommand() {
   const packageManager = detectPackageManager();

@@ -1,9 +1,9 @@
-import { joinPathFragments, TargetConfiguration } from '@nrwl/devkit';
 import { NormalizedOptions } from '@ns3/nx-core';
+import { joinPathFragments, TargetConfiguration } from '@nx/devkit';
 
 export function getBuildBaseConfig(options: NormalizedOptions): TargetConfiguration {
   return {
-    executor: '@nrwl/webpack:webpack',
+    executor: '@nx/webpack:webpack',
     outputs: ['{options.outputPath}'],
     options: {
       outputPath: joinPathFragments('dist', options.projectRoot),

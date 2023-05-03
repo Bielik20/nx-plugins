@@ -4,7 +4,7 @@ import {
   removeDependenciesFromPackageJson,
   Tree,
   updateNxJson,
-} from '@nrwl/devkit';
+} from '@nx/devkit';
 import { playwrightRunnerVersion } from '../../utils/versions';
 import { InitGeneratorSchema } from './schema';
 

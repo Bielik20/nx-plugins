@@ -1,3 +1,4 @@
+import { normalizeOptions } from '@ns3/nx-core';
 import {
   addProjectConfiguration,
   formatFiles,
@@ -5,9 +6,8 @@ import {
   names,
   offsetFromRoot,
   Tree,
-} from '@nrwl/devkit';
-import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
-import { normalizeOptions } from '@ns3/nx-core';
+} from '@nx/devkit';
+import { runTasksInSerial } from '@nx/workspace/src/utilities/run-tasks-in-serial';
 import * as path from 'path';
 import jestPlaywrightInitGenerator from '../init/generator';
 import { addLinting } from './lib/add-linting';
