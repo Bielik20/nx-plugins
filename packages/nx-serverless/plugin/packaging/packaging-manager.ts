@@ -53,10 +53,10 @@ export class PackagingManager {
     const destination = this.generateFunctionCombinedPath();
     functions.forEach((func) => {
       func.setArtifactPath(destination);
-      files.push(this.findFunctionFiles(func, outputAbsolutePath));
-      assets.push(this.findAssets(func));
+      files.push(...this.findFunctionFiles(func, outputAbsolutePath));
+      assets.push(...this.findAssets(func));
     });
-    assets.push(this.findCommonAssets());
+    assets.push(...this.findCommonAssets());
     const uniqueAssets = [...new Set(assets)];
     await this.putAssetsNextToFunctionFiles(uniqueAssets, outputAbsolutePath);
 
