@@ -1,5 +1,4 @@
 import { existsSync } from 'fs-extra';
-import { last } from 'lodash';
 import { join } from 'path';
 
 export class FunctionDecorator {
@@ -30,7 +29,7 @@ export class FunctionDecorator {
    */
   get pathWoExt() {
     const handler = this.func.handler;
-    const fnName = last(handler.split('.'));
+    const fnName = handler.split('.').at(-1);
     const fnNameLastAppearanceIndex = handler.lastIndexOf(fnName);
     // replace only last instance to allow the same name for file and handler
     return handler.substring(0, fnNameLastAppearanceIndex - 1);

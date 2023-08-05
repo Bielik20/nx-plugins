@@ -9,7 +9,20 @@
   "publishConfig": {
     "access": "public"
   },
+  "engines": {
+    "node": ">=16.6.0"
+  },
   "main": "index.js",
   "generators": "./generators.json",
-  "executors": "./executors.json"
+  "executors": "./executors.json",
+  "dependencies": {
+    "@jest/types": "29.6.1",
+    "@ns3/nx-core": "*",
+    "@nx/devkit": "16.6.0",
+    "jest": "29.4.3",
+    "dotenv": "16.0.3",
+    "@nx/jest": "16.6.0",
+    "@nx/linter": "16.6.0",
+    "tslib": "^2.4.0"
+  }
 }

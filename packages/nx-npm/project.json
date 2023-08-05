@@ -31,7 +31,6 @@
         "outputPath": "dist/packages/nx-npm",
         "main": "packages/nx-npm/index.ts",
         "tsConfig": "packages/nx-npm/tsconfig.lib.json",
-        "buildableProjectDepsInPackageJsonType": "dependencies",
         "assets": [
           "packages/nx-npm/*.md",
           {
@@ -55,8 +54,7 @@
             "output": "."
           },
           "LICENSE"
-        ],
-        "updateBuildableProjectDepsInPackageJson": true
+        ]
       }
     },
     "publish": {

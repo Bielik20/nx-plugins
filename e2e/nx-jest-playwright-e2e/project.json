@@ -9,13 +9,6 @@
       "options": {
         "jestConfig": "e2e/nx-jest-playwright-e2e/jest.config.ts",
         "runInBand": true
-      },
-      "dependsOn": ["nx-jest-playwright-e2e:prepare"]
-    },
-    "prepare": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "nx run nx-jest-playwright:build"
       }
     }
   },

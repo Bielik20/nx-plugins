@@ -1,6 +1,11 @@
-import { GeneratorCallback, joinPathFragments, Tree, updateJson } from '@nx/devkit';
+import {
+  GeneratorCallback,
+  joinPathFragments,
+  runTasksInSerial,
+  Tree,
+  updateJson,
+} from '@nx/devkit';
 import { Linter, lintProjectGenerator } from '@nx/linter';
-import { runTasksInSerial } from '@nx/workspace/src/utilities/run-tasks-in-serial';
 import { ServerlessGeneratorNormalizedSchema } from './normalized-options';
 
 export async function addLinting(

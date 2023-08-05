@@ -10,13 +10,6 @@
         "passWithNoTests": true,
         "jestConfig": "e2e/nx-core-e2e/jest.config.ts",
         "runInBand": true
-      },
-      "dependsOn": ["nx-core-e2e:prepare"]
-    },
-    "prepare": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "nx run nx-core:build"
       }
     }
   },

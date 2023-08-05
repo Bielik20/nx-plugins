@@ -6,7 +6,7 @@ export function runNxNewCommand(args?: string, silent?: boolean) {
   const localTmpDir = dirname(tmpProjPath());
   return execSync(
     `node ${require.resolve(
-      '@nrwl/tao',
+      'nx',
     )} new proj --nx-workspace-root=${localTmpDir} --no-interactive --skip-install --collection=@nx/workspace --npmScope=proj --preset=empty ${
       args || ''
     }`,

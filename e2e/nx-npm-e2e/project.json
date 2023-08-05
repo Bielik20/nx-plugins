@@ -9,13 +9,6 @@
       "options": {
         "jestConfig": "e2e/nx-npm-e2e/jest.config.ts",
         "runInBand": true
-      },
-      "dependsOn": ["nx-npm-e2e:prepare"]
-    },
-    "prepare": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "nx run nx-npm:build"
       }
     }
   },

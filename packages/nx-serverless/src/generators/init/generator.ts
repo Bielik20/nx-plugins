@@ -3,11 +3,11 @@ import {
   formatFiles,
   GeneratorCallback,
   readNxJson,
+  runTasksInSerial,
   Tree,
   updateNxJson,
 } from '@nx/devkit';
 import { jestInitGenerator } from '@nx/jest';
-import { runTasksInSerial } from '@nx/workspace/src/utilities/run-tasks-in-serial';
 import {
   serverlessBundleVersion,
   serverlessOfflineVersion,

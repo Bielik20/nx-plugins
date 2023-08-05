@@ -7,17 +7,7 @@
     "e2e": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "yarn nx run nx-playwright:build",
-          "SWC_NODE_PROJECT=e2e/nx-playwright-e2e/tsconfig.json node -r @swc-node/register --test e2e/nx-playwright-e2e/tests/nx-playwright.spec.ts"
-        ],
-        "parallel": false
-      }
-    },
-    "prepare": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "nx run nx-playwright:build"
+        "command": "SWC_NODE_PROJECT=e2e/nx-playwright-e2e/tsconfig.json node -r @swc-node/register --test e2e/nx-playwright-e2e/tests/nx-playwright.spec.ts"
       }
     }
   },
