@@ -1,4 +1,4 @@
-import { set } from 'lodash';
+import set from 'just-safe-set';
 import { NxFacade } from '../nrwl/nx-facade';
 
 /**

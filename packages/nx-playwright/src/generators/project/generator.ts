@@ -7,11 +7,11 @@ import {
   joinPathFragments,
   names,
   offsetFromRoot,
+  runTasksInSerial,
   Tree,
 } from '@nx/devkit';
+import { getRelativePathToRootTsConfig } from '@nx/js';
 import { Linter, lintProjectGenerator } from '@nx/linter';
-import { runTasksInSerial } from '@nx/workspace/src/utilities/run-tasks-in-serial';
-import { getRelativePathToRootTsConfig } from '@nx/workspace/src/utilities/typescript';
 import * as path from 'path';
 import playwrightInitGenerator from '../init/generator';
 import { PlaywrightGeneratorNormalizedSchema, PlaywrightGeneratorSchema } from './schema';

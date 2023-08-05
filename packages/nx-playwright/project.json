@@ -34,9 +34,7 @@
             "output": "."
           },
           "LICENSE"
-        ],
-        "buildableProjectDepsInPackageJsonType": "dependencies",
-        "updateBuildableProjectDepsInPackageJson": true
+        ]
       }
     },
     "lint": {

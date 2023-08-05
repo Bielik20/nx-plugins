@@ -1,5 +1,5 @@
-import * as chalk from 'chalk';
+import { green } from 'colorette';
 
 export function printCommand(command: string) {
-  console.log(`Running: ${chalk.green(command)}`);
+  console.log(`Running: ${green(command)}`);
 }

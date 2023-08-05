@@ -29,7 +29,7 @@ export default async function (host: Tree, schema: Schema) {
 
   return () => {
     installPackagesTask(host);
-    commandSync(`yarn nx generate @ns3/nx-npm:npm --project ${schema.name} --access public`);
+    commandSync(`npx nx generate @ns3/nx-npm:npm --project ${schema.name} --access public`);
   };
 }
 

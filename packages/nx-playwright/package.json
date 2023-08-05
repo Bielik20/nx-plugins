@@ -11,5 +11,16 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "engines": {
+    "node": ">=16.6.0"
+  },
+  "dependencies": {
+    "@ns3/nx-core": "*",
+    "execa": "^5.0.0",
+    "@nx/devkit": "16.6.0",
+    "@nx/js": "16.6.0",
+    "@nx/linter": "16.6.0",
+    "tslib": "^2.4.0"
   }
 }

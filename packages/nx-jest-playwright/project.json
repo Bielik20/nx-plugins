@@ -31,7 +31,6 @@
         "outputPath": "dist/packages/nx-jest-playwright",
         "main": "packages/nx-jest-playwright/index.ts",
         "tsConfig": "packages/nx-jest-playwright/tsconfig.lib.json",
-        "buildableProjectDepsInPackageJsonType": "dependencies",
         "assets": [
           "packages/nx-jest-playwright/*.md",
           {
@@ -55,8 +54,7 @@
             "output": "."
           },
           "LICENSE"
-        ],
-        "updateBuildableProjectDepsInPackageJson": true
+        ]
       }
     },
     "publish": {

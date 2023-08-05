@@ -5,10 +5,10 @@ import {
   generateFiles,
   names,
   offsetFromRoot,
+  runTasksInSerial,
   Tree,
   updateJson,
 } from '@nx/devkit';
-import { runTasksInSerial } from '@nx/workspace/src/utilities/run-tasks-in-serial';
 import { join } from 'path';
 import serverlessInitGenerator from '../init/generator';
 import { addJest } from './lib/add-jest';

@@ -1,5 +1,5 @@
 import { runCommandAsync, runNxCommandAsync, tmpProjPath, uniq } from '@nx/plugin/testing';
-import { getPackageManagerCommand } from '@nrwl/tao/src/shared/package-manager';
+import { getPackageManagerCommand } from '@nrwl/devkit';
 import { ensureComplexNxProject } from '@ns3/nx-core/src/testing-utils/ensure-complex-nx-project';
 import { readFileSync, writeFileSync } from 'fs';
 

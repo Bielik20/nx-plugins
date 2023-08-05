@@ -1,6 +1,11 @@
-import { addDependenciesToPackageJson, formatFiles, Tree, updateJson } from '@nx/devkit';
+import {
+  addDependenciesToPackageJson,
+  formatFiles,
+  runTasksInSerial,
+  Tree,
+  updateJson,
+} from '@nx/devkit';
 import { jestInitGenerator } from '@nx/jest';
-import { runTasksInSerial } from '@nx/workspace/src/utilities/run-tasks-in-serial';
 import { jestPlaywrightPresetVersion, playwrightVersion } from '../../utils/versions';
 import { InitGeneratorSchema } from './schema';
 

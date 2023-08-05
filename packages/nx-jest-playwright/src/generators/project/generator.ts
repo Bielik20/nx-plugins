@@ -5,9 +5,9 @@ import {
   generateFiles,
   names,
   offsetFromRoot,
+  runTasksInSerial,
   Tree,
 } from '@nx/devkit';
-import { runTasksInSerial } from '@nx/workspace/src/utilities/run-tasks-in-serial';
 import * as path from 'path';
 import jestPlaywrightInitGenerator from '../init/generator';
 import { addLinting } from './lib/add-linting';
