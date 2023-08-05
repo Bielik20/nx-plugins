@@ -5,11 +5,12 @@
   "sourceRoot": "e2e/nx-serverless-e2e/src",
   "targets": {
     "e2e": {
-      "executor": "@nx/plugin:e2e",
+      "executor": "@nx/jest:jest",
       "options": {
-        "target": "nx-serverless-e2e:prepare",
-        "jestConfig": "e2e/nx-serverless-e2e/jest.config.ts"
-      }
+        "jestConfig": "e2e/nx-serverless-e2e/jest.config.ts",
+        "runInBand": true
+      },
+      "dependsOn": ["nx-serverless-e2e:prepare"]
     },
     "prepare": {
       "executor": "nx:run-commands",

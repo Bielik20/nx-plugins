@@ -55,7 +55,8 @@
             "output": "."
           },
           "LICENSE"
-        ]
+        ],
+        "updateBuildableProjectDepsInPackageJson": true
       }
     },
     "publish": {
