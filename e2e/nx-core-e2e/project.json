@@ -5,12 +5,13 @@
   "sourceRoot": "e2e/nx-core-e2e/src",
   "targets": {
     "e2e": {
-      "executor": "@nx/plugin:e2e",
+      "executor": "@nx/jest:jest",
       "options": {
-        "target": "nx-core-e2e:prepare",
         "passWithNoTests": true,
-        "jestConfig": "e2e/nx-core-e2e/jest.config.ts"
-      }
+        "jestConfig": "e2e/nx-core-e2e/jest.config.ts",
+        "runInBand": true
+      },
+      "dependsOn": ["nx-core-e2e:prepare"]
     },
     "prepare": {
       "executor": "nx:run-commands",
