@@ -1,12 +1,13 @@
 import { getProjectConfiguration } from '@ns3/nx-core';
-import { ExecutorContext } from '@nx/devkit';
+import { ExecutorContext, workspaceRoot } from '@nx/devkit';
+import { readJsonSync } from 'fs-extra';
 import { PublishExecutorNormalizedSchema, PublishExecutorSchema } from '../schema';
 
 export function normalizeOptions(
   options: PublishExecutorSchema,
   context: ExecutorContext,
 ): PublishExecutorNormalizedSchema {
-  const npmScope = context.workspace?.npmScope;
+  const npmScope = getNpmScope();
 
   if (!npmScope) {
     throw new Error('Missing npmScope in workspace');
@@ -40,4 +41,12 @@ function getNpmToken(options: PublishExecutorSchema): string {
   }
 
   return token;
+}
+
+function getNpmScope() {
+  const { name } = readJsonSync(`${workspaceRoot}/package.json`);
+
+  if (name?.startsWith('@')) {
+    return name.split('/')[0].substring(1);
+  }
 }
