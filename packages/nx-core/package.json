@@ -16,11 +16,10 @@
   "generators": "./generators.json",
   "executors": "./executors.json",
   "dependencies": {
-    "@nx/devkit": "16.7.3",
+    "@nx/devkit": "16.8.1",
     "fs-extra": "^11.1.1",
     "colorette": "^2.0.20",
     "flat": "^5.0.2",
-    "tslib": "^2.4.0",
-    "@nx/plugin": "16.7.3"
+    "tslib": "^2.4.0"
   }
 }
