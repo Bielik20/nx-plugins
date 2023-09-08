@@ -16,7 +16,7 @@
   "generators": "./generators.json",
   "executors": "./executors.json",
   "dependencies": {
-    "@jest/types": "29.6.1",
+    "@jest/types": "29.6.3",
     "@ns3/nx-core": "*",
     "@nx/devkit": "16.8.1",
     "jest": "29.4.3",
