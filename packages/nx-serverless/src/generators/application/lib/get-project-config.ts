@@ -1,16 +1,16 @@
 import { joinPathFragments, ProjectConfiguration } from '@nx/devkit';
 import { getBuildBaseConfig } from './get-build-base-config';
-import { getOutputPath } from './get-output-path';
 import { ServerlessGeneratorNormalizedSchema } from './normalized-options';
 
 export function getProjectConfig(
   options: ServerlessGeneratorNormalizedSchema,
 ): ProjectConfiguration {
-  const outputPath = getOutputPath(options);
   const buildTargetName = 'build';
   const buildTargetDev = `${options.projectName}:${buildTargetName}`;
   const buildTargetProd = `${buildTargetDev}:production`;
   const buildBaseConfig = getBuildBaseConfig(options);
+  const slsOutputPath = '{projectRoot}/.serverless';
+  const artifactsOutputPath = `{workspaceRoot}/${buildBaseConfig.options.outputPath}`;
 
   return {
     root: options.projectRoot,
@@ -31,7 +31,7 @@ export function getProjectConfig(
       },
       package: {
         executor: '@ns3/nx-serverless:sls',
-        outputs: [outputPath, buildBaseConfig.options.outputPath],
+        outputs: [slsOutputPath, artifactsOutputPath],
         dependsOn: ['^build'],
         options: {
           command: 'package',
@@ -42,7 +42,7 @@ export function getProjectConfig(
       },
       deploy: {
         executor: '@ns3/nx-serverless:sls',
-        outputs: [outputPath, buildBaseConfig.options.outputPath],
+        outputs: [slsOutputPath, artifactsOutputPath],
         dependsOn: ['package'],
         options: {
           command: 'deploy',
