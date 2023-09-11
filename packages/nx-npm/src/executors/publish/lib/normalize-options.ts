@@ -15,6 +15,7 @@ export function normalizeOptions(
 
   return {
     ...options,
+    npmRegistry: getNpmRegistry(options),
     npmToken: getNpmToken(options),
     pkgLocation: getPkgLocation(options, context),
     npmScope: npmScope,
@@ -49,4 +50,8 @@ function getNpmScope() {
   if (name?.startsWith('@')) {
     return name.split('/')[0].substring(1);
   }
+}
+
+function getNpmRegistry(options: PublishExecutorSchema) {
+  return options.npmRegistry || process.env.npm_config_registry || 'https://registry.npmjs.org/';
 }
