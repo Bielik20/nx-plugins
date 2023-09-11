@@ -49,9 +49,9 @@ describe('serverless e2e', () => {
       await runNxCommandAsync(
         `generate @ns3/nx-serverless:application ${plugin} --directory subdir --tags e2etag,e2ePackage --plugin @ns3/nx-serverless/plugin`,
       );
-      const projectJson = readJson(`apps/subdir/${plugin}/project.json`);
+      const projectJson = readJson(`subdir/${plugin}/project.json`);
       expect(projectJson.tags).toEqual(['e2etag', 'e2ePackage']);
-      expect(() => checkFilesExist(`apps/subdir/${plugin}/src/handlers/foo.ts`)).not.toThrow();
+      expect(() => checkFilesExist(`subdir/${plugin}/src/handlers/foo.ts`)).not.toThrow();
     });
   });
 });

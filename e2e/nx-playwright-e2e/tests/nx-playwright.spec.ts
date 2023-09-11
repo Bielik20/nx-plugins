@@ -53,7 +53,7 @@ describe('nx-playwright e2e', () => {
       const project = uniq('nx-playwright');
       await runNxCommandAsync(`generate @ns3/nx-playwright:project ${project} --directory subdir`);
 
-      assert.doesNotThrow(() => checkFilesExist(`apps/subdir/${project}/tests/app.spec.ts`));
+      assert.doesNotThrow(() => checkFilesExist(`subdir/${project}/tests/app.spec.ts`));
     });
   });
 
@@ -63,7 +63,7 @@ describe('nx-playwright e2e', () => {
       await runNxCommandAsync(
         `generate @ns3/nx-playwright:project ${projectName} --tags e2etag,e2ePackage`,
       );
-      const project = readJson(`apps/${projectName}/project.json`);
+      const project = readJson(`${projectName}/project.json`);
 
       assert.deepEqual(project.tags, ['e2etag', 'e2ePackage']);
     });
