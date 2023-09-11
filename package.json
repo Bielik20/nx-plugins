@@ -89,7 +89,8 @@
     "ts-jest": "29.1.0",
     "ts-node": "10.9.1",
     "tslib": "^2.4.0",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "verdaccio": "^5.0.4"
   },
   "config": {
     "commitizen": {
@@ -100,5 +101,8 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
+  },
+  "nx": {
+    "includedScripts": []
   }
 }
