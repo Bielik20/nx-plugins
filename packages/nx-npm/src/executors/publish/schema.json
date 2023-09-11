@@ -12,8 +12,7 @@
     },
     "npmRegistry": {
       "type": "string",
-      "description": "The base URL of the npm package registry.",
-      "default": "registry.npmjs.org"
+      "description": "The base URL of the npm package registry."
     },
     "dryRun": {
       "type": "boolean",

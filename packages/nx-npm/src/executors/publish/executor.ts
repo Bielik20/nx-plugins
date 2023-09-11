@@ -104,6 +104,6 @@ function publishPkg(normalizedOptions: PublishExecutorNormalizedSchema) {
 function generateNpmrc(options: PublishExecutorNormalizedSchema): string {
   return `
 //${options.npmRegistry}/:_authToken=${options.npmToken}
-@${options.npmScope}:registry=https://${options.npmRegistry}/
+@${options.npmScope}:registry=${options.npmRegistry}
 `.trim();
 }
