@@ -25,7 +25,7 @@ describe('nx-jest-playwright e2e', () => {
       await runNxCommandAsync(
         `generate @ns3/nx-jest-playwright:project ${plugin} --directory subdir`,
       );
-      expect(() => checkFilesExist(`apps/subdir/${plugin}/src/app.spec.ts`)).not.toThrow();
+      expect(() => checkFilesExist(`subdir/${plugin}/src/app.spec.ts`)).not.toThrow();
     });
   });
 
@@ -35,7 +35,7 @@ describe('nx-jest-playwright e2e', () => {
       await runNxCommandAsync(
         `generate @ns3/nx-jest-playwright:project ${plugin} --tags e2etag,e2ePackage`,
       );
-      const projectJson = readJson(`apps/${plugin}/project.json`);
+      const projectJson = readJson(`${plugin}/project.json`);
       expect(projectJson.tags).toEqual(['e2etag', 'e2ePackage']);
     });
   });
