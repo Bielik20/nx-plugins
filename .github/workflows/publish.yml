@@ -1,0 +1,31 @@
+name: Publish
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.inputs.sha }}
+  cancel-in-progress: false
+on:
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: 'Git sha to checkout and publish'
+        required: true
+        type: string
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+jobs:
+  main:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.sha }}
+      - name: Setup
+        uses: ./.github/actions/setup
+      - name: Publish
+        run: npx nx run-many -t publish --parallel 3 --all
+        env:
+          NPM_PACKAGE_TAG: alpha
+          NPM_PACKAGE_VERSION: 0.0.0-${{ github.event.inputs.sha }}

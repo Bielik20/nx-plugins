@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - master
-      - 'alpha/*'
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -23,12 +22,14 @@ jobs:
           affected: true
       - name: Start Release
         id: semantic
-        run: npx semantic-release --dry-run
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          dry-run: true
       - name: Publish
-        if: ${{ steps.semantic.outputs.next-version }}
+        if: steps.semantic.outputs.new_release_published == 'true'
         run: npx nx affected -t publish --parallel 3
         env:
-          NPM_PACKAGE_TAG: ${{ steps.semantic.outputs.channel }}
-          NPM_PACKAGE_VERSION: ${{ steps.semantic.outputs.next-version }}
+          NPM_PACKAGE_VERSION: ${{ steps.semantic.outputs.new_release_version }}
       - name: Finish Release
-        run: npx semantic-release
+        if: steps.semantic.outputs.new_release_published == 'true'
+        uses: cycjimmy/semantic-release-action@v4
