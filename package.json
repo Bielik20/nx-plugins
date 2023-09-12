@@ -33,7 +33,6 @@
     "help": "nx help",
     "commit": "git-cz",
     "tools": "tsc --project tools/src/tsconfig.json",
-    "semantic-release": "semantic-release",
     "prepare": "husky install"
   },
   "private": true,
@@ -84,7 +83,6 @@
     "nx": "16.8.1",
     "nx-cloud": "16.4.0",
     "prettier": "3.0.3",
-    "semantic-release": "^19.0.5",
     "semver": "^7.5.4",
     "ts-jest": "29.1.0",
     "ts-node": "10.9.1",
