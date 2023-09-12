@@ -5,7 +5,10 @@ export class FunctionDecorator {
   private readonly originalServicePath: string;
   private func: Serverless.Function;
 
-  constructor(readonly key: string, private serverless: Serverless.Instance) {
+  constructor(
+    readonly key: string,
+    private serverless: Serverless.Instance,
+  ) {
     this.originalServicePath = this.serverless.config.servicePath;
     this.func = this.serverless.service.functions[key];
     this.func.package = this.func.package || {};
