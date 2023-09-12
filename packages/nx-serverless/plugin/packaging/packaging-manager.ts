@@ -1,6 +1,6 @@
 import { hasNativeZip, nativeZip, nodeZip } from 'bestzip';
 import { copyFile, ensureDir } from 'fs-extra';
-import * as glob from 'glob';
+import { globSync } from 'glob';
 import { dirname, join } from 'path';
 import { FunctionDecorator } from '../functions/function-decorator';
 
@@ -69,10 +69,9 @@ export class PackagingManager {
   }
 
   private findFunctionFiles(func: FunctionDecorator, outputAbsolutePath: string): string[] {
-    return glob.sync(`${func.pathWoExt}*`, {
+    return globSync(`${func.pathWoExt}*`, {
       cwd: outputAbsolutePath,
       dot: true,
-      silent: true,
       follow: true,
       nodir: true,
     });
@@ -95,10 +94,9 @@ export class PackagingManager {
     }
 
     const assets = patterns.reduce((total, pattern) => {
-      const files = glob.sync(pattern, {
+      const files = globSync(pattern, {
         cwd: searchDir,
         dot: true,
-        silent: true,
         follow: true,
         nodir: true,
       });

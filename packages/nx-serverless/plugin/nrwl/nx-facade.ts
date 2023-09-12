@@ -40,7 +40,10 @@ export class NxFacade {
     return this.context.workspace.projects[this.targetDescription.project];
   }
 
-  constructor(private serverless: Serverless.Instance, private logging: Serverless.Logging) {
+  constructor(
+    private serverless: Serverless.Instance,
+    private logging: Serverless.Logging,
+  ) {
     try {
       const config = getNxServerlessConfig();
       const [project, target, configuration] = config.buildTarget.split(':');
