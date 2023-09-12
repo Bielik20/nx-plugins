@@ -14,10 +14,10 @@ runs:
       uses: actions/setup-node@v3
       with:
         node-version-file: '.nvmrc'
-        cache: 'yarn'
+        cache: 'npm'
     - name: Install
       shell: bash
-      run: yarn install --frozen-lockfile
+      run: npm ci
     - name: Derive appropriate SHAs for base and head for `nx affected` commands
       if: ${{ inputs.affected == 'true' }}
       uses: nrwl/nx-set-shas@v3

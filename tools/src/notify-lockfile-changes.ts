@@ -1,11 +1,11 @@
 import { yellow } from 'colorette';
 
-if (process.argv.slice(2).some((arg) => arg.includes('yarn.lock'))) {
+if (process.argv.slice(2).some((arg) => arg.includes('package-lock.json'))) {
   console.warn(
     yellow([
-      '⚠️  ---------------------------------------------------------------------------- ⚠️',
-      '⚠️  yarn.lock changed, please run `yarn` to ensure your packages are up to date. ⚠️',
-      '⚠️  ---------------------------------------------------------------------------- ⚠️',
+      '⚠️  ------------------------------------------------------------------------------------- ⚠️',
+      '⚠️  package-lock.json changed, please run `npm i` to ensure your packages are up to date. ⚠️',
+      '⚠️  ------------------------------------------------------------------------------------- ⚠️',
     ].join('\n'))
   );
 }
