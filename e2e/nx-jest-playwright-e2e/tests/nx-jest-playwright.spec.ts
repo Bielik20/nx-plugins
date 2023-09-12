@@ -1,12 +1,18 @@
+import {
+  cleanupTestWorkspace,
+  createTestWorkspace,
+} from '@ns3/nx-core/src/testing-utils/create-test-workspace';
 import { checkFilesExist, readJson, runNxCommandAsync, uniq } from '@nx/plugin/testing';
-import { ensureComplexNxProject } from '@ns3/nx-core/src/testing-utils/ensure-complex-nx-project';
 
 describe('nx-jest-playwright e2e', () => {
+  let projectDirectory: string;
+
   beforeAll(() => {
-    ensureComplexNxProject(
-      ['@ns3/nx-jest-playwright', 'dist/packages/nx-jest-playwright'],
-      ['@ns3/nx-core', 'dist/packages/nx-core'],
-    );
+    projectDirectory = createTestWorkspace('@ns3/nx-jest-playwright');
+  });
+
+  afterAll(() => {
+    cleanupTestWorkspace(projectDirectory);
   });
 
   it('should create nx-jest-playwright', async () => {

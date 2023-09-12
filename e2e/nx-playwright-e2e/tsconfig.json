@@ -2,8 +2,9 @@
   "extends": "../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "compilerOptions": {
-    "outDir": "../../dist/out-tsc",
-    "types": ["node"]
-  }
+  "references": [
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
 }

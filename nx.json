@@ -39,7 +39,6 @@
       "inputs": ["production", "^production"]
     },
     "e2e": {
-      "dependsOn": ["^build"],
       "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
     },
     "test": {

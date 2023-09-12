@@ -1,12 +1,18 @@
+import {
+  cleanupTestWorkspace,
+  createTestWorkspace,
+} from '@ns3/nx-core/src/testing-utils/create-test-workspace';
 import { checkFilesExist, readJson, runNxCommandAsync, uniq } from '@nx/plugin/testing';
-import { ensureComplexNxProject } from '@ns3/nx-core/src/testing-utils/ensure-complex-nx-project';
 
 describe('serverless e2e', () => {
+  let projectDirectory: string;
+
   beforeAll(() => {
-    ensureComplexNxProject(
-      ['@ns3/nx-serverless', 'dist/packages/nx-serverless'],
-      ['@ns3/nx-core', 'dist/packages/nx-core'],
-    );
+    projectDirectory = createTestWorkspace('@ns3/nx-serverless');
+  });
+
+  afterAll(() => {
+    cleanupTestWorkspace(projectDirectory);
   });
 
   describe('serverless-bundle', () => {

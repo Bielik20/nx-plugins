@@ -1,14 +1,16 @@
-import { runCommandAsync, runNxCommandAsync, tmpProjPath, uniq } from '@nx/plugin/testing';
 import { getPackageManagerCommand } from '@nrwl/devkit';
-import { ensureComplexNxProject } from '@ns3/nx-core/src/testing-utils/ensure-complex-nx-project';
+import {
+  cleanupTestWorkspace,
+  createTestWorkspace,
+} from '@ns3/nx-core/src/testing-utils/create-test-workspace';
+import { runCommandAsync, runNxCommandAsync, tmpProjPath, uniq } from '@nx/plugin/testing';
 import { readFileSync, writeFileSync } from 'fs';
 
 describe('nx-npm e2e', () => {
+  let projectDirectory: string;
+
   beforeAll(async () => {
-    ensureComplexNxProject(
-      ['@ns3/nx-npm', 'dist/packages/nx-npm'],
-      ['@ns3/nx-core', 'dist/packages/nx-core'],
-    );
+    projectDirectory = createTestWorkspace('@ns3/nx-npm');
     const pmc = getPackageManagerCommand();
     await runCommandAsync(`${pmc.addDev} @nx/js`);
     const p = JSON.parse(readFileSync(tmpProjPath('package.json')).toString());
@@ -17,6 +19,10 @@ describe('nx-npm e2e', () => {
       url: 'https://github.com/Bielik20/nx-plugins',
     };
     writeFileSync(tmpProjPath('package.json'), JSON.stringify(p, null, 2));
+  });
+
+  afterAll(() => {
+    cleanupTestWorkspace(projectDirectory);
   });
 
   it('should create nx-npm', async () => {

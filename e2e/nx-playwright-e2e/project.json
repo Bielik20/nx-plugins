@@ -5,9 +5,10 @@
   "sourceRoot": "e2e/nx-playwright-e2e/src",
   "targets": {
     "e2e": {
-      "executor": "nx:run-commands",
+      "executor": "@nx/jest:jest",
       "options": {
-        "command": "SWC_NODE_PROJECT=e2e/nx-playwright-e2e/tsconfig.json node -r @swc-node/register --test e2e/nx-playwright-e2e/tests/nx-playwright.spec.ts"
+        "jestConfig": "e2e/nx-playwright-e2e/jest.config.ts",
+        "runInBand": true
       }
     }
   },
