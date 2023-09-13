@@ -24,7 +24,7 @@ jobs:
         id: semantic
         uses: cycjimmy/semantic-release-action@v4
         with:
-          dry-run: true
+          dry_run: true
       - name: Publish
         if: steps.semantic.outputs.new_release_published == 'true'
         run: npx nx affected -t publish --parallel 3

@@ -102,8 +102,10 @@ function publishPkg(normalizedOptions: PublishExecutorNormalizedSchema) {
 }
 
 function generateNpmrc(options: PublishExecutorNormalizedSchema): string {
+  const npmRegistryUrl = new URL(options.npmRegistry);
+
   return `
-//${options.npmRegistry}/:_authToken=${options.npmToken}
-@${options.npmScope}:registry=${options.npmRegistry}
+//${npmRegistryUrl.host}/:_authToken=${options.npmToken}
+@${options.npmScope}:registry=${npmRegistryUrl.href}
 `.trim();
 }
