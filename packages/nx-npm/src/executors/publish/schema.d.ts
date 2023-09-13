@@ -1,6 +1,6 @@
 export interface PublishExecutorSchema {
   npmToken?: string;
-  npmRegistry: string;
+  npmRegistry?: string;
   dryRun?: boolean;
   caretDepsVersion?: boolean;
   pkgVersion?: string;
