@@ -1,0 +1,8 @@
+const { composePlugins, withNx } = require('@nx/webpack');
+const { withExternals, withPatterns } = require('@ns3/nx-serverless');
+
+module.exports = composePlugins(
+  withNx(),
+  withPatterns(['./src/handlers/**/handler.ts']),
+  withExternals([/^@aws-sdk\//]),
+);

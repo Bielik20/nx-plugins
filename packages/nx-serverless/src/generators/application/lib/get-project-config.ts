@@ -6,11 +6,10 @@ export function getProjectConfig(
   options: ServerlessGeneratorNormalizedSchema,
 ): ProjectConfiguration {
   const buildTargetName = 'build';
-  const buildTargetDev = `${options.projectName}:${buildTargetName}`;
-  const buildTargetProd = `${buildTargetDev}:production`;
+  const buildTargetDev = `${options.projectName}:${buildTargetName}:development`;
+  const buildTargetProd = `${options.projectName}:${buildTargetName}:production`;
   const buildBaseConfig = getBuildBaseConfig(options);
   const slsOutputPath = '{projectRoot}/.serverless';
-  const artifactsOutputPath = `{workspaceRoot}/${buildBaseConfig.options.outputPath}`;
 
   return {
     root: options.projectRoot,
@@ -31,8 +30,8 @@ export function getProjectConfig(
       },
       package: {
         executor: '@ns3/nx-serverless:sls',
-        outputs: [slsOutputPath, artifactsOutputPath],
-        dependsOn: ['^build'],
+        outputs: [slsOutputPath],
+        dependsOn: ['build'],
         options: {
           command: 'package',
           ...(options.plugin === '@ns3/nx-serverless/plugin'
@@ -42,7 +41,7 @@ export function getProjectConfig(
       },
       deploy: {
         executor: '@ns3/nx-serverless:sls',
-        outputs: [slsOutputPath, artifactsOutputPath],
+        outputs: [slsOutputPath],
         dependsOn: ['package'],
         options: {
           command: 'deploy',
@@ -60,7 +59,11 @@ export function getProjectConfig(
       },
       sls: {
         executor: '@ns3/nx-serverless:sls',
-        options: {},
+        options: {
+          ...(options.plugin === '@ns3/nx-serverless/plugin'
+            ? { buildTarget: buildTargetProd }
+            : {}),
+        },
       },
     },
     tags: options.parsedTags,

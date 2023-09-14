@@ -38,15 +38,15 @@ describe('serverless generator', () => {
           },
           package: {
             executor: '@ns3/nx-serverless:sls',
-            outputs: ['{projectRoot}/.serverless', '{workspaceRoot}/dist/apps/sample'],
-            dependsOn: ['^build'],
+            outputs: ['{projectRoot}/.serverless'],
+            dependsOn: ['build'],
             options: {
               command: 'package',
             },
           },
           deploy: {
             executor: '@ns3/nx-serverless:sls',
-            outputs: ['{projectRoot}/.serverless', '{workspaceRoot}/dist/apps/sample'],
+            outputs: ['{projectRoot}/.serverless'],
             dependsOn: ['package'],
             options: {
               command: 'deploy',
@@ -114,32 +114,36 @@ describe('serverless generator', () => {
             executor: '@nx/webpack:webpack',
             outputs: ['{options.outputPath}'],
             options: {
+              main: 'noop',
               outputPath: 'dist/apps/sample',
-              main: 'apps/sample/src/main.ts',
               tsConfig: 'apps/sample/tsconfig.app.json',
               externalDependencies: 'none',
               target: 'node',
               compiler: 'tsc',
+              isolatedConfig: true,
+              webpackConfig: 'apps/sample/webpack.config.js',
             },
             configurations: {
+              development: {},
               production: {
                 optimization: true,
                 extractLicenses: true,
                 inspect: false,
               },
             },
+            defaultConfiguration: 'production',
           },
           serve: {
             executor: '@ns3/nx-serverless:sls',
             options: {
               command: 'offline',
-              buildTarget: 'sample:build',
+              buildTarget: 'sample:build:development',
             },
           },
           package: {
             executor: '@ns3/nx-serverless:sls',
-            outputs: ['{projectRoot}/.serverless', '{workspaceRoot}/dist/apps/sample'],
-            dependsOn: ['^build'],
+            outputs: ['{projectRoot}/.serverless'],
+            dependsOn: ['build'],
             options: {
               command: 'package',
               buildTarget: 'sample:build:production',
@@ -147,7 +151,7 @@ describe('serverless generator', () => {
           },
           deploy: {
             executor: '@ns3/nx-serverless:sls',
-            outputs: ['{projectRoot}/.serverless', '{workspaceRoot}/dist/apps/sample'],
+            outputs: ['{projectRoot}/.serverless'],
             dependsOn: ['package'],
             options: {
               command: 'deploy',
@@ -163,7 +167,9 @@ describe('serverless generator', () => {
           },
           sls: {
             executor: '@ns3/nx-serverless:sls',
-            options: {},
+            options: {
+              buildTarget: 'sample:build:production',
+            },
           },
           test: {
             configurations: {

@@ -17,7 +17,7 @@ describe('serverless e2e', () => {
 
   describe('serverless-bundle', () => {
     it('should create serverless', async () => {
-      const plugin = uniq('nx-serverless');
+      const plugin = 'nx-serverless-bundle';
       await runNxCommandAsync(`generate @ns3/nx-serverless:application ${plugin}`);
 
       const buildResult = await runNxCommandAsync(`package ${plugin}`);
@@ -33,7 +33,7 @@ describe('serverless e2e', () => {
 
   describe('@ns3/nx-serverless/plugin', () => {
     it('should create serverless', async () => {
-      const plugin = uniq('nx-serverless');
+      const plugin = 'nx-serverless-ns3';
       await runNxCommandAsync(
         `generate @ns3/nx-serverless:application ${plugin} --plugin @ns3/nx-serverless/plugin`,
       );
@@ -51,13 +51,13 @@ describe('serverless e2e', () => {
 
   describe('--directory and --tags', () => {
     it('should create src in the specified directory with tags', async () => {
-      const plugin = uniq('serverless');
+      const plugin = 'nx-serverless-nested';
       await runNxCommandAsync(
         `generate @ns3/nx-serverless:application ${plugin} --directory subdir --tags e2etag,e2ePackage --plugin @ns3/nx-serverless/plugin`,
       );
       const projectJson = readJson(`subdir/${plugin}/project.json`);
       expect(projectJson.tags).toEqual(['e2etag', 'e2ePackage']);
-      expect(() => checkFilesExist(`subdir/${plugin}/src/handlers/foo.ts`)).not.toThrow();
+      expect(() => checkFilesExist(`subdir/${plugin}/src/handlers/foo/handler.ts`)).not.toThrow();
     });
   });
 });

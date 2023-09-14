@@ -16,41 +16,41 @@ class NxServerlessPlugin {
       'before:package:createDeploymentArtifacts': async () => {
         const { nx, packaging, functions } = this.prepare();
 
-        await nx.build(functions);
+        await nx.build();
         await packaging.pack(functions, nx.outputAbsolutePath);
       },
 
       'before:deploy:function:packageFunction': async () => {
         const { nx, packaging, functions } = this.prepare();
 
-        await nx.build(functions);
+        await nx.build();
         await packaging.pack(functions, nx.outputAbsolutePath);
       },
 
       'before:invoke:local:invoke': async () => {
-        const { nx, functions } = this.prepare();
+        const { nx } = this.prepare();
 
-        await nx.build(functions);
+        await nx.build();
         prepareInvoke(this.serverless, nx);
       },
 
       'before:offline:start': async () => {
-        const { nx, functions } = this.prepare();
+        const { nx } = this.prepare();
 
-        await nx.watch(functions);
+        await nx.watch();
         prepareOffline(this.serverless, nx);
       },
       'before:offline:start:init': async () => {
-        const { nx, functions } = this.prepare();
+        const { nx } = this.prepare();
 
-        await nx.watch(functions);
+        await nx.watch();
         prepareOffline(this.serverless, nx);
       },
 
       'before:step-functions-offline:start': async () => {
-        const { nx, functions } = this.prepare();
+        const { nx } = this.prepare();
 
-        await nx.watch(functions);
+        await nx.watch();
         prepareStepOffline(this.serverless, nx);
       },
     };
