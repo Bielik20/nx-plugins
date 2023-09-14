@@ -78,30 +78,38 @@ export class PackagingManager {
   }
 
   private findAssets(func: FunctionDecorator): string[] {
-    return this.combineGlobPatterns(func.includePatterns, this.originalServicePath);
+    return this.combineGlobPatterns(this.originalServicePath, func.patterns);
   }
 
   private findCommonAssets(): string[] {
     return this.combineGlobPatterns(
-      this.serverless.service.package.include,
       this.originalServicePath,
+      this.serverless.service.package.patterns,
     );
   }
 
-  private combineGlobPatterns(patterns: string[], searchDir: string): string[] {
+  private combineGlobPatterns(searchDir: string, patterns: string[]): string[] {
     if (!patterns?.length) {
       return [];
     }
 
-    const assets = patterns.reduce((total, pattern) => {
-      const files = globSync(pattern, {
-        cwd: searchDir,
-        dot: true,
-        follow: true,
-        nodir: true,
-      });
-      return total.concat(files);
-    }, []);
+    const include = [];
+    const exclude = [];
+    patterns.forEach((pattern) => {
+      if (pattern.startsWith('!')) {
+        exclude.push(pattern.substring(1));
+      } else {
+        include.push(pattern);
+      }
+    });
+    const assets = globSync(include, {
+      cwd: searchDir,
+      dot: true,
+      follow: true,
+      nodir: true,
+      ignore: exclude,
+    });
+
     return [...new Set(assets)];
   }
 

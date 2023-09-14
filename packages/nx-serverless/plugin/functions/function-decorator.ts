@@ -38,8 +38,8 @@ export class FunctionDecorator {
     return handler.substring(0, fnNameLastAppearanceIndex - 1);
   }
 
-  get includePatterns(): string[] {
-    return this.func.package?.include || [];
+  get patterns(): string[] {
+    return this.func.package?.patterns || [];
   }
 
   /**
