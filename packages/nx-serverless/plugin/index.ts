@@ -30,9 +30,7 @@ class NxServerlessPlugin {
       'before:invoke:local:invoke': async () => {
         const { nx, functions } = this.prepare();
 
-        if (!this.options.skipPackage) {
-          await nx.build(functions);
-        }
+        await nx.build(functions);
         prepareInvoke(this.serverless, nx);
       },
 
