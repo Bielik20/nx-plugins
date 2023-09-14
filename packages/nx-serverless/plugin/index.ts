@@ -1,7 +1,6 @@
 import { generateFunctions } from './functions/generate-functions';
 import { prepareInvoke } from './integrations/serverless-invoke-local';
-import { prepareOffline } from './integrations/serverless-offline';
-import { prepareStepOffline } from './integrations/serverless-step-functions-offline';
+import { prepareOffline, prepareStepOffline } from './integrations/serverless-offline';
 import { NxFacade } from './nrwl/nx-facade';
 import { PackagingManager } from './packaging/packaging-manager';
 
