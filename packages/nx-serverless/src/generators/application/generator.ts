@@ -46,7 +46,10 @@ function addFiles(host: Tree, options: ServerlessGeneratorNormalizedSchema) {
     tmpl: '',
   };
 
-  generateFiles(host, join(__dirname, 'files'), options.projectRoot, templateOptions);
+  generateFiles(host, join(__dirname, 'files', 'core'), options.projectRoot, templateOptions);
+  if (options.plugin === '@ns3/nx-serverless/plugin') {
+    generateFiles(host, join(__dirname, 'files', 'plugin'), options.projectRoot, templateOptions);
+  }
 }
 
 function updateTsConfig(tree: Tree, options: ServerlessGeneratorNormalizedSchema) {

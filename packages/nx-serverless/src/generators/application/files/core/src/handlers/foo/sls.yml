@@ -1,0 +1,7 @@
+functions:
+  Foo:
+    handler: src/handlers/foo/handler.handler
+    events:
+      - http:
+          method: GET
+          path: /foo

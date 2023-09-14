@@ -36,9 +36,4 @@ provider:
     NODE_OPTIONS: --enable-source-maps
 
 functions:
-  foo:
-    handler: src/handlers/foo.handler
-    events:
-      - http:
-          method: GET
-          path: /foo
+  - ${file(./src/handlers/foo/sls.yml):functions}

@@ -1,23 +1,7 @@
 import { ExecutorContext, runExecutor } from '@nx/devkit';
+import { execSync } from 'node:child_process';
 import { join } from 'path';
-import { FunctionDecorator } from '../functions/function-decorator';
 import { getNxServerlessConfig } from './nx-serverless-config';
-
-interface NxEntry {
-  /**
-   * Path to the destination within output folder
-   * @example src/handlers/create-user
-   * Example will produce output:
-   * - dist/apps/api/src/handlers/create-user.js
-   * - dist/apps/api/src/handlers/create-user.js.map
-   */
-  entryName: string;
-  /**
-   * Path to the source file within Nx Workspace
-   * @example apps/api/src/handlers/create-user.ts
-   */
-  entryPath: string;
-}
 
 export class NxFacade {
   private readonly buildTarget: string;
@@ -57,40 +41,19 @@ export class NxFacade {
     }
   }
 
-  async build(functions: ReadonlyArray<FunctionDecorator>): Promise<void> {
-    for await (const output of await this.compile(functions, false)) {
-      if (!output.success) {
-        throw new Error('Could not compile application files');
-      }
-    }
-  }
-
-  async watch(functions: ReadonlyArray<FunctionDecorator>): Promise<void> {
-    await this.compile(functions, true).next();
-  }
-
-  private async *compile(functions: ReadonlyArray<FunctionDecorator>, watch: boolean) {
-    const additionalEntryPoints = this.generateEntries(functions);
-
+  async build(): Promise<void> {
     this.logging.log.info(`Building with nx buildTarget: "${this.buildTarget}"`);
+    execSync(`npx nx run ${this.buildTarget}`, { stdio: 'inherit' });
+  }
 
-    for await (const output of await runExecutor(
-      this.targetDescription,
-      { watch, additionalEntryPoints },
-      this.context,
-    )) {
+  async watch(): Promise<void> {
+    this.logging.log.info(`Watching with nx buildTarget: "${this.buildTarget}"`);
+    await this.compile(true).next();
+  }
+
+  private async *compile(watch: boolean) {
+    for await (const output of await runExecutor(this.targetDescription, { watch }, this.context)) {
       yield output;
     }
-  }
-
-  private generateEntries(functions: ReadonlyArray<FunctionDecorator>): NxEntry[] {
-    return functions.map((f) => this.generateEntry(f));
-  }
-
-  private generateEntry(func: FunctionDecorator): NxEntry {
-    const entryName = func.pathWoExt;
-    const entryPath = join(this.project.root, func.path);
-
-    return { entryName, entryPath };
   }
 }

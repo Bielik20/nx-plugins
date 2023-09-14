@@ -6,19 +6,23 @@ export function getBuildBaseConfig(options: NormalizedOptions): TargetConfigurat
     executor: '@nx/webpack:webpack',
     outputs: ['{options.outputPath}'],
     options: {
+      main: 'noop',
       outputPath: joinPathFragments('dist', options.projectRoot),
-      main: joinPathFragments(options.projectRoot, 'src', 'main.ts'),
       tsConfig: joinPathFragments(options.projectRoot, 'tsconfig.app.json'),
       externalDependencies: 'none',
       target: 'node',
       compiler: 'tsc',
+      isolatedConfig: true,
+      webpackConfig: joinPathFragments(options.projectRoot, 'webpack.config.js'),
     },
     configurations: {
+      development: {},
       production: {
         optimization: true,
         extractLicenses: true,
         inspect: false,
       },
     },
+    defaultConfiguration: 'production',
   };
 }

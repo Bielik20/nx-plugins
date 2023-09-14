@@ -87,32 +87,30 @@ function addCacheableOperation(tree: Tree) {
 function setupTargetDefaults(tree: Tree) {
   const nxJson = readNxJson(tree);
 
-  if (!nxJson.namedInputs) {
-    nxJson.namedInputs ??= {};
-    nxJson.namedInputs.default ??= ['{projectRoot}/**/*'];
-    nxJson.namedInputs.production ??= [
-      'default',
-      '!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)',
-      '!{projectRoot}/tsconfig.spec.json',
-      '!{projectRoot}/jest.config.[jt]s',
-      '!{projectRoot}/.eslintrc.json',
-    ];
-  }
-
-  const inputs = [
-    'production',
-    '^production',
-    {
-      env: 'STAGE',
-    },
+  nxJson.namedInputs ??= {};
+  nxJson.namedInputs.stage ??= [{ env: 'STAGE' }];
+  nxJson.namedInputs['no-sls'] ??= ['!{projectRoot}/serverless.yml', '!{projectRoot}/**/sls.yml'];
+  nxJson.namedInputs.default ??= ['{projectRoot}/**/*'];
+  nxJson.namedInputs.production ??= [
+    'default',
+    '!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)',
+    '!{projectRoot}/tsconfig.spec.json',
+    '!{projectRoot}/jest.config.[jt]s',
+    '!{projectRoot}/.eslintrc.json',
   ];
 
   nxJson.targetDefaults ??= {};
   nxJson.targetDefaults.deploy ??= {};
-  nxJson.targetDefaults.deploy.inputs ??= inputs;
+  nxJson.targetDefaults.deploy.inputs ??= ['production', '^production', 'stage'];
 
   nxJson.targetDefaults.package ??= {};
-  nxJson.targetDefaults.package.inputs ??= inputs;
+  nxJson.targetDefaults.package.inputs ??= ['production', '^production', 'stage'];
+
+  nxJson.targetDefaults.build ??= {};
+  nxJson.targetDefaults.build.inputs ??= ['production', '^production', 'no-sls', '^no-sls'];
+  if (!nxJson.targetDefaults.build.inputs.includes('no-sls')) {
+    nxJson.targetDefaults.build.inputs.push('no-sls', '^no-sls');
+  }
 
   updateNxJson(tree, nxJson);
 }
