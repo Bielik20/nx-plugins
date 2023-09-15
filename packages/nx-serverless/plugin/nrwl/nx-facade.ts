@@ -1,39 +1,17 @@
-import { ExecutorContext, runExecutor } from '@nx/devkit';
-import { execSync } from 'node:child_process';
+import { ProjectGraph, readCachedProjectGraph, workspaceRoot } from '@nx/devkit';
+import * as execa from 'execa';
 import { join } from 'path';
-import { getNxServerlessConfig } from './nx-serverless-config';
+
+export const NX_SERVERLESS_BUILD_TARGET_KEY = 'NS3_NX_SERVERLESS_BUILD_TARGET';
 
 export class NxFacade {
   private readonly buildTarget: string;
-  private readonly targetDescription: {
-    project: string;
-    target: string;
-    configuration?: string;
-  };
-  private readonly context: ExecutorContext;
+  readonly outputAbsolutePath: string;
 
-  get outputAbsolutePath(): string {
-    return join(this.context.root, this.target.options.outputPath);
-  }
-
-  private get target() {
-    return this.project.targets[this.targetDescription.target];
-  }
-
-  private get project() {
-    return this.context.workspace.projects[this.targetDescription.project];
-  }
-
-  constructor(
-    private serverless: Serverless.Instance,
-    private logging: Serverless.Logging,
-  ) {
+  constructor(private logging: Serverless.Logging) {
     try {
-      const config = getNxServerlessConfig();
-      const [project, target, configuration] = config.buildTarget.split(':');
-      this.targetDescription = { project, target, configuration };
-      this.buildTarget = config.buildTarget;
-      this.context = config.context;
+      this.buildTarget = this.getBuildTarget();
+      this.outputAbsolutePath = this.getAbsoluteOutputPath();
     } catch (e) {
       throw new Error(
         '@nrwl/nx context not found. This is probably because you are running serverless outside nx command.',
@@ -43,17 +21,47 @@ export class NxFacade {
 
   async build(): Promise<void> {
     this.logging.log.info(`Building with nx buildTarget: "${this.buildTarget}"`);
-    execSync(`npx nx run ${this.buildTarget}`, { stdio: 'inherit' });
+    await execa.command(`npx nx run ${this.buildTarget}`, { stdio: 'inherit', cwd: workspaceRoot });
   }
 
   async watch(): Promise<void> {
     this.logging.log.info(`Watching with nx buildTarget: "${this.buildTarget}"`);
-    await this.compile(true).next();
+    await execa.command(`npx nx run ${this.buildTarget}`, { cwd: workspaceRoot });
+    execa.command(`npx nx run ${this.buildTarget} --watch --skip-nx-cache`, {
+      stdio: 'inherit',
+      cwd: workspaceRoot,
+    });
   }
 
-  private async *compile(watch: boolean) {
-    for await (const output of await runExecutor(this.targetDescription, { watch }, this.context)) {
-      yield output;
-    }
+  private getBuildTarget() {
+    return process.env[NX_SERVERLESS_BUILD_TARGET_KEY] as string;
+  }
+
+  private getAbsoluteOutputPath() {
+    const graph = readCachedProjectGraph();
+    const [project, target, configuration] = this.buildTarget.split(':');
+    const outputPath = this.getOption<string>(
+      graph,
+      { project, target, configuration },
+      'outputPath',
+    );
+
+    return join(workspaceRoot, outputPath);
+  }
+
+  private getOption<T>(
+    graph: ProjectGraph,
+    descriptor: { project: string; target: string; configuration: string },
+    option: string,
+  ): T {
+    const { project, target, configuration } = descriptor;
+    const targetConfiguration = graph.nodes[project].data.targets[target];
+    const defaultConfiguration = targetConfiguration.defaultConfiguration;
+    const normalizedConfiguration = configuration ?? defaultConfiguration;
+
+    return (
+      targetConfiguration.options[option] ??
+      targetConfiguration.configurations[normalizedConfiguration]?.[option]
+    );
   }
 }

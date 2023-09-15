@@ -62,7 +62,7 @@ class NxServerlessPlugin {
       throw new Error('The only supported provider is "aws"');
     }
 
-    const nx = new NxFacade(this.serverless, this.logging);
+    const nx = new NxFacade(this.logging);
     const packaging = new PackagingManager(this.serverless);
     const functions = generateFunctions(this.serverless, this.options);
 
