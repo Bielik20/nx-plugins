@@ -2,6 +2,11 @@
 
 A plugin to run playwright e2e tests in nx monorepo.
 
+## ⚠️ Deprecation Notice ⚠️
+
+Nx released their own Playwright Plugin: [@nx/playwright](https://nx.dev/packages/playwright).
+It is advised to use it instead of this package.
+
 ## Install
 
 ```
