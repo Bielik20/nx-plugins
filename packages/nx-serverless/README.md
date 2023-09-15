@@ -23,15 +23,30 @@ nx generate @ns3/nx-serverless:app my-app-name
 
 ### `@ns3/nx-serverless/plugin`
 
+> ⚠️ Warning: this plugin is experimental and can change without major version bump.
+
 You can opt in to use experimental `@ns3/nx-serverless/plugin`.
 It supports only `aws` as a provider, but works both with nx cache and incremental build.
-It uses `@nx/webpack:webpack` executor to compile the code.
-It also means that it will respect `target` you set in `tsconfig.json`.
-You can use `externalDependencies` option of `build` target to exclude certain dependencies from the bundle (like aws sdk).
+It uses `@nx/webpack:webpack` executor to compile the code and is independent of serverless framework.
+To achieve that it uses `withPatterns` plugin to find which files to compile.
+It means that you need to create and follow file naming pattern for your handlers.
+The default one is `'./src/handlers/**/handler.ts'`
+You can use `withExternals` plugin to exclude certain dependencies from the bundle (default `/^@aws-sdk\//` excludes aws sdk in v3).
 
 ```
 nx generate @ns3/nx-serverless:app my-app-name --plugin @ns3/nx-serverless/plugin
 ```
+
+
+> Rationale: making build step independent of serverless framework allows us to cache build process.
+> This means that changing serverless config won't trigger rebuild of the whole app.
+> It makes it also easy to replace webpack with other bundler like rspack etc.
+
+#### Webpack Alternative
+
+If you want to use executor for build other than @nx/webpack you can.
+The only requirement is for build executor to have `outputPath` option defined and support for `--watch` flag.
+Of course, you will have to provide equivalent of `withPatterns` and `withExternals` plugins.
 
 ## Available commands
 
