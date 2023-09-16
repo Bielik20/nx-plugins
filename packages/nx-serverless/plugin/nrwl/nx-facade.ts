@@ -19,20 +19,6 @@ export class NxFacade {
     }
   }
 
-  async build(): Promise<void> {
-    this.logging.log.info(`Building with nx buildTarget: "${this.buildTarget}"`);
-    await execa.command(`npx nx run ${this.buildTarget}`, { stdio: 'inherit', cwd: workspaceRoot });
-  }
-
-  async watch(): Promise<void> {
-    this.logging.log.info(`Watching with nx buildTarget: "${this.buildTarget}"`);
-    await execa.command(`npx nx run ${this.buildTarget}`, { cwd: workspaceRoot });
-    execa.command(`npx nx run ${this.buildTarget} --watch --skip-nx-cache`, {
-      stdio: 'inherit',
-      cwd: workspaceRoot,
-    });
-  }
-
   private getBuildTarget() {
     return process.env[NX_SERVERLESS_BUILD_TARGET_KEY] as string;
   }
@@ -63,5 +49,36 @@ export class NxFacade {
       targetConfiguration.options[option] ??
       targetConfiguration.configurations[normalizedConfiguration]?.[option]
     );
+  }
+
+  async build(): Promise<void> {
+    this.logging.log.info(`Building with nx buildTarget: "${this.buildTarget}"`);
+    const result = await execa.command(`npx nx run ${this.buildTarget}`, {
+      cwd: workspaceRoot,
+      all: true,
+      reject: false,
+    });
+    if (result.failed) {
+      this.logging.writeText(result.all);
+      throw new Error('Build failed');
+    } else {
+      this.printBuildSuccessMessage(result.all);
+    }
+  }
+
+  private printBuildSuccessMessage(output: string) {
+    const startIndex = output.indexOf(this.buildTarget);
+    const endIndex = output.indexOf('\n', startIndex);
+    const buildTargetOutput = output.substring(startIndex, endIndex).trim();
+    this.logging.log.success(buildTargetOutput);
+  }
+
+  async watch(): Promise<void> {
+    this.logging.log.info(`Watching with nx buildTarget: "${this.buildTarget}"`);
+    await execa.command(`npx nx run ${this.buildTarget}`, { cwd: workspaceRoot });
+    execa.command(`npx nx run ${this.buildTarget} --watch --skip-nx-cache`, {
+      stdio: 'inherit',
+      cwd: workspaceRoot,
+    });
   }
 }
