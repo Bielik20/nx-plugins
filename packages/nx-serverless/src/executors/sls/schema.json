@@ -19,5 +19,5 @@
       "description": "A key-value Pair of environment variables to pass to Serverless runner."
     }
   },
-  "required": ["command"]
+  "required": []
 }

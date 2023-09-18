@@ -85,8 +85,8 @@ STAGE=my-stage nx run my-app-name:deploy
 Should you need a more specific command that is not included you can run it like:
 
 ```
-nx run my-app-name:sls --command logs
-nx run my-app-name:sls --command 'invoke local'
+nx run my-app-name:sls logs
+nx run my-app-name:sls invoke local
 ```
 
 All arguments are forwarded.

@@ -12,7 +12,9 @@ export default async function runExecutor(options: SlsExecutorSchema, context: E
   const projectRoot = getProjectConfiguration(context).root;
   const stringifiedArgs = stringifyArgs(rest, { shorthand: true });
   const slsCommand = getSlsCommand();
-  const fullCommand = `${slsCommand} ${command} ${stringifiedArgs}`.trim();
+  const fullCommand = command
+    ? `${slsCommand} ${command} ${stringifiedArgs}`.trim()
+    : `${slsCommand} ${stringifiedArgs}`.trim();
 
   printCommand(fullCommand);
   const result = await execa.command(fullCommand, {
