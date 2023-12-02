@@ -13,6 +13,7 @@ const DEFAULT: Required<Options> = {
   shorthand: false,
 } as const;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function stringifyArgs(record: Record<string, any>, _options: Options = {}): string {
   const options: Required<Options> = { ...DEFAULT, ..._options };
   const { _ = [], ...rest } = record;

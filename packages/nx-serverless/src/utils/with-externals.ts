@@ -13,6 +13,7 @@ export function withExternals(externals: RegExp[]): NxWebpackPlugin {
       ctx,
       callback: (
         err?: null | Error,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         result?: string | boolean | string[] | { [index: string]: any },
       ) => void,
     ) {

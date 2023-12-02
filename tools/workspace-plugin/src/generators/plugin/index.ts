@@ -6,7 +6,7 @@ import {
   updateJson,
   updateProjectConfiguration,
 } from '@nx/devkit';
-import { Linter } from '@nx/linter';
+import { Linter } from '@nx/eslint';
 import pluginGenerator from '@nx/plugin/src/generators/plugin/plugin';
 import { commandSync } from 'execa';
 import { join } from 'path';

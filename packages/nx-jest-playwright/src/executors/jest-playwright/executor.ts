@@ -12,6 +12,7 @@ try {
 }
 
 if (process.env.NODE_ENV === null || process.env.NODE_ENV === undefined) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (process.env as any).NODE_ENV = 'test';
 }
 

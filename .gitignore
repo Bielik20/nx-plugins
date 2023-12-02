@@ -40,3 +40,5 @@ Thumbs.db
 
 # Tools compiled output
 /tools/**/*.js
+
+.nx/cache
