@@ -9,6 +9,7 @@ describe('Sls Executor', () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     execSyncMock = jest.spyOn(execa, 'command').mockResolvedValue({ all: 'noop' } as any);
     delete process.env['FORCE_COLOR'];
   });

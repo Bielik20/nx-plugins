@@ -1,5 +1,5 @@
 import { NormalizedOptions } from '@ns3/nx-core';
-import { Linter } from '@nx/linter';
+import { Linter } from '@nx/eslint';
 
 export interface PlaywrightGeneratorSchema {
   name: string;

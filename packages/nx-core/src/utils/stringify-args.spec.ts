@@ -1,5 +1,6 @@
 import { stringifyArgs } from './stringify-args';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type TestOpt = Record<string, any>;
 
 describe('stringifyArgs', () => {

@@ -1,9 +1,6 @@
 import { ExecutorContext } from '@nx/devkit';
-import { PlaywrightExecutorSchema } from './schema';
 
-const options: PlaywrightExecutorSchema = {
-  command: 'playwright test',
-};
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const testContext: ExecutorContext = {
   root: '/base/ns3/tmp/nx-e2e/proj',
   target: { executor: '@ns3/nx-playwright:playwright' },
