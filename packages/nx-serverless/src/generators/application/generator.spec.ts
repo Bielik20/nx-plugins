@@ -10,9 +10,9 @@ describe('serverless generator', () => {
     appTree = createTreeWithEmptyWorkspace({ layout: 'apps-libs' });
   });
 
-  describe('serverless-bundle', () => {
+  describe('serverless-esbuild', () => {
     const options: ServerlessGeneratorSchema = {
-      plugin: 'serverless-bundle',
+      plugin: 'serverless-esbuild',
       name: 'sample',
       unitTestRunner: 'jest',
       linter: Linter.EsLint,

@@ -13,10 +13,9 @@ custom:
     httpPort: <%= port %>
     lambdaPort: <%= port - 1000 %>
     noPrependStageInUrl: true
-<% if (plugin == 'serverless-bundle') {
-%>  bundle:
-    linting: false
-    tsConfig: 'tsconfig.app.json'<% } %>
+<% if (plugin == 'serverless-esbuild') {
+%>  esbuild:
+    tsconfig: 'tsconfig.app.json'<% } %>
 
 params:
   prod:

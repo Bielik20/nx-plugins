@@ -15,9 +15,9 @@ describe('serverless e2e', () => {
     cleanupTestWorkspace(projectDirectory);
   });
 
-  describe('serverless-bundle', () => {
+  describe('serverless-esbuild', () => {
     it('should create serverless', async () => {
-      const plugin = 'nx-serverless-bundle';
+      const plugin = 'nx-serverless-esbuild';
       await runNxCommandAsync(`generate @ns3/nx-serverless:application ${plugin}`);
 
       const buildResult = await runNxCommandAsync(`package ${plugin}`);

@@ -1,3 +1,4 @@
-export const serverlessVersion = '^3.27.0';
-export const serverlessBundleVersion = '^6.0.0';
-export const serverlessOfflineVersion = '^12.0.4';
+export const serverlessVersion = '^3.38.0';
+export const serverlessEsbuildVersion = '^1.50.0';
+export const esbuildVersion = '~0.19.9';
+export const serverlessOfflineVersion = '^13.3.2';

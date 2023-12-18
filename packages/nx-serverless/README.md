@@ -12,10 +12,10 @@ npm i -D @ns3/nx-serverless
 
 ## Generate
 
-### `serverless-bundle`
+### `serverless-esbuild`
 
-Default plugin used in generation is [`serverless-bundle`](https://www.npmjs.com/package/serverless-bundle).
-It supports all providers, nx cache as far as output of serverless bundle is concerned, but it doesn't work with incremental builds.
+Default plugin used in generation is [`serverless-esbuild`](https://www.npmjs.com/package/serverless-esbuild).
+It supports all providers, nx cache as far as output of serverless is concerned, but it doesn't work with incremental builds.
 
 ```
 nx generate @ns3/nx-serverless:app my-app-name
