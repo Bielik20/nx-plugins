@@ -7,8 +7,8 @@
     "plugin": {
       "description": "Which plugin you want to use within serverless",
       "type": "string",
-      "enum": ["serverless-bundle", "@ns3/nx-serverless/plugin"],
-      "default": "serverless-bundle"
+      "enum": ["serverless-esbuild", "@ns3/nx-serverless/plugin"],
+      "default": "serverless-esbuild"
     },
     "unitTestRunner": {
       "description": "Adds the specified unit test runner",

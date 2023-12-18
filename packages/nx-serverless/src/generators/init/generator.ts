@@ -9,7 +9,8 @@ import {
 } from '@nx/devkit';
 import { jestInitGenerator } from '@nx/jest';
 import {
-  serverlessBundleVersion,
+  esbuildVersion,
+  serverlessEsbuildVersion,
   serverlessOfflineVersion,
   serverlessVersion,
 } from '../../utils/versions';
@@ -45,8 +46,8 @@ function updateDependencies(host: Tree, options: InitGeneratorSchema) {
       '@ns3/nx-serverless': '*',
       serverless: serverlessVersion,
       'serverless-offline': serverlessOfflineVersion,
-      ...(options.plugin === 'serverless-bundle'
-        ? { 'serverless-bundle': serverlessBundleVersion }
+      ...(options.plugin === 'serverless-esbuild'
+        ? { 'serverless-esbuild': serverlessEsbuildVersion, esbuild: esbuildVersion }
         : { '@nx/webpack': '*' }),
     },
   );

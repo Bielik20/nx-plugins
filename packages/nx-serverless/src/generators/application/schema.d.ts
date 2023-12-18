@@ -1,7 +1,7 @@
 import { Linter } from '@nx/eslint';
 
 export interface ServerlessGeneratorSchema {
-  plugin: 'serverless-bundle' | '@ns3/nx-serverless/plugin';
+  plugin: 'serverless-esbuild' | '@ns3/nx-serverless/plugin';
   name: string;
   tags?: string;
   directory?: string;
