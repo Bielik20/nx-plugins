@@ -5,7 +5,7 @@ import {
   Tree,
   updateJson,
 } from '@nx/devkit';
-import { Linter, lintProjectGenerator } from '@nx/linter';
+import { Linter, lintProjectGenerator } from '@nx/eslint';
 import { NxJestPlaywrightGeneratorNormalizedSchema } from './normalize-options';
 
 export async function addLinting(

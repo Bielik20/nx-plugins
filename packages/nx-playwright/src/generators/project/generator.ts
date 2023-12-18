@@ -10,8 +10,8 @@ import {
   runTasksInSerial,
   Tree,
 } from '@nx/devkit';
+import { Linter, lintProjectGenerator } from '@nx/eslint';
 import { getRelativePathToRootTsConfig } from '@nx/js';
-import { Linter, lintProjectGenerator } from '@nx/linter';
 import * as path from 'path';
 import playwrightInitGenerator from '../init/generator';
 import { PlaywrightGeneratorNormalizedSchema, PlaywrightGeneratorSchema } from './schema';

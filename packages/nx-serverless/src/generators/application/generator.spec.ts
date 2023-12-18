@@ -1,6 +1,6 @@
 import { readProjectConfiguration, Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import { Linter } from '@nx/linter';
+import { Linter } from '@nx/eslint';
 import generator from './generator';
 import { ServerlessGeneratorSchema } from './schema';
 
@@ -78,7 +78,7 @@ describe('serverless generator', () => {
             },
           },
           lint: {
-            executor: '@nx/linter:eslint',
+            executor: '@nx/eslint:eslint',
             outputs: ['{options.outputFile}'],
             options: {
               lintFilePatterns: ['apps/sample/src/**/*.{ts,tsx,js,jsx}'],
@@ -186,7 +186,7 @@ describe('serverless generator', () => {
             },
           },
           lint: {
-            executor: '@nx/linter:eslint',
+            executor: '@nx/eslint:eslint',
             outputs: ['{options.outputFile}'],
             options: {
               lintFilePatterns: ['apps/sample/src/**/*.{ts,tsx,js,jsx}'],
