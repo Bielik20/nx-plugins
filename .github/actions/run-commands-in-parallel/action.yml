@@ -17,7 +17,7 @@ runs:
     # are local to this repo which defines the workflow, and we therefore need to work around this by embedding the contents
     # of the shell utilities for executing commands into the workflow directly.
     - name: Create command utils
-      uses: actions/github-script@v6
+      uses: actions/github-script@v7
       with:
         script: |
           const { writeFileSync } = require('fs');
@@ -47,7 +47,7 @@ runs:
       run: chmod +x ${GITHUB_WORKSPACE//\\//}/.github/workflows/run-commands-in-parallel.sh
 
     - name: Process parallel commands configuration
-      uses: actions/github-script@v6
+      uses: actions/github-script@v7
       id: parallel_commands_config
       env:
         PARALLEL_COMMANDS: ${{ inputs.parallel-commands }}
