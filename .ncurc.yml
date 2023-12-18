@@ -6,7 +6,7 @@ reject:
   - execa
   # Nx Managed
   - jest
-  - @types/jest
+  - '@types/jest'
   - jest-environment-jsdom
   - ts-jest
   - tslib
