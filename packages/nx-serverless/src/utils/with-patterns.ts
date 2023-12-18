@@ -1,11 +1,10 @@
-import { NxWebpackExecutionContext } from '@nx/webpack';
-import { AsyncNxWebpackPlugin } from '@nx/webpack/src/utils/config';
+import { AsyncNxComposableWebpackPlugin, NxWebpackExecutionContext } from '@nx/webpack';
 import { glob } from 'glob';
 import { join, parse, relative } from 'path';
 import { type Configuration } from 'webpack';
 
 // @example withPatterns(['./src/handlers/**/handler.ts'])
-export function withPatterns(patterns: string[]): AsyncNxWebpackPlugin {
+export function withPatterns(patterns: string[]): AsyncNxComposableWebpackPlugin {
   return async (config: Configuration, { context }: NxWebpackExecutionContext) => {
     const projectRootGlobal = join(
       context.root,

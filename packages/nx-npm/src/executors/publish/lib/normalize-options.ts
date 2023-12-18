@@ -10,7 +10,7 @@ export function normalizeOptions(
   const npmScope = getNpmScope();
 
   if (!npmScope) {
-    throw new Error('Missing npmScope in workspace');
+    throw new Error('Missing npmScope in root package.json');
   }
 
   return {

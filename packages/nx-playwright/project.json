@@ -44,9 +44,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "packages/nx-playwright/jest.config.ts"
-      }
+      "options": {}
     },
     "publish": {
       "executor": "@ns3/nx-npm:publish"
