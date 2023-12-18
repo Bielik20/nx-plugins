@@ -27,7 +27,7 @@ export class NxFacade {
     } catch (e) {
       console.log(e);
       throw new Error(
-        '@nrwl/nx context not found. This is probably because you are running serverless outside nx command.',
+        'Nx context not found. This is probably because you are running serverless outside nx command.',
       );
     }
   }

@@ -64,21 +64,14 @@ describe('serverless generator', () => {
             options: {},
           },
           test: {
-            configurations: {
-              ci: {
-                ci: true,
-                codeCoverage: true,
-              },
-            },
             executor: '@nx/jest:jest',
             outputs: ['{workspaceRoot}/coverage/{projectRoot}'],
             options: {
               jestConfig: 'apps/sample/jest.config.ts',
-              passWithNoTests: true,
             },
           },
           lint: {
-            executor: '@nx/eslint:eslint',
+            executor: '@nx/eslint:lint',
             outputs: ['{options.outputFile}'],
             options: {
               lintFilePatterns: ['apps/sample/src/**/*.{ts,tsx,js,jsx}'],
@@ -172,21 +165,14 @@ describe('serverless generator', () => {
             },
           },
           test: {
-            configurations: {
-              ci: {
-                ci: true,
-                codeCoverage: true,
-              },
-            },
             executor: '@nx/jest:jest',
             outputs: ['{workspaceRoot}/coverage/{projectRoot}'],
             options: {
               jestConfig: 'apps/sample/jest.config.ts',
-              passWithNoTests: true,
             },
           },
           lint: {
-            executor: '@nx/eslint:eslint',
+            executor: '@nx/eslint:lint',
             outputs: ['{options.outputFile}'],
             options: {
               lintFilePatterns: ['apps/sample/src/**/*.{ts,tsx,js,jsx}'],

@@ -1,14 +1,14 @@
-import { NxWebpackPlugin } from '@nx/webpack/src/utils/config';
+import { NxComposableWebpackPlugin } from '@nx/webpack';
 import type { Configuration } from 'webpack';
 
 // @example withExternals([/^@aws-sdk\//, /^@aws-lambda-powertools\//])
-export function withExternals(externals: RegExp[]): NxWebpackPlugin {
+export function withExternals(externals: RegExp[]): NxComposableWebpackPlugin {
   return function configure(config: Configuration): Configuration {
     config.externals = Array.isArray(config.externals)
       ? config.externals
       : config.externals
-      ? [config.externals]
-      : [];
+        ? [config.externals]
+        : [];
     config.externals.push(function (
       ctx,
       callback: (

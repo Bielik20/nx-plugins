@@ -8,7 +8,6 @@ const testContext: ExecutorContext = {
   root: '/base/ns3/tmp/nx-e2e/proj',
   target: { executor: '@ns3/nx-playwright:playwright' },
   workspace: {
-    npmScope: '@scope',
     version: 2,
     projects: {
       serverlessMock: {

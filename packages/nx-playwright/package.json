@@ -18,10 +18,10 @@
   "dependencies": {
     "@ns3/nx-core": "*",
     "execa": "^5.0.0",
-    "@nx/devkit": "16.8.1",
-    "@nx/js": "16.8.1",
+    "@nx/devkit": "17.2.5",
+    "@nx/js": "17.2.5",
     "tslib": "^2.4.0",
     "dotenv": "16.0.3",
-    "@nx/eslint": "16.8.1"
+    "@nx/eslint": "17.2.5"
   }
 }
