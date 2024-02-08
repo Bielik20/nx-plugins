@@ -6,6 +6,7 @@ import {
   updateJson,
 } from '@nx/devkit';
 import { jestInitGenerator } from '@nx/jest';
+import { initGenerator } from '@nx/js';
 import { jestPlaywrightPresetVersion, playwrightVersion } from '../../utils/versions';
 import { InitGeneratorSchema } from './schema';
 
@@ -20,6 +21,7 @@ export default async function jestPlaywrightInitGenerator(
     return json;
   });
 
+  const jsTask = await initGenerator(host, {});
   const jestTask = await jestInitGenerator(host, {});
 
   const installTask = addDependenciesToPackageJson(
@@ -36,5 +38,5 @@ export default async function jestPlaywrightInitGenerator(
     await formatFiles(host);
   }
 
-  return runTasksInSerial(jestTask, installTask);
+  return runTasksInSerial(jsTask, jestTask, installTask);
 }
