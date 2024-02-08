@@ -16,7 +16,7 @@
   "generators": "./generators.json",
   "executors": "./executors.json",
   "dependencies": {
-    "@nx/devkit": "17.2.5",
+    "@nx/devkit": "18.0.3",
     "colorette": "^2.0.20",
     "flat": "^5.0.2",
     "tslib": "^2.4.0"
