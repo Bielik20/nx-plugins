@@ -20,7 +20,7 @@ export default async function jestPlaywrightInitGenerator(
     return json;
   });
 
-  const jestTask = await jestInitGenerator(host, { babelJest: false });
+  const jestTask = await jestInitGenerator(host, {});
 
   const installTask = addDependenciesToPackageJson(
     host,

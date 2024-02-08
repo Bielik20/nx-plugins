@@ -17,7 +17,7 @@
   "executors": "./executors.json",
   "dependencies": {
     "@ns3/nx-core": "*",
-    "@nx/devkit": "17.2.5",
+    "@nx/devkit": "18.0.3",
     "fs-extra": "^11.1.1",
     "tslib": "^2.4.0"
   }
