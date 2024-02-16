@@ -66,5 +66,6 @@
     ]
   },
   "nxCloudAccessToken": "YzQ0ZjZiNmItNDVjMi00OTVkLWI0YTMtZTJjYjBhZDE0YWEwfHJlYWQtd3JpdGU=",
-  "parallel": 1
+  "parallel": 1,
+  "plugins": ["@ns3/nx-core/src/plugin"]
 }
