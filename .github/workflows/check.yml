@@ -18,7 +18,7 @@ jobs:
         uses: ./.github/actions/setup
         with:
           affected: true
-      - run: npx nx-cloud start-ci-run --stop-agents-after=e2e
+      - run: npx nx-cloud start-ci-run --stop-agents-after=e2e --stop-agents-on-failure=false
       - name: Run Commands
         uses: ./.github/actions/run-commands-in-parallel
         with:
