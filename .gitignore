@@ -42,3 +42,4 @@ Thumbs.db
 /tools/**/*.js
 
 .nx/cache
+.nx/workspace-data
