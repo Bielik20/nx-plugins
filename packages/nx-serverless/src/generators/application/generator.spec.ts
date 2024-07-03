@@ -112,7 +112,6 @@ describe('serverless generator', () => {
               externalDependencies: 'none',
               target: 'node',
               compiler: 'tsc',
-              isolatedConfig: true,
               webpackConfig: 'apps/sample/webpack.config.js',
             },
             configurations: {

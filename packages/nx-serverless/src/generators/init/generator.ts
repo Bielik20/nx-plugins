@@ -20,7 +20,6 @@ export default async function serverlessInitGenerator(host: Tree, options: InitG
   const tasks: GeneratorCallback[] = [];
 
   updateGitignore(host);
-  addCacheableOperation(host);
   setupTargetDefaults(host);
 
   if (!options.unitTestRunner || options.unitTestRunner === 'jest') {
@@ -66,25 +65,6 @@ function updateGitignore(host: Tree) {
   }
 }
 
-function addCacheableOperation(tree: Tree) {
-  const nxJson = readNxJson(tree);
-  if (!nxJson.tasksRunnerOptions || !nxJson.tasksRunnerOptions.default) {
-    return;
-  }
-
-  nxJson.tasksRunnerOptions.default.options ??= {};
-  nxJson.tasksRunnerOptions.default.options.cacheableOperations ??= [];
-
-  if (!nxJson.tasksRunnerOptions.default.options.cacheableOperations.includes('package')) {
-    nxJson.tasksRunnerOptions.default.options.cacheableOperations.push('package');
-  }
-  if (!nxJson.tasksRunnerOptions.default.options.cacheableOperations.includes('deploy')) {
-    nxJson.tasksRunnerOptions.default.options.cacheableOperations.push('deploy');
-  }
-
-  updateNxJson(tree, nxJson);
-}
-
 function setupTargetDefaults(tree: Tree) {
   const nxJson = readNxJson(tree);
 
@@ -103,15 +83,18 @@ function setupTargetDefaults(tree: Tree) {
   nxJson.targetDefaults ??= {};
   nxJson.targetDefaults.deploy ??= {};
   nxJson.targetDefaults.deploy.inputs ??= ['production', '^production', 'stage'];
+  nxJson.targetDefaults.deploy.cache ??= true;
 
   nxJson.targetDefaults.package ??= {};
   nxJson.targetDefaults.package.inputs ??= ['production', '^production', 'stage'];
+  nxJson.targetDefaults.package.cache ??= true;
 
   nxJson.targetDefaults.build ??= {};
   nxJson.targetDefaults.build.inputs ??= ['production', '^production', 'no-sls', '^no-sls'];
   if (!nxJson.targetDefaults.build.inputs.includes('no-sls')) {
     nxJson.targetDefaults.build.inputs.push('no-sls', '^no-sls');
   }
+  nxJson.targetDefaults.build.cache ??= true;
 
   updateNxJson(tree, nxJson);
 }

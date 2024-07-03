@@ -12,7 +12,6 @@ export function getBuildBaseConfig(options: NormalizedOptions): TargetConfigurat
       externalDependencies: 'none',
       target: 'node',
       compiler: 'tsc',
-      isolatedConfig: true,
       webpackConfig: joinPathFragments(options.projectRoot, 'webpack.config.js'),
     },
     configurations: {
