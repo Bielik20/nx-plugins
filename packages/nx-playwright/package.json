@@ -17,11 +17,11 @@
   },
   "dependencies": {
     "@ns3/nx-core": "*",
+    "@nx/js": "19.4.0",
+    "@nx/eslint": "19.4.0",
+    "@nx/devkit": "19.4.0",
     "execa": "^5.0.0",
-    "@nx/devkit": "18.0.3",
-    "@nx/js": "18.0.3",
     "tslib": "^2.4.0",
-    "dotenv": "16.0.3",
-    "@nx/eslint": "18.0.3"
+    "dotenv": "16.0.3"
   }
 }

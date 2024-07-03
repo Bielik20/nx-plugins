@@ -4,6 +4,7 @@ format: group
 reject:
   # ESM modules
   - execa
+  - flat
   # Nx Managed
   - jest
   - '@types/jest'
