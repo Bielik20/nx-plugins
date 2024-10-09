@@ -18,12 +18,12 @@
   "dependencies": {
     "@jest/types": "29.6.3",
     "@ns3/nx-core": "*",
-    "@nx/devkit": "^19.4.0",
-    "jest": "29.4.3",
+    "@nx/devkit": "20.0.0",
+    "jest": "29.7.0",
     "dotenv": "16.0.3",
-    "@nx/jest": "^19.4.0",
+    "@nx/jest": "20.0.0",
     "tslib": "^2.4.0",
-    "@nx/eslint": "^19.4.0",
-    "@nx/js": "^19.4.0"
+    "@nx/eslint": "20.0.0",
+    "@nx/js": "20.0.0"
   }
 }
