@@ -21,12 +21,12 @@
     "bestzip": "^2.2.1",
     "glob": "^10.4.2",
     "execa": "^5.0.0",
-    "@nx/devkit": "^19.4.0",
-    "@nx/jest": "^19.4.0",
+    "@nx/devkit": "20.0.0",
+    "@nx/jest": "20.0.0",
     "tslib": "^2.4.0",
     "dotenv": "16.0.3",
     "webpack": "5.92.1",
-    "@nx/eslint": "^19.4.0",
-    "@nx/webpack": "^19.4.0"
+    "@nx/eslint": "20.0.0",
+    "@nx/webpack": "20.0.0"
   }
 }
