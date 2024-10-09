@@ -5,9 +5,11 @@ const options: PlaywrightExecutorSchema = {
   command: 'playwright test',
 };
 const testContext: ExecutorContext = {
+  projectGraph: {} as any, // TODO fill with data
+  nxJsonConfiguration: {} as any, // TODO fill with data
   root: '/base/ns3/tmp/nx-e2e/proj',
   target: { executor: '@ns3/nx-playwright:playwright' },
-  workspace: {
+  projectsConfigurations: {
     version: 2,
     projects: {
       serverlessMock: {
