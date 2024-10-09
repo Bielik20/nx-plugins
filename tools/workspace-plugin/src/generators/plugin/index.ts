@@ -23,6 +23,7 @@ export default async function (host: Tree, schema: Schema) {
     importPath: `@ns3/${schema.name}`,
     skipLintChecks: false,
     compiler: 'tsc',
+    directory: 'packages',
   });
   await adjustGeneratedProject(host, { project: schema.name });
   await formatFiles(host);
