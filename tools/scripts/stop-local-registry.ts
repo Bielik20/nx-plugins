@@ -6,5 +6,6 @@
 export default () => {
   if (global.stopLocalRegistry) {
     global.stopLocalRegistry();
+    console.log('Killed local registry process');
   }
 };

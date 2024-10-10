@@ -1,6 +1,7 @@
 import { workspaceRoot } from '@nx/devkit';
 import { execSync } from 'child_process';
 import { mkdirSync, rmSync } from 'fs';
+import { isCI } from 'nx/src/utils/is-ci';
 import { dirname, join } from 'path';
 
 export function createTestWorkspace(packageName: string) {
@@ -49,8 +50,12 @@ function createTestProject() {
 }
 
 export function cleanupTestWorkspace(projectDirectory: string) {
-  rmSync(projectDirectory, {
-    recursive: true,
-    force: true,
-  });
+  // I am not sure if necessary but Nx setup it up this way
+  // I am changing to only for CI for easier local debugging
+  if (isCI()) {
+    rmSync(projectDirectory, {
+      recursive: true,
+      force: true,
+    });
+  }
 }
