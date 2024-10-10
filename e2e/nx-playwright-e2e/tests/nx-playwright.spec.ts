@@ -33,7 +33,7 @@ describe('nx-playwright e2e', () => {
     });
     console.log(JSON.stringify(result, null, 2));
     expect(result).toMatch(/1 passed/);
-    expect(result).toMatch(/Successfully ran target e2e for project/);
+    expect(result).toMatch(/Successfully ran target .*e2e.* for project/);
 
     const helpResult = await runNxCommandAsync(`e2e ${project} --help_`, {
       silenceError: true,
