@@ -1,11 +1,5 @@
-import {
-  GeneratorCallback,
-  joinPathFragments,
-  runTasksInSerial,
-  Tree,
-  updateJson,
-} from '@nx/devkit';
-import { Linter, lintProjectGenerator } from '@nx/eslint';
+import { GeneratorCallback, joinPathFragments, runTasksInSerial, Tree } from '@nx/devkit';
+import { lintProjectGenerator } from '@nx/eslint';
 import { NxJestPlaywrightGeneratorNormalizedSchema } from './normalize-options';
 
 export async function addLinting(
@@ -19,13 +13,6 @@ export async function addLinting(
     eslintFilePatterns: [`${options.projectRoot}/**/*.{ts,tsx,js,jsx}`],
     skipFormat: true,
   });
-
-  if (options.linter === Linter.EsLint) {
-    updateJson(host, joinPathFragments(options.projectRoot, '.eslintrc.json'), (json) => {
-      json.extends = [...json.extends];
-      return json;
-    });
-  }
 
   return runTasksInSerial(lintTask);
 }
