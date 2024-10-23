@@ -66,15 +66,12 @@ async function syncDepsVersion(normalizedOptions: PublishExecutorNormalizedSchem
 async function caretDepsVersion(normalizedOptions: PublishExecutorNormalizedSchema) {
   const pkgJsonPath = joinPathFragments(normalizedOptions.pkgLocation, 'package.json');
   const packageJson = await readJson(pkgJsonPath);
-  const projectsNames = await getAllProjectsNames();
 
-  projectsNames.forEach((name) => {
-    if (name in (packageJson.peerDependencies || {})) {
-      packageJson.peerDependencies[name] = addCaret(packageJson.peerDependencies[name]);
-    }
-    if (name in (packageJson.dependencies || {})) {
-      packageJson.dependencies[name] = addCaret(packageJson.dependencies[name]);
-    }
+  Object.entries(packageJson.peerDependencies || {}).forEach(([packageName, packageVersion]) => {
+    packageJson.peerDependencies[packageName] = addCaret(packageVersion as string);
+  });
+  Object.entries(packageJson.dependencies || {}).forEach(([packageName, packageVersion]) => {
+    packageJson.dependencies[packageName] = addCaret(packageVersion as string);
   });
 
   await writeJson(pkgJsonPath, packageJson, { spaces: 2 });
@@ -87,7 +84,7 @@ async function getAllProjectsNames() {
 }
 
 function addCaret(value: string) {
-  if (value.startsWith('^')) {
+  if (value.startsWith('^') || value.startsWith('~')) {
     return value;
   } else {
     return `^${value}`;
