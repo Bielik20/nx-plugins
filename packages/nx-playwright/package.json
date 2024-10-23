@@ -17,9 +17,9 @@
   },
   "dependencies": {
     "@ns3/nx-core": "*",
-    "@nx/js": "20.0.0",
-    "@nx/eslint": "20.0.0",
-    "@nx/devkit": "20.0.0",
+    "@nx/js": "20.0.3",
+    "@nx/eslint": "20.0.3",
+    "@nx/devkit": "20.0.3",
     "execa": "^5.0.0",
     "tslib": "^2.4.0",
     "dotenv": "16.0.3"
