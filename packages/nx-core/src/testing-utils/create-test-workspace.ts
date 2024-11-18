@@ -44,7 +44,7 @@ function createTestProject() {
       env: process.env,
     },
   );
-  console.log(`Created test project in "${projectDirectory}"`);
+  console.log(`Created test project in "${projectDirectory}"!`);
 
   return projectDirectory;
 }

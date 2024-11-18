@@ -54,7 +54,7 @@ export function getProjectConfig(
       remove: {
         executor: '@ns3/nx-serverless:sls',
         options: {
-          command: 'remove',
+          command: 'removee',
         },
       },
       sls: {
